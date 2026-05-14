@@ -6,8 +6,8 @@ Working build recipes for CHARMM molecular dynamics on USF's CIRCE cluster.
 
 | Build | Version | Status | Date |
 |---|---|---|---|
-| CPU + MPI | c50b2 stable | Working | 2026-05-14 |
-| GPU + BLaDE | c51a2 dev | In progress | - |
+| CPU + MPI | c50b2 stable | Working (mpirun -n 2 verified) | 2026-05-14 |
+| GPU + BLaDE | c51a2 dev (sm_61, CUDA 11.3.1) | Working (10/10 BLaDE tests pass) | 2026-05-14 |
 
 ## What this documents
 
@@ -84,6 +84,13 @@ After build, the binary should produce a clean banner and NORMAL TERMINATION whe
     *
     stop
     EOF
+
+## CUDA toolkit version selection
+
+The CUDA toolkit must be compatible with the GPU driver installed on the compute nodes — not the highest available toolkit. Run `nvidia-smi` on a target node and read the `CUDA Version` line in the header; that's the maximum toolkit version that driver supports. As of 2026-05-14, snsm_itn19 GPU nodes report driver 465.27 with CUDA 11.3 max. Building against CUDA 12.2 produces a binary that compiles and passes banner tests but fails at the first real CUDA call with
+`cudaErrorInsufficientDriver` (error 35). Rebuild against CUDA 11.3.1 to match.
+
+Rule: pick the newest CUDA toolkit \u2264 the driver's maximum supported version.
 
 ## Acknowledgments
 

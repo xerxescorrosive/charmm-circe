@@ -1,0 +1,1815 @@
+1
+                 Chemistry at HARvard Macromolecular Mechanics
+           (CHARMM) - Developmental Version 51a2   February 15, 2026            
+                                Revision unknown                                
+       Copyright(c) 1984-2025  President and Fellows of Harvard College
+                              All Rights Reserved
+  Current operating system: Linux-3.10.0-862.11.6.el7.x86_64(x86_64)@mdc-1057   
+                         Compiler version: Intel 2021.2
+                 Created on  5/14/26 at 19:47:02 by user: ekukole     
+
+            Maximum number of ATOMS:    360720, and RESidues:      120240
+ RDTITL> *  BENCHMARK DYNAMICS FOR DHFR IN A CUBIC BOX OF
+ RDTITL> *  SOLVENT USING PBC W/ PME.  TOTAL SYSTEM CONTAINS 23,558 ATOMS,
+ RDTITL> *  21,069 ATOMS ASSOCIATED WITH WATER MOLECULES AND 2589 PROTEIN ATOMS.
+ RDTITL> *
+
+ CHARMM>     
+
+ CHARMM>    if ?blade .ne. 1 then
+ RDCMND substituted energy or value "?BLADE" to "1"
+ Comparing "1" and "1".
+ IF test evaluated as false.  Skip to ELSE or ENDIF
+
+ CHARMM>     
+
+ CHARMM>    if ?numnode .ne. 1 then
+ RDCMND substituted energy or value "?NUMNODE" to "1"
+ Comparing "1" and "1".
+ IF test evaluated as false.  Skip to ELSE or ENDIF
+
+ CHARMM>     
+
+ CHARMM>    stream datadir.def
+ VOPEN> Attempting to open::datadir.def::
+ OPNLGU> Unit 99 opened for READONLY access to /work_bgfs/e/ekukole/charmm-build/c51a2/dev-release-master/test/datadir.def
+
+                    INPUT STREAM SWITCHING TO UNIT    99
+ RDTITL> * CHARMM TESTCASE DATA DIRECTORY ASSIGNMENT
+ RDTITL> *
+ Parameter: IN1 <- "" <empty>
+
+ CHARMM>    faster on
+ MISCOM> FAST option: EXPANDED (limited fast routines)
+
+ CHARMM>    set pnode =
+ Parameter: PNODE <- "" <empty>
+
+ CHARMM>    if ?numnode .gt. 1 set pnode = node 0
+ RDCMND substituted energy or value "?NUMNODE" to "1"
+ Comparing "1" and "1".
+ IF test evaluated as false.  Skipping command
+
+ CHARMM>    set 0 data/     ! input data directory
+ Parameter: 0 <- "DATA/"
+
+ CHARMM>    set 9 scratch/  ! scratch directory
+ Parameter: 9 <- "SCRATCH/"
+
+ CHARMM>    set testcheck stream @0/test.str
+ Parameter: 0 -> "DATA/"
+ Parameter: TESTCHECK <- "STREAM DATA//TEST.STR"
+
+ CHARMM>    set qcheck stream @0/qtest.str
+ Parameter: 0 -> "DATA/"
+ Parameter: QCHECK <- "STREAM DATA//QTEST.STR"
+
+ CHARMM>    set testfail 0
+ Parameter: TESTFAIL <- "0"
+
+ CHARMM>    return
+ VCLOSE: Closing unit   99 with status "KEEP"
+
+                    RETURNING TO INPUT STREAM     5
+
+ CHARMM>     
+
+ CHARMM>    open unit 1 read form name @{0}top_all22_prot.inp
+ Parameter: 0 -> "DATA/"
+ VOPEN> Attempting to open::data/top_all22_prot.inp::
+ OPNLGU> Unit  1 opened for READONLY access to /work_bgfs/e/ekukole/charmm-build/c51a2/dev-release-master/test/data/top_all22_prot.inp
+
+ CHARMM>    read rtf card unit 1
+ MAINIO> Residue topology file being read from unit   1.
+ TITLE> *>>>>>>>>CHARMM22 ALL-HYDROGEN TOPOLOGY FILE FOR PROTEINS <<<<<
+ TITLE> *>>>>>>>>>>>>>>>>>>>>>>> JULY 1997 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+ TITLE> *>>>>>>> DIRECT COMMENTS TO ALEXANDER D. MACKERELL JR. <<<<<<<<<
+ TITLE> *>>>>>> 410-706-7442 OR EMAIL: ALEX,MMIRIS.AB.UMD.EDU  <<<<<<<<<
+ TITLE> *
+
+ CHARMM>    close unit 1
+ VCLOSE: Closing unit    1 with status "KEEP"
+
+ CHARMM>     
+
+ CHARMM>    ! NOTE: if using CMAP terms, parameters must be loaded with FLEX
+ CHARMM>    open unit 1 read form name @{0}par_all22_prot.inp
+ Parameter: 0 -> "DATA/"
+ VOPEN> Attempting to open::data/par_all22_prot.inp::
+ OPNLGU> Unit  1 opened for READONLY access to /work_bgfs/e/ekukole/charmm-build/c51a2/dev-release-master/test/data/par_all22_prot.inp
+
+ CHARMM>    read param card unit 1
+
+          PARAMETER FILE BEING READ FROM UNIT  1
+ TITLE> *>>>> CHARMM22 ALL-HYDROGEN PARAMETER FILE FOR PROTEINS <<<<<<<<<<
+ TITLE> *>>>>>>>>>>>>>>>>>>>>>>> JULY 1997 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+ TITLE> *>>>>>>> DIRECT COMMENTS TO ALEXANDER D. MACKERELL JR. <<<<<<<<<
+ TITLE> *>>>>>> 410-706-7442 OR EMAIL: ALEX,MMIRIS.AB.UMD.EDU  <<<<<<<<<
+ TITLE> *
+ PARMIO> NONBOND, HBOND lists and IMAGE atoms cleared.
+
+ CHARMM>    close unit 1
+ VCLOSE: Closing unit    1 with status "KEEP"
+
+ CHARMM>     
+
+ CHARMM>    open unit 1 read form name @{0}5dfr_minimized.crd
+ Parameter: 0 -> "DATA/"
+ VOPEN> Attempting to open::data/5dfr_minimized.crd::
+ OPNLGU> Unit  1 opened for READONLY access to /work_bgfs/e/ekukole/charmm-build/c51a2/dev-release-master/test/data/5dfr_minimized.crd
+
+ CHARMM>    read sequ coor unit 1
+ MAINIO> Sequence information being read from unit   1.
+ TITLE> *  COORDINATES FOR 5DFR AFTER MINIMIZATION W/ RESTRAINTS
+ TITLE> *  RMSD FROM ORIGINAL MODEL: 0.210674 A (BB); 0.230048 A (HEAVY)
+ TITLE> *  DATE:     1/25/97     11:24:43      CREATED BY USER: BROOKS
+ TITLE> *
+
+          RESIDUE SEQUENCE --   159 RESIDUES
+          MET ILE SER LEU ILE ALA ALA LEU ALA VAL ASP ARG VAL ILE GLY MET GLU ASN ALA MET 
+          PRO TRP ASN LEU PRO ALA ASP LEU ALA TRP PHE LYS ARG ASN THR LEU ASP LYS PRO VAL 
+          ILE MET GLY ARG HSD THR TRP GLU SER ILE GLY ARG PRO LEU PRO GLY ARG LYS ASN ILE 
+          ILE LEU SER SER GLN PRO GLY THR ASP ASP ARG VAL THR TRP VAL LYS SER VAL ASP GLU 
+          ALA ILE ALA ALA CYS GLY ASP VAL PRO GLU ILE MET VAL ILE GLY GLY GLY ARG VAL TYR 
+          GLU GLN PHE LEU PRO LYS ALA GLN LYS LEU TYR LEU THR HSD ILE ASP ALA GLU VAL GLU 
+          GLY ASP THR HSD PHE PRO ASP TYR GLU PRO ASP ASP TRP GLU SER VAL PHE SER GLU PHE 
+          HSD ASP ALA ASP ALA GLN ASN SER HSD SER TYR CYS PHE GLU ILE LEU GLU ARG ARG 
+ ***** Message from SEQRDR ***** THE SYSTEM CONTAINS 41 TITRATABLE GROUPS
+ THE USER MUST PREDETERMINE THE PROTONATION STATE THROUGH THE SEQUENCE AND RTF
+ HIS -  0  HSD -  5  HSE -  0  HSP -  0  ASP - 14  GLU - 12  LYS -  6  TYR -  4
+
+ CHARMM>    close unit 1
+ VCLOSE: Closing unit    1 with status "KEEP"
+
+ CHARMM>     
+
+ CHARMM>    generate 5dfr setup first nter last cter
+ THE PATCH 'NTER' WILL BE USED FOR THE FIRST RESIDUE
+ THE PATCH 'CTER' WILL BE USED FOR THE LAST  RESIDUE
+ AUTGEN: Autogenerating specified angles and dihedrals.
+ GENPSF> Segment   1 has been generated. Its identifier is 5DFR.
+ PSFSUM> PSF modified: NONBOND lists and IMAGE atoms cleared.
+ PSFSUM> Summary of the structure file counters :
+         Number of segments      =        1   Number of residues   =      159
+         Number of atoms         =     2489   Number of groups     =      739
+         Number of bonds         =     2523   Number of angles     =     4561
+         Number of dihedrals     =     6701   Number of impropers  =      418
+         Number of cross-terms   =        0   Number of autogens   =        0
+         Number of HB acceptors  =      245   Number of HB donors  =      263
+         Number of NB exclusions =        0   Total charge =  -11.00000
+
+ CHARMM>     
+
+ CHARMM>    read sequ tip3 7023
+
+ CHARMM>    generate wat setup noangl nodihe
+ NO PATCHING WILL BE DONE ON THE FIRST RESIDUE
+ NO PATCHING WILL BE DONE ON THE LAST  RESIDUE
+ GENPSF> Segment   2 has been generated. Its identifier is WAT.
+ PSFSUM> PSF modified: NONBOND lists and IMAGE atoms cleared.
+ PSFSUM> Summary of the structure file counters :
+         Number of segments      =        2   Number of residues   =     7182
+         Number of atoms         =    23558   Number of groups     =     7762
+         Number of bonds         =    23592   Number of angles     =    11584
+         Number of dihedrals     =     6701   Number of impropers  =      418
+         Number of cross-terms   =        0   Number of autogens   =     7023
+         Number of HB acceptors  =     7268   Number of HB donors  =    14309
+         Number of NB exclusions =        0   Total charge =  -11.00000
+
+ CHARMM>     
+
+ CHARMM>    read coor pdb resi name @{0}5dfr_solv-cube_equil.pdb
+ Parameter: 0 -> "DATA/"
+ VOPEN> Attempting to open::data/5dfr_solv-cube_equil.pdb::
+  read CHARMM-pdb format
+          SPATIAL COORDINATES BEING READ FROM UNIT 90
+ TITLE>  
+ TITLE>  *
+ VCLOSE: Closing unit   90 with status "KEEP"
+
+ CHARMM>     
+
+ CHARMM>    faster on
+ MISCOM> FAST option: EXPANDED (limited fast routines)
+
+ CHARMM>     
+
+ CHARMM>    ! Dimension of a box
+ CHARMM>    set 7 62.23
+ Parameter: 7 <- "62.23"
+
+ CHARMM>     
+
+ CHARMM>    set theta 90.0
+ Parameter: THETA <- "90.0"
+
+ CHARMM>    Crystal define cubic @7 @7 @7 @theta @theta @theta
+ Parameter: 7 -> "62.23"
+ Parameter: 7 -> "62.23"
+ Parameter: 7 -> "62.23"
+ Parameter: THETA -> "90.0"
+ Parameter: THETA -> "90.0"
+ Parameter: THETA -> "90.0"
+ Crystal Parameters : Crystal Type = CUBI
+           A     =   62.23000 B    =   62.23000 C     =   62.23000
+           Alpha =   90.00000 Beta =   90.00000 Gamma =   90.00000
+
+ CHARMM>    crystal build cutoff 11 noper 0
+ XBUILD> Building all transformations with a minimum atom-atom
+         contact distance of less than   11.00 Angstroms.
+
+ Range of Grid Search for Transformation     1 :
+ Lattice Vector A    -2 TO     2
+ Lattice Vector B    -2 TO     2
+ Lattice Vector C    -2 TO     2
+
+
+ The number of transformations generated =    26
+
+
+ Number  Symop   A   B   C   Distance
+
+      1      1  -1  -1  -1     6.2902
+      2      1  -1   0  -1     6.2510
+      3      1  -1   1  -1     7.0393
+      4      1   0  -1  -1     3.7995
+      5      1   0   0  -1     3.3431
+      6      1   0   1  -1     5.2314
+      7      1  -1  -1   0     1.8050
+      8      1  -1   0   0     2.6287
+      9      1  -1   1   0     3.1714
+     10      1   0  -1   0     3.5318
+     11      1   0   1   0     3.5318
+     12      1  -1  -1   1     5.5396
+     13      1  -1   0   1     1.8610
+     14      1  -1   1   1     4.0000
+     15      1   0  -1   1     5.2314
+     16      1   0   0   1     3.3431
+     17      1   0   1   1     3.7995
+     18      1   1   1   1     6.2902
+     19      1   1   0   1     6.2510
+     20      1   1  -1   1     7.0393
+     21      1   1   1   0     1.8050
+     22      1   1   0   0     2.6287
+     23      1   1  -1   0     3.1714
+     24      1   1   1  -1     5.5396
+     25      1   1   0  -1     1.8610
+     26      1   1  -1  -1     4.0000
+                     CRYSTAL: CHANGING TO EXTENDED FORMAT TO HANDLE LONGER IMAGE TRANSFORMATION NAMES.
+                     THERE ARE NO ROTATIONS FOR THIS TRANSFORMATION SET
+    26 Transformations have been processed.
+
+
+ CHARMM>     
+
+ CHARMM>    image byseg xcen 0.0 ycen 0.0 zcen 0.0 select segid 5dfr end
+ SELRPN>   2489 atoms have been selected out of  23558
+ IMAGE CENTERING ON FOR SOME ATOMS
+
+ CHARMM>    image byres xcen 0.0 ycen 0.0 zcen 0.0 select segid wat end
+ SELRPN>  21069 atoms have been selected out of  23558
+ IMAGE CENTERING ON FOR SOME ATOMS
+
+ CHARMM>     
+
+ CHARMM>    !  turn on faster options and set-up SHAKE
+ CHARMM>    shake fast bonh tol 1.0e-8 para
+ SHKCOM> SHAKE parameters: TOL =   0.1000D-07 MXITer =    500
+
+           22290 constraints will held by SHAKE.
+ FSSHKINI: Fast shake initialized with    1221 bond contraints and     7023 water constraints (3-center).
+ FSSHKINI:     1221 constraints are in groups of:     7023
+ FSSHKINI:    458 2-body (CH),    233 3-body(CH2),     99 4-body(CH3),      0 >4-body. 
+ FSSHKINI: Fast shake initialized with    1221 bond contraints and     7023 water constraints (3-center).
+ FSSHKINI:     1221 constraints are in groups of:     7023
+ FSSHKINI:    458 2-body (CH),    233 3-body(CH2),     99 4-body(CH3),      0 >4-body. 
+   ==== COLLCT_FSTSHK ====
+ FSSHKINI: =========== Totals for all nodes:   22290 total constraints
+ FSSHKINI: Fast shake initialized with    1221 bond contraints and     7023 water constraints (3-center).
+ FSSHKINI:    458 2-body (CH),    233 3-body(CH2),     99 4-body(CH3),      0 >4-body. 
+
+ CHARMM>     
+
+ CHARMM>    set nsteps 100
+ Parameter: NSTEPS <- "100"
+
+ CHARMM>    calc nprint = @nsteps / 10
+ Parameter: NSTEPS -> "100"
+Evaluating: 100/10
+ Parameter: NPRINT <- "10"
+
+ CHARMM>     
+
+ CHARMM>    open unit 1 write form name @{9}/blade.res
+ Parameter: 9 -> "SCRATCH/"
+ VOPEN> Attempting to open::scratch//blade.res::
+ OPNLGU> Unit  1 opened for WRITE access to /work_bgfs/e/ekukole/charmm-build/c51a2/dev-release-master/test/scratch//blade.res
+
+ CHARMM>    ! Run NVE ensemble
+ CHARMM>    ! Note: BLaDE prints kinetic energy from the previous half time step, and thus appears not to conserve energy.
+ CHARMM>    scalar fbeta set 0 sele all end
+ SELRPN>  23558 atoms have been selected out of  23558
+
+ CHARMM>    dynamics leap start timestep 0.002 nstep @nsteps nprint @nprint iprfrq @nprint -
+ CHARMM>         iseed 123456 nsavc 0 nsavv 0 -
+ CHARMM>         firstt 298 finalt 298 - ! twindl -5.0 twindh 5.0 -
+ CHARMM>         iunwri 1 isvfrq @nprint -
+ CHARMM>         eps 1.0 cutnb 11 cutim 11 ctofnb 9 ctonnb 7.5 vfswi -
+ CHARMM>         Ewald kappa 0.320 pmEwald order 4 fftx 64 ffty 64 fftz 64 ntrfq 0 - !PME
+ CHARMM>         blade
+ Parameter: NSTEPS -> "100"
+ Parameter: NPRINT -> "10"
+ Parameter: NPRINT -> "10"
+ Parameter: NPRINT -> "10"
+  IUNREA = -1         IUNWRI =  1          IUNOS = -1
+  IUNCRD = -1         IUNVEL = -1          KUNIT = -1
+
+ SELECTED IMAGES ATOMS BEING CENTERED ABOUT  0.000000  0.000000  0.000000
+ <PME> Total heap storage needed =      943639
+ Fill Ewald table: Number of points=     10000 EWXmax=    3.040000
+ fill erfc table: linear inter has rms error = 0.592391D-08 maximum error = 0.111917D-07
+ fill erfc table: cubic spline has rms error = 0.156793D-11 maximum error = 0.396860D-11
+
+ NONBOND OPTION FLAGS: 
+     ELEC     VDW      ATOMs    CDIElec  SHIFt    VATOm    VFSWIt  
+     BYGRoup  NOEXtnd  EWALd   
+ CUTNB  = 11.000 CTEXNB =999.000 CTONNB =  7.500 CTOFNB =  9.000
+ CGONNB =  0.000 CGOFNB = 10.000
+ WMIN   =  1.500 WRNMXD =  0.500 E14FAC =  1.000 EPS    =  1.000
+ NBXMOD =      5
+ PME EWALD OPTIONS: KAPPA  =  0.320  QCOR =  0.000  Bspline order = 4
+ FFTX=  64  FFTY=  64  FFTZ=  64
+                Using MKL
+                Real-to-Complex FFT
+                Using Column FFT 
+ There are        0 atom  pairs and        0 atom  exclusions.
+ There are        0 group pairs and        0 group exclusions.
+ <MAKINB> with mode   5 found  28153 exclusions and   6556 interactions(1-4)
+ <MAKGRP> found   2149 group exclusions.
+
+      ***** LEVEL  5 WARNING FROM <RNGMODSEEDS> *****
+      ***** Only one seed number specified! See random.doc for syntax.
+      ******************************************
+      BOMLEV (  0) IS NOT REACHED. WRNLEV IS  5
+
+ DCNTRL> Langevin integration requested.
+ DCNTRL>  BLaDE interface requested for energy and dynamics calculations.
+ DCNTRL>  Using AUTO scan algorithm selection (benchmark first 100 steps).
+ DCNTRL>  NVT dynamics through BLaDE interface requested using Langevin heatbath.
+ DCNTRL>  thermostate using reference temperature  298.00  K.
+   NSTEP =      100    NSAVC =        0    NSAVV =        0
+  ISCALE =        0   ISCVEL =        0   IASORS =        0
+  IASVEL =        1   ICHECW =        1   NTRFRQ =        0
+  IHTFRQ =        0   IEQFRQ =        0   NPRINT =       10
+  INBFRQ =       -1   IHBFRQ =        0   IPRFRQ =       10
+  ILBFRQ =       50   IMGFRQ =       50
+  ISVFRQ =       10   NCYCLE =       10    NSNOS =       10
+  FIRSTT =   298.000  TEMINC =     5.000  TSTRUC =  -999.000
+  FINALT =   298.000  TWINDH =    10.000  TWINDL =   -10.000
+
+  TIME STEP =  4.09097E-02 AKMA       2.00000E-03 PS
+
+  RANDOM NUM. GEN. SEED(S) = 123456 123456 123456 123456
+
+           SHAKE TOLERANCE =     0.10000E-07
+ NUMBER OF DEGREES OF FREEDOM =  48384
+
+          GAUSSIAN OPTION                  IS            1
+          VELOCITIES ASSIGNED AT TEMPERATURE =    372.5000
+          SEED FOR RANDOM NUMBER GENERATOR IS:
+          SEEDS> 123456 123456 123456 123456
+
+     DETAILS ABOUT CENTRE OF MASS
+     POSITION          :   -3.6634738        4.4177194       -3.3637570    
+     VELOCITY          :   1.42240832E-03   2.82143824E-03   1.56516337E-03
+     ANGULAR MOMENTUM  :   -6653.9805       -10604.584        6331.6073    
+     KINETIC ENERGY    :   0.89839135    
+Creating a copy of system
+Assuming fbeta =    0.00000
+
+      ***** LEVEL  1 WARNING FROM BLaDE *****
+      ***** BLaDE langevin integrator using fbeta=0 for constant energy dynamics.
+      ******************************************
+      BOMLEV (  0) IS NOT REACHED. WRNLEV IS  5
+
+
+      ***** LEVEL  1 WARNING FROM BLaDe *****
+      ***** PME being used for electrostatics in BLaDE
+      ******************************************
+      BOMLEV (  0) IS NOT REACHED. WRNLEV IS  5
+
+
+      ***** LEVEL  1 WARNING FROM BLaDe *****
+      ***** VFSWITCH being used for vdW switching in BLaDE
+      ******************************************
+      BOMLEV (  0) IS NOT REACHED. WRNLEV IS  5
+
+Found pme kappa =    0.32000
+Found ctofnb =    9.00000 ctonnb =    7.50000
+Warning: Both elec and vdw energies placed in vdw
+BLaDE: Velocities scaled or randomized
+DYNA DYN: Step         Time      TOTEner        TOTKe       ENERgy  TEMPerature
+DYNA PROP:             GRMS      HFCTote        HFCKe       EHFCor        VIRKe
+DYNA INTERN:          BONDs       ANGLes       UREY-b    DIHEdrals    IMPRopers
+DYNA EXTERN:        VDWaals         ELEC       HBONds          ASP         USER
+DYNA EWALD:          EWKSum       EWSElf       EWEXcl       EWQCor       EWUTil
+DYNA PRESS:            VIRE         VIRI       PRESSE       PRESSI       VOLUme
+ ----------       ---------    ---------    ---------    ---------    ---------
+DYNA>        0      0.00000 -53513.85593  17706.66273 -71220.51866    368.32002
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      585.70204   1228.46670    156.08749    921.88684    101.69269
+DYNA EXTERN>   -64150.66722      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       593.57289-454602.98314 443945.72305      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+DYNA>       10      0.02000 -53219.41644  16401.52318 -69620.93962    341.17154
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      607.63191   1335.86009    163.57978    948.70671     95.08197
+DYNA EXTERN>   -62752.83465      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       606.55768-454602.98314 443977.46002      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ WRIDYN: RESTart file was written at step      10
+BLaDE: Velocities scaled or randomized
+DYNA>       20      0.04000 -53154.83936  16641.83867 -69796.67803    346.17039
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      496.42185   1362.20196    179.89861    930.57178     96.82748
+DYNA EXTERN>   -62872.75532      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       622.00221-454602.98314 443991.13654      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ WRIDYN: RESTart file was written at step      20
+BLaDE: Velocities scaled or randomized
+DYNA>       30      0.06000 -53177.58863  16482.69683 -69660.28546    342.86005
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      577.24380   1276.66901    182.42778    948.11749     97.57008
+DYNA EXTERN>   -62743.21697      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       626.48847-454602.98314 443977.39801      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ WRIDYN: RESTart file was written at step      30
+BLaDE: Velocities scaled or randomized
+DYNA>       40      0.08000 -53239.95982  16266.72686 -69506.68668    338.36761
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      519.98956   1274.41683    163.72969    949.37948     98.52734
+DYNA EXTERN>   -62528.22181      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       633.41270-454602.98314 443985.06268      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ WRIDYN: RESTart file was written at step      40
+BLaDE: Velocities scaled or randomized
+DYNA>       50      0.10000 -53188.32061  16051.32797 -69239.64858    333.88706
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      542.12796   1350.16639    171.28642    948.72550    101.45705
+DYNA EXTERN>   -62347.44039      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       620.67392-454602.98314 443976.33771      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ WRIDYN: RESTart file was written at step      50
+BLaDE: Velocities scaled or randomized
+DYNA>       60      0.12000 -53151.86682  16073.13703 -69225.00386    334.34071
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      541.40257   1375.68806    170.59805    948.22746     89.82121
+DYNA EXTERN>   -62359.41224      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       632.81583-454602.98314 443978.83835      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ WRIDYN: RESTart file was written at step      60
+BLaDE: Velocities scaled or randomized
+DYNA>       70      0.14000 -53192.59768  16057.38522 -69249.98291    334.01305
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      546.26377   1266.09449    167.51384    917.63111     98.49156
+DYNA EXTERN>   -62293.79814      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       664.65365-454602.98314 443986.14996      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ WRIDYN: RESTart file was written at step      70
+BLaDE: Velocities scaled or randomized
+DYNA>       80      0.16000 -53219.85702  15893.46238 -69113.31940    330.60326
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      527.79690   1313.85983    169.26812    949.94698     94.87671
+DYNA EXTERN>   -62182.52759      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       635.41483-454602.98314 443981.02795      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ WRIDYN: RESTart file was written at step      80
+BLaDE: Velocities scaled or randomized
+DYNA>       90      0.18000 -53172.66378  15836.85307 -69009.51686    329.42572
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      570.53341   1323.23271    174.25433    945.60102     82.05943
+DYNA EXTERN>   -62115.74803      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       622.04994-454602.98314 443991.48349      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ WRIDYN: RESTart file was written at step      90
+BLaDE: Velocities scaled or randomized
+DYNA>      100      0.20000 -53188.83004  15931.09472 -69119.92475    331.38606
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      515.53452   1358.91341    160.29606    949.98243     87.42374
+DYNA EXTERN>   -62227.66130      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       650.80735-454602.98314 443987.76218      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ WRIDYN: RESTart file was written at step     100
+ VCLOSE: Closing unit    1 with status "KEEP"
+
+     DETAILS ABOUT CENTRE OF MASS
+     POSITION          :   -3.7972877        4.3982262       -3.3185792    
+     VELOCITY          :   1.42811799E-03   2.81937322E-03   1.55844970E-03
+     ANGULAR MOMENTUM  :    5829.2517       -2088.0729       -12816.649    
+     KINETIC ENERGY    :   0.89721043    
+
+ CHARMM>     
+
+ CHARMM>    open unit 1 write form name @{9}/blade.res
+ Parameter: 9 -> "SCRATCH/"
+ VOPEN> Attempting to open::scratch//blade.res::
+ OPNLGU> Unit  1 opened for WRITE access to /work_bgfs/e/ekukole/charmm-build/c51a2/dev-release-master/test/scratch//blade.res
+
+ CHARMM>    open unit 2 write unform name @{9}/blade.dcd
+ Parameter: 9 -> "SCRATCH/"
+ VOPEN> Attempting to open::scratch//blade.dcd::
+ OPNLGU> Unit  2 opened for WRITE access to /work_bgfs/e/ekukole/charmm-build/c51a2/dev-release-master/test/scratch//blade.dcd
+
+ CHARMM>     
+
+ CHARMM>    ! restart
+ CHARMM>    dynamics leap restart timestep 0.002 nstep @nsteps nprint @nprint iprfrq @nprint -
+ CHARMM>         iseed 123456 nsavc @nprint nsavv 0 -
+ CHARMM>         firstt 298 finalt 298 - ! twindl -5.0 twindh 5.0 -
+ CHARMM>         iunwri 1 isvfrq @nprint iunrea 1 iuncrd 2 -
+ CHARMM>         eps 1.0 cutnb 11 cutim 11 ctofnb 9 ctonnb 7.5 vfswi -
+ CHARMM>         Ewald kappa 0.320 pmEwald order 4 fftx 64 ffty 64 fftz 64 ntrfq 0 - !PME
+ CHARMM>         blade
+ Parameter: NSTEPS -> "100"
+ Parameter: NPRINT -> "10"
+ Parameter: NPRINT -> "10"
+ Parameter: NPRINT -> "10"
+ Parameter: NPRINT -> "10"
+  IUNREA =  1         IUNWRI =  1          IUNOS = -1
+  IUNCRD =  2         IUNVEL = -1          KUNIT = -1
+ TITLE>  *  BENCHMARK DYNAMICS FOR DHFR IN A CUBIC BOX OF
+ TITLE>  *  SOLVENT USING PBC W/ PME.  TOTAL SYSTEM CONTAINS 23,558 ATOMS,
+ TITLE>  *  21,069 ATOMS ASSOCIATED WITH WATER MOLECULES AND 2589 PROTEIN ATOMS.
+ TITLE>  *  DATE:     5/14/26     19:47: 7      CREATED BY USER: ekukole
+ TITLE>  *
+ READYN> dynamics restart file was read. Current step=     100
+ NSTEP  =   100  JHSTRT =     0
+
+ SELECTED IMAGES ATOMS BEING CENTERED ABOUT  0.000000  0.000000  0.000000
+ <PME> Total heap storage needed =      943639
+
+ NONBOND OPTION FLAGS: 
+     ELEC     VDW      ATOMs    CDIElec  SHIFt    VATOm    VFSWIt  
+     BYGRoup  NOEXtnd  EWALd   
+ CUTNB  = 11.000 CTEXNB =999.000 CTONNB =  7.500 CTOFNB =  9.000
+ CGONNB =  0.000 CGOFNB = 10.000
+ WMIN   =  1.500 WRNMXD =  0.500 E14FAC =  1.000 EPS    =  1.000
+ NBXMOD =      5
+ PME EWALD OPTIONS: KAPPA  =  0.320  QCOR =  0.000  Bspline order = 4
+ FFTX=  64  FFTY=  64  FFTZ=  64
+                Using MKL
+                Real-to-Complex FFT
+                Using Column FFT 
+ There are  5016217 atom  pairs and    34709 atom  exclusions.
+ There are        0 group pairs and     2149 group exclusions.
+ PRNHBD: CUToff Hydrogen Bond  distance =    0.5000   Angle =   90.0000
+         CuT switching ON HB dist. =     3.5000  OFf HB dist. =    4.0000
+         CuT switching ON Hb Angle =    50.0000  OFf Hb Angle =   70.0000
+         ACCEptor antecedents included
+         All hydrogen bonds for each hydrogen will be found
+         Hydrogen bonds between excluded atoms will be kept
+
+
+      ***** LEVEL  5 WARNING FROM <RNGMODSEEDS> *****
+      ***** Only one seed number specified! See random.doc for syntax.
+      ******************************************
+      BOMLEV (  0) IS NOT REACHED. WRNLEV IS  5
+
+ DCNTRL> Langevin integration requested.
+ DCNTRL>  BLaDE interface requested for energy and dynamics calculations.
+ DCNTRL>  Using AUTO scan algorithm selection (benchmark first 100 steps).
+ DCNTRL>  NVT dynamics through BLaDE interface requested using Langevin heatbath.
+ DCNTRL>  thermostate using reference temperature  298.00  K.
+   NSTEP =      100    NSAVC =       10    NSAVV =        0
+  ISCALE =        0   ISCVEL =        0   IASORS =        0
+  IASVEL =        1   ICHECW =        1   NTRFRQ =        0
+  IHTFRQ =        0   IEQFRQ =        0   NPRINT =       10
+  INBFRQ =       -1   IHBFRQ =        0   IPRFRQ =       10
+  ILBFRQ =       50   IMGFRQ =       50
+  ISVFRQ =       10   NCYCLE =       10    NSNOS =       10
+  FIRSTT =   298.000  TEMINC =     5.000  TSTRUC =  -999.000
+  FINALT =   298.000  TWINDH =    10.000  TWINDL =   -10.000
+
+  TIME STEP =  4.09097E-02 AKMA       2.00000E-03 PS
+
+  RANDOM NUM. GEN. SEED(S) = 123456 123456 123456 123456
+
+           SHAKE TOLERANCE =     0.10000E-07
+ NUMBER OF DEGREES OF FREEDOM =  48384
+Destroying a copy of system
+Creating a copy of system
+Assuming fbeta =    0.00000
+
+      ***** LEVEL  1 WARNING FROM BLaDE *****
+      ***** BLaDE langevin integrator using fbeta=0 for constant energy dynamics.
+      ******************************************
+      BOMLEV (  0) IS NOT REACHED. WRNLEV IS  5
+
+
+      ***** LEVEL  1 WARNING FROM BLaDe *****
+      ***** PME being used for electrostatics in BLaDE
+      ******************************************
+      BOMLEV (  0) IS NOT REACHED. WRNLEV IS  5
+
+
+      ***** LEVEL  1 WARNING FROM BLaDe *****
+      ***** VFSWITCH being used for vdW switching in BLaDE
+      ******************************************
+      BOMLEV (  0) IS NOT REACHED. WRNLEV IS  5
+
+Found pme kappa =    0.32000
+Found ctofnb =    9.00000 ctonnb =    7.50000
+Warning: Both elec and vdw energies placed in vdw
+BLaDE: Velocities from restart file
+DYNA DYN: Step         Time      TOTEner        TOTKe       ENERgy  TEMPerature
+DYNA PROP:             GRMS      HFCTote        HFCKe       EHFCor        VIRKe
+DYNA INTERN:          BONDs       ANGLes       UREY-b    DIHEdrals    IMPRopers
+DYNA EXTERN:        VDWaals         ELEC       HBONds          ASP         USER
+DYNA EWALD:          EWKSum       EWSElf       EWEXcl       EWQCor       EWUTil
+DYNA PRESS:            VIRE         VIRI       PRESSE       PRESSI       VOLUme
+ ----------       ---------    ---------    ---------    ---------    ---------
+DYNA>        0      0.20000 -53191.17375  15928.75354 -69119.92730    331.33736
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      515.53452   1358.91347    160.29606    949.98243     87.42374
+DYNA EXTERN>   -62227.66243      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       650.80735-454602.98314 443987.76071      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+DYNA>       10      0.22000 -53189.55976  16019.86037 -69209.42013    333.23249
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      526.76297   1297.39672    161.04535    922.76408     84.91873
+DYNA EXTERN>   -62206.45506      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       623.46001-454602.98314 443983.67023      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ WRIDYN: RESTart file was written at step     110
+BLaDE: Velocities from restart file
+DYNA>       20      0.24000 -53226.31814  15892.62102 -69118.93916    330.58576
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      567.73252   1368.03304    168.47980    899.83806     86.26889
+DYNA EXTERN>   -62196.74432      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       610.27344-454602.98314 443980.16254      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ WRIDYN: RESTart file was written at step     120
+BLaDE: Velocities from restart file
+DYNA>       30      0.26000 -53170.47270  15825.30511 -68995.77782    329.18551
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      540.31588   1349.48715    172.77114    896.25470     88.72258
+DYNA EXTERN>   -62055.02930      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       626.05767-454602.98314 443988.62549      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ WRIDYN: RESTart file was written at step     130
+BLaDE: Velocities from restart file
+DYNA>       40      0.28000 -53192.38190  15963.12521 -69155.50711    332.05233
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      526.66944   1306.81830    159.39375    894.66821     83.42325
+DYNA EXTERN>   -62129.52826      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       621.17042-454602.98314 443984.86093      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ WRIDYN: RESTart file was written at step     140
+BLaDE: Velocities from restart file
+DYNA>       50      0.30000 -53213.57881  15795.94313 -69009.52194    328.57474
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      544.39754   1292.09963    154.99014    898.28810     84.52088
+DYNA EXTERN>   -62013.73094      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       645.64137-454602.98314 443987.25449      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ WRIDYN: RESTart file was written at step     150
+BLaDE: Velocities from restart file
+DYNA>       60      0.32000 -53181.80999  15767.82195 -68949.63194    327.98979
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      550.25659   1326.61921    173.70112    905.20976     77.52398
+DYNA EXTERN>   -62002.05828      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       638.09306-454602.98314 443984.00577      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ WRIDYN: RESTart file was written at step     160
+BLaDE: Velocities from restart file
+DYNA>       70      0.34000 -53153.97535  15966.28893 -69120.26428    332.11814
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      558.69982   1315.58853    181.80267    913.54895     76.87288
+DYNA EXTERN>   -62160.49474      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       609.65744-454602.98314 443987.04330      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ WRIDYN: RESTart file was written at step     170
+BLaDE: Velocities from restart file
+DYNA>       80      0.36000 -53202.70536  15932.80865 -69135.51401    331.42171
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      508.85376   1321.97413    153.88174    887.30325     88.29168
+DYNA EXTERN>   -62109.55032      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       623.81469-454602.98314 443992.90021      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ WRIDYN: RESTart file was written at step     180
+BLaDE: Velocities from restart file
+DYNA>       90      0.38000 -53195.01207  15925.08909 -69120.10116    331.26113
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      543.65509   1345.70981    166.85655    904.86898     79.90414
+DYNA EXTERN>   -62185.50670      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       649.83796-454602.98314 443977.55615      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ WRIDYN: RESTart file was written at step     190
+BLaDE: Velocities from restart file
+DYNA>      100      0.40000 -53179.17824  15923.70320 -69102.88144    331.23231
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      582.58698   1327.33047    163.23813    928.34717     87.29325
+DYNA EXTERN>   -62174.44309      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       611.91378-454602.98314 443973.83502      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+
+     10   COORDINATE SETS STARTING FROM
+     STEP NO      110   FOR EVERY    10  STEPS
+     WRITTEN ON UNIT    2
+
+ VCLOSE: Closing unit    2 with status "KEEP"
+ WRIDYN: RESTart file was written at step     200
+ VCLOSE: Closing unit    1 with status "KEEP"
+
+     DETAILS ABOUT CENTRE OF MASS
+     POSITION          :   -3.7681685        4.4097575       -3.2501373    
+     VELOCITY          :   1.43027703E-03   2.82037930E-03   1.56171775E-03
+     ANGULAR MOMENTUM  :   -2679.0444       -7340.7415       -15283.081    
+     KINETIC ENERGY    :   0.89880311    
+
+ CHARMM>     
+
+ CHARMM>     
+
+ CHARMM>    open unit 1 write form name @{9}/blade.res
+ Parameter: 9 -> "SCRATCH/"
+ VOPEN> Attempting to open::scratch//blade.res::
+ OPNLGU> Unit  1 opened for WRITE access to /work_bgfs/e/ekukole/charmm-build/c51a2/dev-release-master/test/scratch//blade.res
+
+ CHARMM>    ! Run NVT ensemble
+ CHARMM>    scalar fbeta set 0.1 sele all end
+ SELRPN>  23558 atoms have been selected out of  23558
+
+ CHARMM>    dynamics leap start timestep 0.002 nstep @nsteps -
+ CHARMM>         nprint @nprint iprfrq @nprint -
+ CHARMM>         iseed 123456 nsavc 0 nsavv 0 -
+ CHARMM>         firstt 298 finalt 298 - ! twindl -5.0 twindh 5.0 -
+ CHARMM>         iunwri 1 isvfrq @nprint -
+ CHARMM>         eps 1.0 cutnb 11 cutim 11 ctofnb 9 ctonnb 7.5 vfswi -
+ CHARMM>         Ewald kappa 0.320 pmEwald order 4 fftx 64 ffty 64 fftz 64 ntrfq 0 - !PME
+ CHARMM>         blade
+ Parameter: NSTEPS -> "100"
+ Parameter: NPRINT -> "10"
+ Parameter: NPRINT -> "10"
+ Parameter: NPRINT -> "10"
+  IUNREA = -1         IUNWRI =  1          IUNOS = -1
+  IUNCRD = -1         IUNVEL = -1          KUNIT = -1
+
+ SELECTED IMAGES ATOMS BEING CENTERED ABOUT  0.000000  0.000000  0.000000
+ <PME> Total heap storage needed =      943639
+
+ NONBOND OPTION FLAGS: 
+     ELEC     VDW      ATOMs    CDIElec  SHIFt    VATOm    VFSWIt  
+     BYGRoup  NOEXtnd  EWALd   
+ CUTNB  = 11.000 CTEXNB =999.000 CTONNB =  7.500 CTOFNB =  9.000
+ CGONNB =  0.000 CGOFNB = 10.000
+ WMIN   =  1.500 WRNMXD =  0.500 E14FAC =  1.000 EPS    =  1.000
+ NBXMOD =      5
+ PME EWALD OPTIONS: KAPPA  =  0.320  QCOR =  0.000  Bspline order = 4
+ FFTX=  64  FFTY=  64  FFTZ=  64
+                Using MKL
+                Real-to-Complex FFT
+                Using Column FFT 
+ There are  5019624 atom  pairs and    34709 atom  exclusions.
+ There are        0 group pairs and     2149 group exclusions.
+
+      ***** LEVEL  5 WARNING FROM <RNGMODSEEDS> *****
+      ***** Only one seed number specified! See random.doc for syntax.
+      ******************************************
+      BOMLEV (  0) IS NOT REACHED. WRNLEV IS  5
+
+ DCNTRL> Langevin integration requested.
+ DCNTRL>  BLaDE interface requested for energy and dynamics calculations.
+ DCNTRL>  Using AUTO scan algorithm selection (benchmark first 100 steps).
+ DCNTRL>  NVT dynamics through BLaDE interface requested using Langevin heatbath.
+ DCNTRL>  thermostate using reference temperature  298.00  K.
+   NSTEP =      100    NSAVC =        0    NSAVV =        0
+  ISCALE =        0   ISCVEL =        0   IASORS =        0
+  IASVEL =        1   ICHECW =        1   NTRFRQ =        0
+  IHTFRQ =        0   IEQFRQ =        0   NPRINT =       10
+  INBFRQ =       -1   IHBFRQ =        0   IPRFRQ =       10
+  ILBFRQ =       50   IMGFRQ =       50
+  ISVFRQ =       10   NCYCLE =       10    NSNOS =       10
+  FIRSTT =   298.000  TEMINC =     5.000  TSTRUC =  -999.000
+  FINALT =   298.000  TWINDH =    10.000  TWINDL =   -10.000
+
+  TIME STEP =  4.09097E-02 AKMA       2.00000E-03 PS
+
+  RANDOM NUM. GEN. SEED(S) = 123456 123456 123456 123456
+
+           SHAKE TOLERANCE =     0.10000E-07
+ NUMBER OF DEGREES OF FREEDOM =  48384
+
+          GAUSSIAN OPTION                  IS            1
+          VELOCITIES ASSIGNED AT TEMPERATURE =    372.5000
+          SEED FOR RANDOM NUMBER GENERATOR IS:
+          SEEDS> 123456 123456 123456 123456
+
+     DETAILS ABOUT CENTRE OF MASS
+     POSITION          :   -3.7836842        4.4330311       -3.2268637    
+     VELOCITY          :   1.42240832E-03   2.82143824E-03   1.56516337E-03
+     ANGULAR MOMENTUM  :   -4624.4550       -11142.715        10370.140    
+     KINETIC ENERGY    :   0.89839135    
+Destroying a copy of system
+Creating a copy of system
+Assuming fbeta =    0.00489
+
+      ***** LEVEL  1 WARNING FROM BLaDe *****
+      ***** PME being used for electrostatics in BLaDE
+      ******************************************
+      BOMLEV (  0) IS NOT REACHED. WRNLEV IS  5
+
+
+      ***** LEVEL  1 WARNING FROM BLaDe *****
+      ***** VFSWITCH being used for vdW switching in BLaDE
+      ******************************************
+      BOMLEV (  0) IS NOT REACHED. WRNLEV IS  5
+
+Found pme kappa =    0.32000
+Found ctofnb =    9.00000 ctonnb =    7.50000
+Warning: Both elec and vdw energies placed in vdw
+BLaDE: Velocities scaled or randomized
+DYNA DYN: Step         Time      TOTEner        TOTKe       ENERgy  TEMPerature
+DYNA PROP:             GRMS      HFCTote        HFCKe       EHFCor        VIRKe
+DYNA INTERN:          BONDs       ANGLes       UREY-b    DIHEdrals    IMPRopers
+DYNA EXTERN:        VDWaals         ELEC       HBONds          ASP         USER
+DYNA EWALD:          EWKSum       EWSElf       EWEXcl       EWQCor       EWUTil
+DYNA PRESS:            VIRE         VIRI       PRESSE       PRESSI       VOLUme
+ ----------       ---------    ---------    ---------    ---------    ---------
+DYNA>        0      0.00000 -51397.70749  17705.17527 -69102.88276    368.28908
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      582.58698   1327.33047    163.23813    928.34717     87.29325
+DYNA EXTERN>   -62174.44392      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       611.91376-454602.98314 443973.83453      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+DYNA>       10      0.02000 -51113.02980  17171.19096 -68284.22076    357.18156
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      594.91884   1363.22428    176.72261    913.26368     84.13497
+DYNA EXTERN>   -61462.12780      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       665.91844-454602.98314 443982.70737      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ WRIDYN: RESTart file was written at step      10
+BLaDE: Velocities scaled or randomized
+DYNA>       20      0.04000 -51118.64679  16966.92911 -68085.57589    352.93267
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      536.48027   1442.10967    188.04702    906.45802     92.56338
+DYNA EXTERN>   -61280.70247      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       645.19229-454602.98314 443987.25906      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ WRIDYN: RESTart file was written at step      20
+BLaDE: Velocities scaled or randomized
+DYNA>       30      0.06000 -51090.21193  17046.14326 -68136.35519    354.58042
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      567.57887   1379.95456    186.21655    954.70502     95.20742
+DYNA EXTERN>   -61354.65306      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       650.78980-454602.98314 443986.82880      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ WRIDYN: RESTart file was written at step      30
+BLaDE: Velocities scaled or randomized
+DYNA>       40      0.08000 -51120.58633  16867.43694 -67988.02327    350.86311
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      553.82286   1350.44232    183.69831    938.20044     95.71126
+DYNA EXTERN>   -61136.11279      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       644.11583-454602.98314 443985.08163      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ WRIDYN: RESTart file was written at step      40
+BLaDE: Velocities scaled or randomized
+DYNA>       50      0.10000 -51152.61538  16741.03931 -67893.65470    348.23389
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      610.50491   1344.49309    177.17713    933.94444     88.81656
+DYNA EXTERN>   -61092.96881      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       663.45629-454602.98314 443983.90485      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ WRIDYN: RESTart file was written at step      50
+BLaDE: Velocities scaled or randomized
+DYNA>       60      0.12000 -51177.55584  16704.56771 -67882.12355    347.47523
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      565.14655   1432.69557    172.81524    913.60658     74.98192
+DYNA EXTERN>   -61078.55973      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       657.50958-454602.98314 443982.66388      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ WRIDYN: RESTart file was written at step      60
+BLaDE: Velocities scaled or randomized
+DYNA>       70      0.14000 -51118.16222  16517.41869 -67635.58090    343.58231
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      629.60472   1383.23505    183.00771    923.20848     79.12851
+DYNA EXTERN>   -60907.30122      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       697.65108-454602.98314 443978.86792      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ WRIDYN: RESTart file was written at step      70
+BLaDE: Velocities scaled or randomized
+DYNA>       80      0.16000 -51139.34730  16679.30715 -67818.65445    346.94978
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      579.62965   1362.51697    176.88560    925.99599     93.95047
+DYNA EXTERN>   -61009.24842      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       675.79804-454602.98314 443978.80038      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ WRIDYN: RESTart file was written at step      80
+BLaDE: Velocities scaled or randomized
+DYNA>       90      0.18000 -51186.69035  16578.13102 -67764.82137    344.84520
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      598.00055   1304.43728    178.05054    947.76906    105.20317
+DYNA EXTERN>   -60937.82051      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       655.81435-454602.98314 443986.70734      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ WRIDYN: RESTart file was written at step      90
+BLaDE: Velocities scaled or randomized
+DYNA>      100      0.20000 -51171.43499  15997.66248 -67169.09747    332.77075
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      679.89491   1729.24292    229.59204   1000.89816    121.43344
+DYNA EXTERN>   -60980.88543      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       673.39905-454602.98314 443980.31058      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ WRIDYN: RESTart file was written at step     100
+ VCLOSE: Closing unit    1 with status "KEEP"
+
+     DETAILS ABOUT CENTRE OF MASS
+     POSITION          :   -3.7939297        4.4612562       -3.3129326    
+     VELOCITY          :   1.06046107E-03   3.23252192E-03   1.53863525E-03
+     ANGULAR MOMENTUM  :   -2617.8837       -12196.211       -3834.9438    
+     KINETIC ENERGY    :    1.0073298    
+
+ CHARMM>     
+
+ CHARMM>    open unit 1 write form name @{9}/blade.res
+ Parameter: 9 -> "SCRATCH/"
+ VOPEN> Attempting to open::scratch//blade.res::
+ OPNLGU> Unit  1 opened for WRITE access to /work_bgfs/e/ekukole/charmm-build/c51a2/dev-release-master/test/scratch//blade.res
+
+ CHARMM>    open unit 2 write unform name @{9}/blade.dcd
+ Parameter: 9 -> "SCRATCH/"
+ VOPEN> Attempting to open::scratch//blade.dcd::
+ OPNLGU> Unit  2 opened for WRITE access to /work_bgfs/e/ekukole/charmm-build/c51a2/dev-release-master/test/scratch//blade.dcd
+
+ CHARMM>     
+
+ CHARMM>    ! restart
+ CHARMM>    dynamics leap restart timestep 0.002 nstep @nsteps -
+ CHARMM>         nprint @nprint iprfrq @nprint -
+ CHARMM>         iseed 123456 nsavc @nprint nsavv 0 -
+ CHARMM>         firstt 298 finalt 298 - ! twindl -5.0 twindh 5.0 -
+ CHARMM>         iunwri 1 isvfrq @nprint iunrea 1 iuncrd 2 -
+ CHARMM>         eps 1.0 cutnb 11 cutim 11 ctofnb 9 ctonnb 7.5 vfswi -
+ CHARMM>         Ewald kappa 0.320 pmEwald order 4 fftx 64 ffty 64 fftz 64 ntrfq 0 - !PME
+ CHARMM>         blade
+ Parameter: NSTEPS -> "100"
+ Parameter: NPRINT -> "10"
+ Parameter: NPRINT -> "10"
+ Parameter: NPRINT -> "10"
+ Parameter: NPRINT -> "10"
+  IUNREA =  1         IUNWRI =  1          IUNOS = -1
+  IUNCRD =  2         IUNVEL = -1          KUNIT = -1
+ TITLE>  *  BENCHMARK DYNAMICS FOR DHFR IN A CUBIC BOX OF
+ TITLE>  *  SOLVENT USING PBC W/ PME.  TOTAL SYSTEM CONTAINS 23,558 ATOMS,
+ TITLE>  *  21,069 ATOMS ASSOCIATED WITH WATER MOLECULES AND 2589 PROTEIN ATOMS.
+ TITLE>  *  DATE:     5/14/26     19:47:12      CREATED BY USER: ekukole
+ TITLE>  *
+ READYN> dynamics restart file was read. Current step=     100
+ NSTEP  =   100  JHSTRT =     0
+
+ SELECTED IMAGES ATOMS BEING CENTERED ABOUT  0.000000  0.000000  0.000000
+ <PME> Total heap storage needed =      943639
+
+ NONBOND OPTION FLAGS: 
+     ELEC     VDW      ATOMs    CDIElec  SHIFt    VATOm    VFSWIt  
+     BYGRoup  NOEXtnd  EWALd   
+ CUTNB  = 11.000 CTEXNB =999.000 CTONNB =  7.500 CTOFNB =  9.000
+ CGONNB =  0.000 CGOFNB = 10.000
+ WMIN   =  1.500 WRNMXD =  0.500 E14FAC =  1.000 EPS    =  1.000
+ NBXMOD =      5
+ PME EWALD OPTIONS: KAPPA  =  0.320  QCOR =  0.000  Bspline order = 4
+ FFTX=  64  FFTY=  64  FFTZ=  64
+                Using MKL
+                Real-to-Complex FFT
+                Using Column FFT 
+ There are  5012892 atom  pairs and    34709 atom  exclusions.
+ There are        0 group pairs and     2149 group exclusions.
+ PRNHBD: CUToff Hydrogen Bond  distance =    0.5000   Angle =   90.0000
+         CuT switching ON HB dist. =     3.5000  OFf HB dist. =    4.0000
+         CuT switching ON Hb Angle =    50.0000  OFf Hb Angle =   70.0000
+         ACCEptor antecedents included
+         All hydrogen bonds for each hydrogen will be found
+         Hydrogen bonds between excluded atoms will be kept
+
+
+      ***** LEVEL  5 WARNING FROM <RNGMODSEEDS> *****
+      ***** Only one seed number specified! See random.doc for syntax.
+      ******************************************
+      BOMLEV (  0) IS NOT REACHED. WRNLEV IS  5
+
+ DCNTRL> Langevin integration requested.
+ DCNTRL>  BLaDE interface requested for energy and dynamics calculations.
+ DCNTRL>  Using AUTO scan algorithm selection (benchmark first 100 steps).
+ DCNTRL>  NVT dynamics through BLaDE interface requested using Langevin heatbath.
+ DCNTRL>  thermostate using reference temperature  298.00  K.
+   NSTEP =      100    NSAVC =       10    NSAVV =        0
+  ISCALE =        0   ISCVEL =        0   IASORS =        0
+  IASVEL =        1   ICHECW =        1   NTRFRQ =        0
+  IHTFRQ =        0   IEQFRQ =        0   NPRINT =       10
+  INBFRQ =       -1   IHBFRQ =        0   IPRFRQ =       10
+  ILBFRQ =       50   IMGFRQ =       50
+  ISVFRQ =       10   NCYCLE =       10    NSNOS =       10
+  FIRSTT =   298.000  TEMINC =     5.000  TSTRUC =  -999.000
+  FINALT =   298.000  TWINDH =    10.000  TWINDL =   -10.000
+
+  TIME STEP =  4.09097E-02 AKMA       2.00000E-03 PS
+
+  RANDOM NUM. GEN. SEED(S) = 123456 123456 123456 123456
+
+           SHAKE TOLERANCE =     0.10000E-07
+ NUMBER OF DEGREES OF FREEDOM =  48384
+Destroying a copy of system
+Creating a copy of system
+Assuming fbeta =    0.00489
+
+      ***** LEVEL  1 WARNING FROM BLaDe *****
+      ***** PME being used for electrostatics in BLaDE
+      ******************************************
+      BOMLEV (  0) IS NOT REACHED. WRNLEV IS  5
+
+
+      ***** LEVEL  1 WARNING FROM BLaDe *****
+      ***** VFSWITCH being used for vdW switching in BLaDE
+      ******************************************
+      BOMLEV (  0) IS NOT REACHED. WRNLEV IS  5
+
+Found pme kappa =    0.32000
+Found ctofnb =    9.00000 ctonnb =    7.50000
+Warning: Both elec and vdw energies placed in vdw
+BLaDE: Velocities from restart file
+DYNA DYN: Step         Time      TOTEner        TOTKe       ENERgy  TEMPerature
+DYNA PROP:             GRMS      HFCTote        HFCKe       EHFCor        VIRKe
+DYNA INTERN:          BONDs       ANGLes       UREY-b    DIHEdrals    IMPRopers
+DYNA EXTERN:        VDWaals         ELEC       HBONds          ASP         USER
+DYNA EWALD:          EWKSum       EWSElf       EWEXcl       EWQCor       EWUTil
+DYNA PRESS:            VIRE         VIRI       PRESSE       PRESSI       VOLUme
+ ----------       ---------    ---------    ---------    ---------    ---------
+DYNA>        0      0.20000 -51173.98149  15995.11818 -67169.09967    332.71782
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      679.89491   1729.24290    229.59204   1000.89816    121.43344
+DYNA EXTERN>   -60980.88672      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       673.39913-454602.98314 443980.30960      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+DYNA>       10      0.22000 -51175.92289  16513.57740 -67689.50029    343.50240
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      614.79057   1379.65463    175.61847    946.82813    111.20811
+DYNA EXTERN>   -60970.06250      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       671.39771-454602.98314 443984.04773      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ WRIDYN: RESTart file was written at step     110
+BLaDE: Velocities from restart file
+DYNA>       20      0.24000 -51232.97985  16528.83149 -67761.81134    343.81971
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      581.61667   1352.50143    170.42631    948.94622     91.76529
+DYNA EXTERN>   -60953.51369      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       666.60587-454602.98314 443982.82370      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ WRIDYN: RESTart file was written at step     120
+BLaDE: Velocities from restart file
+DYNA>       30      0.26000 -51248.21816  16383.13918 -67631.35734    340.78913
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      597.84903   1413.29336    186.65648    925.74031     94.79362
+DYNA EXTERN>   -60902.37623      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       665.58472-454602.98314 443990.08450      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ WRIDYN: RESTart file was written at step     130
+BLaDE: Velocities from restart file
+DYNA>       40      0.28000 -51232.93686  16520.46705 -67753.40390    343.64572
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      585.37185   1411.62120    177.45573    905.04807     89.18262
+DYNA EXTERN>   -60980.11756      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       674.55890-454602.98314 443986.45844      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ WRIDYN: RESTart file was written at step     140
+BLaDE: Velocities from restart file
+DYNA>       50      0.30000 -51227.71941  16566.79802 -67794.51744    344.60946
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      591.77212   1358.64823    189.89979    924.67188     94.84799
+DYNA EXTERN>   -60982.04262      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       645.77891-454602.98314 443984.88940      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ WRIDYN: RESTart file was written at step     150
+BLaDE: Velocities from restart file
+DYNA>       60      0.32000 -51237.86685  16507.89376 -67745.76060    343.38418
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      547.37660   1384.63897    182.19104    931.12390     98.88085
+DYNA EXTERN>   -60927.59581      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       654.06816-454602.98314 443986.53882      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ WRIDYN: RESTart file was written at step     160
+BLaDE: Velocities from restart file
+DYNA>       70      0.34000 -51262.01192  16610.65308 -67872.66500    345.52170
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      593.36226   1377.06478    193.19802    906.42445     95.67509
+DYNA EXTERN>   -61097.94359      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       676.69011-454602.98314 443985.84702      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ WRIDYN: RESTart file was written at step     170
+BLaDE: Velocities from restart file
+DYNA>       80      0.36000 -51266.87733  16633.33643 -67900.21376    345.99354
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      564.09810   1396.00885    181.65561    926.81710     87.13933
+DYNA EXTERN>   -61100.23521      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       661.56312-454602.98314 443985.72247      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ WRIDYN: RESTart file was written at step     180
+BLaDE: Velocities from restart file
+DYNA>       90      0.38000 -51276.21801  16654.66647 -67930.88448    346.43723
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      602.13863   1377.12078    177.95615    911.75769     91.41393
+DYNA EXTERN>   -61136.37100      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       664.56608-454602.98314 443983.51639      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ WRIDYN: RESTart file was written at step     190
+BLaDE: Velocities from restart file
+DYNA>      100      0.40000 -51280.52129  16609.12385 -67889.64514    345.48989
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      621.26598   1377.37563    182.08431    918.19779     83.97034
+DYNA EXTERN>   -61103.48354      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       660.73303-454602.98314 443973.19446      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+
+     10   COORDINATE SETS STARTING FROM
+     STEP NO      110   FOR EVERY    10  STEPS
+     WRITTEN ON UNIT    2
+
+ VCLOSE: Closing unit    2 with status "KEEP"
+ WRIDYN: RESTart file was written at step     200
+ VCLOSE: Closing unit    1 with status "KEEP"
+
+     DETAILS ABOUT CENTRE OF MASS
+     POSITION          :   -3.7432832        4.4114369       -3.3076218    
+     VELOCITY          :   8.80346602E-04   3.11218470E-03   1.05644825E-03
+     ANGULAR MOMENTUM  :   -396.95050       -3840.0115        3917.7405    
+     KINETIC ENERGY    :   0.83648922    
+
+ CHARMM>     
+
+ CHARMM>    open unit 1 write form name @{9}/blade.res
+ Parameter: 9 -> "SCRATCH/"
+ VOPEN> Attempting to open::scratch//blade.res::
+ OPNLGU> Unit  1 opened for WRITE access to /work_bgfs/e/ekukole/charmm-build/c51a2/dev-release-master/test/scratch//blade.res
+
+ CHARMM>    ! Run NPT ensemble
+ CHARMM>    scalar fbeta set 0.1 sele all end
+ SELRPN>  23558 atoms have been selected out of  23558
+
+ CHARMM>    dynamics leap start timestep 0.002 nstep @nsteps -
+ CHARMM>         nprint @nprint iprfrq @nprint -
+ CHARMM>         iseed 123456 nsavc 0 nsavv 0 -
+ CHARMM>         firstt 298 finalt 298 - ! twindl -5.0 twindh 5.0 -
+ CHARMM>         iunwri 1 isvfrq @nprint -
+ CHARMM>         eps 1.0 cutnb 11 cutim 11 ctofnb 9 ctonnb 7.5 vfswi -
+ CHARMM>         Ewald kappa 0.320 pmEwald order 4 fftx 64 ffty 64 fftz 64 ntrfq 0 - !PME
+ CHARMM>         prmc -  ! use pressure monte carlo
+ CHARMM>         iprs 10 - ! Monte carlo pressure frequency (50 is default)
+ CHARMM>         pref 1 - ! reference pressure (atmospheres)
+ CHARMM>         prdv 100 - ! RMS proposed volume change (A cubed)
+ CHARMM>         blade
+ Parameter: NSTEPS -> "100"
+ Parameter: NPRINT -> "10"
+ Parameter: NPRINT -> "10"
+ Parameter: NPRINT -> "10"
+  IUNREA = -1         IUNWRI =  1          IUNOS = -1
+  IUNCRD = -1         IUNVEL = -1          KUNIT = -1
+
+ SELECTED IMAGES ATOMS BEING CENTERED ABOUT  0.000000  0.000000  0.000000
+ <PME> Total heap storage needed =      943639
+
+ NONBOND OPTION FLAGS: 
+     ELEC     VDW      ATOMs    CDIElec  SHIFt    VATOm    VFSWIt  
+     BYGRoup  NOEXtnd  EWALd   
+ CUTNB  = 11.000 CTEXNB =999.000 CTONNB =  7.500 CTOFNB =  9.000
+ CGONNB =  0.000 CGOFNB = 10.000
+ WMIN   =  1.500 WRNMXD =  0.500 E14FAC =  1.000 EPS    =  1.000
+ NBXMOD =      5
+ PME EWALD OPTIONS: KAPPA  =  0.320  QCOR =  0.000  Bspline order = 4
+ FFTX=  64  FFTY=  64  FFTZ=  64
+                Using MKL
+                Real-to-Complex FFT
+                Using Column FFT 
+ There are  5010302 atom  pairs and    34709 atom  exclusions.
+ There are        0 group pairs and     2149 group exclusions.
+
+      ***** LEVEL  5 WARNING FROM <RNGMODSEEDS> *****
+      ***** Only one seed number specified! See random.doc for syntax.
+      ******************************************
+      BOMLEV (  0) IS NOT REACHED. WRNLEV IS  5
+
+ DCNTRL> Langevin integration requested.
+ DCNTRL>  BLaDE interface requested for energy and dynamics calculations.
+ DCNTRL>  Using AUTO scan algorithm selection (benchmark first 100 steps).
+ DCNTRL>  CPT dynamics through BLaDE interface requested using Langevin heatbath.
+ DCNTRL>  MC barostat coupled to reference pressure    1.00  atmospheres.
+ DCNTRL>  MC barostat using reference temperature  298.00  K.
+ DCNTRL>  MC barostat volume move attempted every     10  timesteps.
+ DCNTRL>  MC barostat volume move size  100.00  A^3
+   NSTEP =      100    NSAVC =        0    NSAVV =        0
+  ISCALE =        0   ISCVEL =        0   IASORS =        0
+  IASVEL =        1   ICHECW =        1   NTRFRQ =        0
+  IHTFRQ =        0   IEQFRQ =        0   NPRINT =       10
+  INBFRQ =       -1   IHBFRQ =        0   IPRFRQ =       10
+  ILBFRQ =       50   IMGFRQ =       50
+  ISVFRQ =       10   NCYCLE =       10    NSNOS =       10
+  FIRSTT =   298.000  TEMINC =     5.000  TSTRUC =  -999.000
+  FINALT =   298.000  TWINDH =    10.000  TWINDL =   -10.000
+
+  TIME STEP =  4.09097E-02 AKMA       2.00000E-03 PS
+
+  RANDOM NUM. GEN. SEED(S) = 123456 123456 123456 123456
+
+           SHAKE TOLERANCE =     0.10000E-07
+ NUMBER OF DEGREES OF FREEDOM =  48384
+
+          GAUSSIAN OPTION                  IS            1
+          VELOCITIES ASSIGNED AT TEMPERATURE =    372.5000
+          SEED FOR RANDOM NUMBER GENERATOR IS:
+          SEEDS> 123456 123456 123456 123456
+
+     DETAILS ABOUT CENTRE OF MASS
+     POSITION          :   -3.7122518        4.4036791       -3.2998640    
+     VELOCITY          :   1.42240832E-03   2.82143824E-03   1.56516337E-03
+     ANGULAR MOMENTUM  :   -437.89304       -6960.4638        8434.3861    
+     KINETIC ENERGY    :   0.89839135    
+Destroying a copy of system
+Creating a copy of system
+Assuming fbeta =    0.00489
+
+      ***** LEVEL  1 WARNING FROM BLaDe *****
+      ***** PME being used for electrostatics in BLaDE
+      ******************************************
+      BOMLEV (  0) IS NOT REACHED. WRNLEV IS  5
+
+
+      ***** LEVEL  1 WARNING FROM BLaDe *****
+      ***** VFSWITCH being used for vdW switching in BLaDE
+      ******************************************
+      BOMLEV (  0) IS NOT REACHED. WRNLEV IS  5
+
+Found pme kappa =    0.32000
+Found ctofnb =    9.00000 ctonnb =    7.50000
+Warning: Both elec and vdw energies placed in vdw
+BLaDE: Velocities scaled or randomized
+DYNA DYN: Step         Time      TOTEner        TOTKe       ENERgy  TEMPerature
+DYNA PROP:             GRMS      HFCTote        HFCKe       EHFCor        VIRKe
+DYNA INTERN:          BONDs       ANGLes       UREY-b    DIHEdrals    IMPRopers
+DYNA EXTERN:        VDWaals         ELEC       HBONds          ASP         USER
+DYNA EWALD:          EWKSum       EWSElf       EWEXcl       EWQCor       EWUTil
+DYNA PRESS:            VIRE         VIRI       PRESSE       PRESSI       VOLUme
+ ----------       ---------    ---------    ---------    ---------    ---------
+DYNA>        0      0.00000 -50236.19211  17653.45342 -67889.64553    367.21321
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      621.26598   1377.37558    182.08431    918.19779     83.97034
+DYNA EXTERN>   -61103.48383      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       660.73298-454602.98314 443973.19446      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ Crystal Parameters : Crystal Type = CUBI
+      DYNA A     =   62.23000 B    =   62.23000 C     =   62.23000
+      DYNA Alpha =   90.00000 Beta =   90.00000 Gamma =   90.00000
+      DYNA PIXX =        0.00 PIYY =       0.00 PIZZ =       0.00
+      DYNA PIXY =        0.00 PIXZ =       0.00 PIYZ =       0.00
+      DYNA Gradient Norm =    0.00000
+
+DYNA>       10      0.02000 -49918.84777  17305.39719 -67224.24496    359.97321
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      636.30810   1406.17259    177.40569    909.64320     97.16266
+DYNA EXTERN>   -60527.50468      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       696.42612-454602.98314 443983.12451      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ Crystal Parameters : Crystal Type = CUBI
+      DYNA A     =   62.23000 B    =   62.23000 C     =   62.23000
+      DYNA Alpha =   90.00000 Beta =   90.00000 Gamma =   90.00000
+      DYNA PIXX =        0.00 PIYY =       0.00 PIZZ =       0.00
+      DYNA PIXY =        0.00 PIXZ =       0.00 PIYZ =       0.00
+      DYNA Gradient Norm =    0.00000
+
+ WRIDYN: RESTart file was written at step      10
+BLaDE: Velocities scaled or randomized
+DYNA>       20      0.04000 -49920.07319  17467.51001 -67387.58320    363.34536
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      562.48798   1432.01604    182.79190    912.88348     85.81935
+DYNA EXTERN>   -60609.75755      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       664.28559-454602.98314 443984.87314      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ Crystal Parameters : Crystal Type = CUBI
+      DYNA A     =   62.23917 B    =   62.23917 C     =   62.23917
+      DYNA Alpha =   90.00000 Beta =   90.00000 Gamma =   90.00000
+      DYNA PIXX =        0.00 PIYY =       0.00 PIZZ =       0.00
+      DYNA PIXY =        0.00 PIXZ =       0.00 PIYZ =       0.00
+      DYNA Gradient Norm =    0.00000
+
+ WRIDYN: RESTart file was written at step      20
+BLaDE: Velocities scaled or randomized
+DYNA>       30      0.06000 -49909.59664  17346.32339 -67255.92003    360.82453
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      610.18539   1413.59298    199.40356    917.24408    101.56491
+DYNA EXTERN>   -60589.20222      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       709.32821-454602.98314 443984.94620      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ Crystal Parameters : Crystal Type = CUBI
+      DYNA A     =   62.23669 B    =   62.23669 C     =   62.23669
+      DYNA Alpha =   90.00000 Beta =   90.00000 Gamma =   90.00000
+      DYNA PIXX =        0.00 PIYY =       0.00 PIZZ =       0.00
+      DYNA PIXY =        0.00 PIXZ =       0.00 PIYZ =       0.00
+      DYNA Gradient Norm =    0.00000
+
+ WRIDYN: RESTart file was written at step      30
+BLaDE: Velocities scaled or randomized
+DYNA>       40      0.08000 -49948.64889  17205.42288 -67154.07177    357.89363
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      564.84458   1407.79827    190.20121    948.23729     94.74554
+DYNA EXTERN>   -60426.99922      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       683.85623-454602.98314 443986.22748      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ Crystal Parameters : Crystal Type = CUBI
+      DYNA A     =   62.22819 B    =   62.22819 C     =   62.22819
+      DYNA Alpha =   90.00000 Beta =   90.00000 Gamma =   90.00000
+      DYNA PIXX =        0.00 PIYY =       0.00 PIZZ =       0.00
+      DYNA PIXY =        0.00 PIXZ =       0.00 PIYZ =       0.00
+      DYNA Gradient Norm =    0.00000
+
+ WRIDYN: RESTart file was written at step      40
+BLaDE: Velocities scaled or randomized
+DYNA>       50      0.10000 -49964.08426  17054.09348 -67018.17774    354.74579
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      614.53365   1424.23492    192.32160    941.49861    107.33861
+DYNA EXTERN>   -60356.02865      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       681.95561-454602.98314 443978.95105      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ Crystal Parameters : Crystal Type = CUBI
+      DYNA A     =   62.22337 B    =   62.22337 C     =   62.22337
+      DYNA Alpha =   90.00000 Beta =   90.00000 Gamma =   90.00000
+      DYNA PIXX =        0.00 PIYY =       0.00 PIZZ =       0.00
+      DYNA PIXY =        0.00 PIXZ =       0.00 PIYZ =       0.00
+      DYNA Gradient Norm =    0.00000
+
+ WRIDYN: RESTart file was written at step      50
+BLaDE: Velocities scaled or randomized
+DYNA>       60      0.12000 -49960.37945  17037.33199 -66997.71144    354.39713
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      639.88510   1471.54152    188.27783    902.70000     98.75394
+DYNA EXTERN>   -60370.65706      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       695.89497-454602.98314 443978.87540      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ Crystal Parameters : Crystal Type = CUBI
+      DYNA A     =   62.22337 B    =   62.22337 C     =   62.22337
+      DYNA Alpha =   90.00000 Beta =   90.00000 Gamma =   90.00000
+      DYNA PIXX =        0.00 PIYY =       0.00 PIZZ =       0.00
+      DYNA PIXY =        0.00 PIXZ =       0.00 PIYZ =       0.00
+      DYNA Gradient Norm =    0.00000
+
+ WRIDYN: RESTart file was written at step      60
+BLaDE: Velocities scaled or randomized
+DYNA>       70      0.14000 -49933.41380  17027.88405 -66961.29785    354.20061
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      613.00929   1404.72563    194.60901    948.56655     96.38612
+DYNA EXTERN>   -60286.91580      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       685.01168-454602.98314 443986.29282      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ Crystal Parameters : Crystal Type = CUBI
+      DYNA A     =   62.22826 B    =   62.22826 C     =   62.22826
+      DYNA Alpha =   90.00000 Beta =   90.00000 Gamma =   90.00000
+      DYNA PIXX =        0.00 PIYY =       0.00 PIZZ =       0.00
+      DYNA PIXY =        0.00 PIXZ =       0.00 PIYZ =       0.00
+      DYNA Gradient Norm =    0.00000
+
+ WRIDYN: RESTart file was written at step      70
+BLaDE: Velocities scaled or randomized
+DYNA>       80      0.16000 -49991.17477  17001.87347 -66993.04824    353.65955
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      584.61363   1353.92883    176.69100    962.26709    110.51595
+DYNA EXTERN>   -60243.20872      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       684.38967-454602.98314 443980.73746      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ Crystal Parameters : Crystal Type = CUBI
+      DYNA A     =   62.22520 B    =   62.22520 C     =   62.22520
+      DYNA Alpha =   90.00000 Beta =   90.00000 Gamma =   90.00000
+      DYNA PIXX =        0.00 PIYY =       0.00 PIZZ =       0.00
+      DYNA PIXY =        0.00 PIXZ =       0.00 PIYZ =       0.00
+      DYNA Gradient Norm =    0.00000
+
+ WRIDYN: RESTart file was written at step      80
+BLaDE: Velocities scaled or randomized
+DYNA>       90      0.18000 -50058.33935  16910.67117 -66969.01052    351.76244
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      624.92355   1395.30077    174.22739    967.40167    116.54392
+DYNA EXTERN>   -60314.39917      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       683.74671-454602.98314 443986.22778      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ Crystal Parameters : Crystal Type = CUBI
+      DYNA A     =   62.23459 B    =   62.23459 C     =   62.23459
+      DYNA Alpha =   90.00000 Beta =   90.00000 Gamma =   90.00000
+      DYNA PIXX =        0.00 PIYY =       0.00 PIZZ =       0.00
+      DYNA PIXY =        0.00 PIXZ =       0.00 PIYZ =       0.00
+      DYNA Gradient Norm =    0.00000
+
+ WRIDYN: RESTart file was written at step      90
+BLaDE: Velocities scaled or randomized
+DYNA>      100      0.20000 -50015.59076  16194.04098 -66209.63175    336.85566
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      770.67229   1793.29583    239.87617   1001.99631    124.34265
+DYNA EXTERN>   -60180.43255      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       665.47727-454602.98314 443978.12341      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ Crystal Parameters : Crystal Type = CUBI
+      DYNA A     =   62.24634 B    =   62.24634 C     =   62.24634
+      DYNA Alpha =   90.00000 Beta =   90.00000 Gamma =   90.00000
+      DYNA PIXX =        0.00 PIYY =       0.00 PIZZ =       0.00
+      DYNA PIXY =        0.00 PIXZ =       0.00 PIYZ =       0.00
+      DYNA Gradient Norm =    0.00000
+
+ WRIDYN: RESTart file was written at step     100
+ VCLOSE: Closing unit    1 with status "KEEP"
+
+     DETAILS ABOUT CENTRE OF MASS
+     POSITION          :   -3.8079395        4.4226188       -3.3008902    
+     VELOCITY          :   1.49599299E-03   2.33679166E-03   2.32436107E-03
+     ANGULAR MOMENTUM  :   -669.56649       -249.96462        8813.4653    
+     KINETIC ENERGY    :   0.94664006    
+
+ CHARMM>     
+
+ CHARMM>    open unit 1 write form name @{9}/blade.res
+ Parameter: 9 -> "SCRATCH/"
+ VOPEN> Attempting to open::scratch//blade.res::
+ OPNLGU> Unit  1 opened for WRITE access to /work_bgfs/e/ekukole/charmm-build/c51a2/dev-release-master/test/scratch//blade.res
+
+ CHARMM>    open unit 2 write unform name @{9}/blade.dcd
+ Parameter: 9 -> "SCRATCH/"
+ VOPEN> Attempting to open::scratch//blade.dcd::
+ OPNLGU> Unit  2 opened for WRITE access to /work_bgfs/e/ekukole/charmm-build/c51a2/dev-release-master/test/scratch//blade.dcd
+
+ CHARMM>     
+
+ CHARMM>    ! restart
+ CHARMM>    dynamics leap restart timestep 0.002 nstep @nsteps -
+ CHARMM>         nprint @nprint iprfrq @nprint -
+ CHARMM>         iseed 123456 nsavc @nprint nsavv 0 -
+ CHARMM>         firstt 298 finalt 298 - ! twindl -5.0 twindh 5.0 -
+ CHARMM>         iunwri 1 isvfrq @nprint iunrea 1 iuncrd 2 -
+ CHARMM>         eps 1.0 cutnb 11 cutim 11 ctofnb 9 ctonnb 7.5 vfswi -
+ CHARMM>         Ewald kappa 0.320 pmEwald order 4 fftx 64 ffty 64 fftz 64 ntrfq 0 - !PME
+ CHARMM>         prmc -  ! use pressure monte carlo
+ CHARMM>         iprs 10 - ! Monte carlo pressure frequency (50 is default)
+ CHARMM>         pref 1 - ! reference pressure (atmospheres)
+ CHARMM>         prdv 100 - ! RMS proposed volume change (A cubed)
+ CHARMM>         blade
+ Parameter: NSTEPS -> "100"
+ Parameter: NPRINT -> "10"
+ Parameter: NPRINT -> "10"
+ Parameter: NPRINT -> "10"
+ Parameter: NPRINT -> "10"
+  IUNREA =  1         IUNWRI =  1          IUNOS = -1
+  IUNCRD =  2         IUNVEL = -1          KUNIT = -1
+ TITLE>  *  BENCHMARK DYNAMICS FOR DHFR IN A CUBIC BOX OF
+ TITLE>  *  SOLVENT USING PBC W/ PME.  TOTAL SYSTEM CONTAINS 23,558 ATOMS,
+ TITLE>  *  21,069 ATOMS ASSOCIATED WITH WATER MOLECULES AND 2589 PROTEIN ATOMS.
+ TITLE>  *  DATE:     5/14/26     19:47:16      CREATED BY USER: ekukole
+ TITLE>  *
+ READYN> dynamics restart file was read. Current step=     100
+ NSTEP  =   100  JHSTRT =     0
+
+ SELECTED IMAGES ATOMS BEING CENTERED ABOUT  0.000000  0.000000  0.000000
+ <PME> Total heap storage needed =      943639
+
+ NONBOND OPTION FLAGS: 
+     ELEC     VDW      ATOMs    CDIElec  SHIFt    VATOm    VFSWIt  
+     BYGRoup  NOEXtnd  EWALd   
+ CUTNB  = 11.000 CTEXNB =999.000 CTONNB =  7.500 CTOFNB =  9.000
+ CGONNB =  0.000 CGOFNB = 10.000
+ WMIN   =  1.500 WRNMXD =  0.500 E14FAC =  1.000 EPS    =  1.000
+ NBXMOD =      5
+ PME EWALD OPTIONS: KAPPA  =  0.320  QCOR =  0.000  Bspline order = 4
+ FFTX=  64  FFTY=  64  FFTZ=  64
+                Using MKL
+                Real-to-Complex FFT
+                Using Column FFT 
+ There are  5002962 atom  pairs and    34709 atom  exclusions.
+ There are        0 group pairs and     2149 group exclusions.
+ PRNHBD: CUToff Hydrogen Bond  distance =    0.5000   Angle =   90.0000
+         CuT switching ON HB dist. =     3.5000  OFf HB dist. =    4.0000
+         CuT switching ON Hb Angle =    50.0000  OFf Hb Angle =   70.0000
+         ACCEptor antecedents included
+         All hydrogen bonds for each hydrogen will be found
+         Hydrogen bonds between excluded atoms will be kept
+
+
+      ***** LEVEL  5 WARNING FROM <RNGMODSEEDS> *****
+      ***** Only one seed number specified! See random.doc for syntax.
+      ******************************************
+      BOMLEV (  0) IS NOT REACHED. WRNLEV IS  5
+
+ DCNTRL> Langevin integration requested.
+ DCNTRL>  BLaDE interface requested for energy and dynamics calculations.
+ DCNTRL>  Using AUTO scan algorithm selection (benchmark first 100 steps).
+ DCNTRL>  CPT dynamics through BLaDE interface requested using Langevin heatbath.
+ DCNTRL>  MC barostat coupled to reference pressure    1.00  atmospheres.
+ DCNTRL>  MC barostat using reference temperature  298.00  K.
+ DCNTRL>  MC barostat volume move attempted every     10  timesteps.
+ DCNTRL>  MC barostat volume move size  100.00  A^3
+   NSTEP =      100    NSAVC =       10    NSAVV =        0
+  ISCALE =        0   ISCVEL =        0   IASORS =        0
+  IASVEL =        1   ICHECW =        1   NTRFRQ =        0
+  IHTFRQ =        0   IEQFRQ =        0   NPRINT =       10
+  INBFRQ =       -1   IHBFRQ =        0   IPRFRQ =       10
+  ILBFRQ =       50   IMGFRQ =       50
+  ISVFRQ =       10   NCYCLE =       10    NSNOS =       10
+  FIRSTT =   298.000  TEMINC =     5.000  TSTRUC =  -999.000
+  FINALT =   298.000  TWINDH =    10.000  TWINDL =   -10.000
+
+  TIME STEP =  4.09097E-02 AKMA       2.00000E-03 PS
+
+  RANDOM NUM. GEN. SEED(S) = 123456 123456 123456 123456
+
+           SHAKE TOLERANCE =     0.10000E-07
+ NUMBER OF DEGREES OF FREEDOM =  48384
+Destroying a copy of system
+Creating a copy of system
+Assuming fbeta =    0.00489
+
+      ***** LEVEL  1 WARNING FROM BLaDe *****
+      ***** PME being used for electrostatics in BLaDE
+      ******************************************
+      BOMLEV (  0) IS NOT REACHED. WRNLEV IS  5
+
+
+      ***** LEVEL  1 WARNING FROM BLaDe *****
+      ***** VFSWITCH being used for vdW switching in BLaDE
+      ******************************************
+      BOMLEV (  0) IS NOT REACHED. WRNLEV IS  5
+
+Found pme kappa =    0.32000
+Found ctofnb =    9.00000 ctonnb =    7.50000
+Warning: Both elec and vdw energies placed in vdw
+BLaDE: Velocities from restart file
+DYNA DYN: Step         Time      TOTEner        TOTKe       ENERgy  TEMPerature
+DYNA PROP:             GRMS      HFCTote        HFCKe       EHFCor        VIRKe
+DYNA INTERN:          BONDs       ANGLes       UREY-b    DIHEdrals    IMPRopers
+DYNA EXTERN:        VDWaals         ELEC       HBONds          ASP         USER
+DYNA EWALD:          EWKSum       EWSElf       EWEXcl       EWQCor       EWUTil
+DYNA PRESS:            VIRE         VIRI       PRESSE       PRESSI       VOLUme
+ ----------       ---------    ---------    ---------    ---------    ---------
+DYNA>        0      0.20000 -50018.21936  16191.41398 -66209.63334    336.80101
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      770.67229   1793.29578    239.87618   1001.99631    124.34265
+DYNA EXTERN>   -60180.43365      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       665.47735-454602.98314 443978.12289      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ Crystal Parameters : Crystal Type = CUBI
+      DYNA A     =   62.24634 B    =   62.24634 C     =   62.24634
+      DYNA Alpha =   90.00000 Beta =   90.00000 Gamma =   90.00000
+      DYNA PIXX =        0.00 PIYY =       0.00 PIZZ =       0.00
+      DYNA PIXY =        0.00 PIXZ =       0.00 PIYZ =       0.00
+      DYNA Gradient Norm =    0.00000
+
+DYNA>       10      0.22000 -50026.88630  16978.29355 -67005.17984    353.16906
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      615.14577   1425.35929    181.95580    935.66771    107.28152
+DYNA EXTERN>   -60305.64004      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       653.74369-454602.98314 443984.28955      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ Crystal Parameters : Crystal Type = CUBI
+      DYNA A     =   62.24634 B    =   62.24634 C     =   62.24634
+      DYNA Alpha =   90.00000 Beta =   90.00000 Gamma =   90.00000
+      DYNA PIXX =        0.00 PIYY =       0.00 PIZZ =       0.00
+      DYNA PIXY =        0.00 PIXZ =       0.00 PIYZ =       0.00
+      DYNA Gradient Norm =    0.00000
+
+ WRIDYN: RESTart file was written at step     110
+BLaDE: Velocities from restart file
+DYNA>       20      0.24000 -50122.34788  16958.35064 -67080.69852    352.75423
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      620.24557   1381.83068    172.55961    926.05949     99.84387
+DYNA EXTERN>   -60307.58761      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       651.42736-454602.98314 443977.90564      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ Crystal Parameters : Crystal Type = CUBI
+      DYNA A     =   62.23783 B    =   62.23783 C     =   62.23783
+      DYNA Alpha =   90.00000 Beta =   90.00000 Gamma =   90.00000
+      DYNA PIXX =        0.00 PIYY =       0.00 PIZZ =       0.00
+      DYNA PIXY =        0.00 PIXZ =       0.00 PIYZ =       0.00
+      DYNA Gradient Norm =    0.00000
+
+ WRIDYN: RESTart file was written at step     120
+BLaDE: Velocities from restart file
+DYNA>       30      0.26000 -50093.97792  17027.76204 -67121.73995    354.19807
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      635.69264   1452.09257    182.27124    935.63740     89.98594
+DYNA EXTERN>   -60457.55920      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       663.28757-454602.98314 443979.83502      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ Crystal Parameters : Crystal Type = CUBI
+      DYNA A     =   62.24263 B    =   62.24263 C     =   62.24263
+      DYNA Alpha =   90.00000 Beta =   90.00000 Gamma =   90.00000
+      DYNA PIXX =        0.00 PIYY =       0.00 PIZZ =       0.00
+      DYNA PIXY =        0.00 PIXZ =       0.00 PIYZ =       0.00
+      DYNA Gradient Norm =    0.00000
+
+ WRIDYN: RESTart file was written at step     130
+BLaDE: Velocities from restart file
+DYNA>       40      0.28000 -50079.65435  17105.00868 -67184.66303    355.80489
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      592.99035   1421.97088    175.25154    927.51026     89.10592
+DYNA EXTERN>   -60432.40959      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       655.35138-454602.98314 443988.54938      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ Crystal Parameters : Crystal Type = CUBI
+      DYNA A     =   62.23968 B    =   62.23968 C     =   62.23968
+      DYNA Alpha =   90.00000 Beta =   90.00000 Gamma =   90.00000
+      DYNA PIXX =        0.00 PIYY =       0.00 PIZZ =       0.00
+      DYNA PIXY =        0.00 PIXZ =       0.00 PIYZ =       0.00
+      DYNA Gradient Norm =    0.00000
+
+ WRIDYN: RESTart file was written at step     140
+BLaDE: Velocities from restart file
+DYNA>       50      0.30000 -50060.18314  17150.61210 -67210.79524    356.75350
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      586.72493   1393.67827    177.60185    938.97580    101.49929
+DYNA EXTERN>   -60437.19421      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       648.83641-454602.98314 443982.06555      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ Crystal Parameters : Crystal Type = CUBI
+      DYNA A     =   62.23406 B    =   62.23406 C     =   62.23406
+      DYNA Alpha =   90.00000 Beta =   90.00000 Gamma =   90.00000
+      DYNA PIXX =        0.00 PIYY =       0.00 PIZZ =       0.00
+      DYNA PIXY =        0.00 PIXZ =       0.00 PIYZ =       0.00
+      DYNA Gradient Norm =    0.00000
+
+ WRIDYN: RESTart file was written at step     150
+BLaDE: Velocities from restart file
+DYNA>       60      0.32000 -50114.99665  17160.09686 -67275.09351    356.95079
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      605.43999   1411.81709    181.29889    950.58228     94.17678
+DYNA EXTERN>   -60532.51303      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       631.71125-454602.98314 443985.37637      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ Crystal Parameters : Crystal Type = CUBI
+      DYNA A     =   62.22287 B    =   62.22287 C     =   62.22287
+      DYNA Alpha =   90.00000 Beta =   90.00000 Gamma =   90.00000
+      DYNA PIXX =        0.00 PIYY =       0.00 PIZZ =       0.00
+      DYNA PIXY =        0.00 PIXZ =       0.00 PIYZ =       0.00
+      DYNA Gradient Norm =    0.00000
+
+ WRIDYN: RESTart file was written at step     160
+BLaDE: Velocities from restart file
+DYNA>       70      0.34000 -50148.12508  16958.58954 -67106.71461    352.75920
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      614.63121   1409.99681    192.00259    940.75243    100.51794
+DYNA EXTERN>   -60408.96972      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       662.38649-454602.98314 443984.95078      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ Crystal Parameters : Crystal Type = CUBI
+      DYNA A     =   62.22795 B    =   62.22795 C     =   62.22795
+      DYNA Alpha =   90.00000 Beta =   90.00000 Gamma =   90.00000
+      DYNA PIXX =        0.00 PIYY =       0.00 PIZZ =       0.00
+      DYNA PIXY =        0.00 PIXZ =       0.00 PIYZ =       0.00
+      DYNA Gradient Norm =    0.00000
+
+ WRIDYN: RESTart file was written at step     170
+BLaDE: Velocities from restart file
+DYNA>       80      0.36000 -50122.77239  17176.95783 -67299.73022    357.30152
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      565.12858   1438.45396    173.81035    935.82310     95.45264
+DYNA EXTERN>   -60564.29453      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       667.58511-454602.98314 443991.29370      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ Crystal Parameters : Crystal Type = CUBI
+      DYNA A     =   62.23494 B    =   62.23494 C     =   62.23494
+      DYNA Alpha =   90.00000 Beta =   90.00000 Gamma =   90.00000
+      DYNA PIXX =        0.00 PIYY =       0.00 PIZZ =       0.00
+      DYNA PIXY =        0.00 PIXZ =       0.00 PIYZ =       0.00
+      DYNA Gradient Norm =    0.00000
+
+ WRIDYN: RESTart file was written at step     180
+BLaDE: Velocities from restart file
+DYNA>       90      0.38000 -50186.23437  17015.09908 -67201.33345    353.93466
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      626.86318   1352.21568    179.48017    934.14581     96.33371
+DYNA EXTERN>   -60437.53062      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       664.42126-454602.98314 443985.72049      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ Crystal Parameters : Crystal Type = CUBI
+      DYNA A     =   62.23218 B    =   62.23218 C     =   62.23218
+      DYNA Alpha =   90.00000 Beta =   90.00000 Gamma =   90.00000
+      DYNA PIXX =        0.00 PIYY =       0.00 PIZZ =       0.00
+      DYNA PIXY =        0.00 PIXZ =       0.00 PIYZ =       0.00
+      DYNA Gradient Norm =    0.00000
+
+ WRIDYN: RESTart file was written at step     190
+BLaDE: Velocities from restart file
+DYNA>      100      0.40000 -50156.95376  16765.79377 -66922.74754    348.74881
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      620.17725   1497.49692    194.46667    940.69380    111.85565
+DYNA EXTERN>   -60324.83470      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>       653.60163-454602.98314 443986.77838      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ Crystal Parameters : Crystal Type = CUBI
+      DYNA A     =   62.22701 B    =   62.22701 C     =   62.22701
+      DYNA Alpha =   90.00000 Beta =   90.00000 Gamma =   90.00000
+      DYNA PIXX =        0.00 PIYY =       0.00 PIZZ =       0.00
+      DYNA PIXY =        0.00 PIXZ =       0.00 PIYZ =       0.00
+      DYNA Gradient Norm =    0.00000
+
+
+     10   COORDINATE SETS STARTING FROM
+     STEP NO      110   FOR EVERY    10  STEPS
+     WRITTEN ON UNIT    2
+
+ VCLOSE: Closing unit    2 with status "KEEP"
+ WRIDYN: RESTart file was written at step     200
+ VCLOSE: Closing unit    1 with status "KEEP"
+
+     DETAILS ABOUT CENTRE OF MASS
+     POSITION          :   -3.8228366        4.4626652       -3.2514969    
+     VELOCITY          :   2.12821652E-03   2.53133195E-03   2.46800282E-03
+     ANGULAR MOMENTUM  :    3147.0698       -2112.9866        3927.7408    
+     KINETIC ENERGY    :    1.2303696    
+
+ CHARMM>     
+
+ CHARMM>    stop
+      $$$$$$  New timer profile Local node$$$$$
+   Shake Setup                     0.02 Other:            0.00
+   First List                      5.29 Other:            0.00
+   Dynamics total                  5.74 Other:            0.00
+   BLaDE overhead                  1.08 Other:            0.00
+ Total time                     15.89 Other:            3.75
+         $$$$$$  Average   profile $$$$$
+   Shake Setup                     0.02 Other:            0.00
+   First List                      5.29 Other:            0.00
+   Dynamics total                  5.74 Other:            0.00
+   BLaDE overhead                  1.08 Other:            0.00
+ Total time                     15.89 Other:            3.75
+
+                    NORMAL TERMINATION BY NORMAL STOP
+                    MOST SEVERE WARNING WAS AT LEVEL  1
+
+                    $$$$$ JOB ACCOUNTING INFORMATION $$$$$
+                     ELAPSED TIME:    16.90  SECONDS 
+                         CPU TIME:    14.68  SECONDS 

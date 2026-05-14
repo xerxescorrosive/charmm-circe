@@ -1,0 +1,2204 @@
+1
+                 Chemistry at HARvard Macromolecular Mechanics
+           (CHARMM) - Developmental Version 51a2   February 15, 2026            
+                                Revision unknown                                
+       Copyright(c) 1984-2025  President and Fellows of Harvard College
+                              All Rights Reserved
+  Current operating system: Linux-3.10.0-862.11.6.el7.x86_64(x86_64)@mdc-1057   
+                         Compiler version: Intel 2021.2
+                 Created on  5/14/26 at 19:48:09 by user: ekukole     
+
+            Maximum number of ATOMS:    360720, and RESidues:      120240
+ RDTITL> * TEST CASE FOR MSLD PIECEWISE CONSTRAINT ON BLADE
+ RDTITL> * BASED ON TEST/C47TEST/BLADE_MSLD.INP
+ RDTITL> * TESTS THE NEWTON-SOLVED POLYNOMIAL CONSTRAINT (FPIE) FOR LAMBDA DYNAMICS
+ RDTITL> *
+
+ CHARMM>     
+
+ CHARMM>    if ?blade .ne. 1 then
+ RDCMND substituted energy or value "?BLADE" to "1"
+ Comparing "1" and "1".
+ IF test evaluated as false.  Skip to ELSE or ENDIF
+
+ CHARMM>     
+
+ CHARMM>    if ?block .ne. 1 then
+ RDCMND substituted energy or value "?BLOCK" to "1"
+ Comparing "1" and "1".
+ IF test evaluated as false.  Skip to ELSE or ENDIF
+
+ CHARMM>     
+
+ CHARMM>    if ?numnode .ne. 1 then
+ RDCMND substituted energy or value "?NUMNODE" to "1"
+ Comparing "1" and "1".
+ IF test evaluated as false.  Skip to ELSE or ENDIF
+
+ CHARMM>     
+
+ CHARMM>    stream datadir.def
+ VOPEN> Attempting to open::datadir.def::
+ OPNLGU> Unit 99 opened for READONLY access to /work_bgfs/e/ekukole/charmm-build/c51a2/dev-release-master/test/datadir.def
+
+                    INPUT STREAM SWITCHING TO UNIT    99
+ RDTITL> * CHARMM TESTCASE DATA DIRECTORY ASSIGNMENT
+ RDTITL> *
+ Parameter: IN1 <- "" <empty>
+
+ CHARMM>    faster on
+ MISCOM> FAST option: EXPANDED (limited fast routines)
+
+ CHARMM>    set pnode =
+ Parameter: PNODE <- "" <empty>
+
+ CHARMM>    if ?numnode .gt. 1 set pnode = node 0
+ RDCMND substituted energy or value "?NUMNODE" to "1"
+ Comparing "1" and "1".
+ IF test evaluated as false.  Skipping command
+
+ CHARMM>    set 0 data/     ! input data directory
+ Parameter: 0 <- "DATA/"
+
+ CHARMM>    set 9 scratch/  ! scratch directory
+ Parameter: 9 <- "SCRATCH/"
+
+ CHARMM>    set testcheck stream @0/test.str
+ Parameter: 0 -> "DATA/"
+ Parameter: TESTCHECK <- "STREAM DATA//TEST.STR"
+
+ CHARMM>    set qcheck stream @0/qtest.str
+ Parameter: 0 -> "DATA/"
+ Parameter: QCHECK <- "STREAM DATA//QTEST.STR"
+
+ CHARMM>    set testfail 0
+ Parameter: TESTFAIL <- "0"
+
+ CHARMM>    return
+ VCLOSE: Closing unit   99 with status "KEEP"
+
+                    RETURNING TO INPUT STREAM     5
+
+ CHARMM>     
+
+ CHARMM>    set sysname = 14benz
+ Parameter: SYSNAME <- "14BENZ"
+
+ CHARMM>    set box = 32.964000
+ Parameter: BOX <- "32.964000"
+
+ CHARMM>     
+
+ CHARMM>    ! read the full topology and parameter files
+ CHARMM>    read rtf card name @0prep14benz/top_all36_msld.rtf
+ Parameter: 0 -> "DATA/"
+ VOPEN> Attempting to open::data/prep14benz/top_all36_msld.rtf::
+ MAINIO> Residue topology file being read from unit  90.
+ TITLE> *>>>>>>>>CHARMM36 ALL-HYDROGEN TOPOLOGY FILE FOR PROTEINS <<<<<<
+ TITLE> *>>>>> INCLUDES PHI, PSI CROSS TERM MAP (CMAP) CORRECTION <<<<<<<
+ TITLE> *>>>>>>>>>>>>>>>>>>>>>>>>>> MAY 2011 <<<<<<<<<<<<<<<<<<<<<<<<<<<<
+ TITLE> * ALL COMMENTS TO THE CHARMM WEB SITE: WWW.CHARMM.ORG
+ TITLE> *             PARAMETER SET DISCUSSION FORUM
+ TITLE> *
+ VCLOSE: Closing unit   90 with status "KEEP"
+
+ CHARMM>    read rtf append card name @0prep14benz/full_ligand.rtf
+ Parameter: 0 -> "DATA/"
+ VOPEN> Attempting to open::data/prep14benz/full_ligand.rtf::
+ MAINIO> Residue topology file being read from unit  90.
+ TITLE> * CHARMM RTF BUILT BY MATCH
+ TITLE> *
+ VCLOSE: Closing unit   90 with status "KEEP"
+
+ CHARMM>    read param card flex name @0prep14benz/par_all36_msld.prm
+ Parameter: 0 -> "DATA/"
+ VOPEN> Attempting to open::data/prep14benz/par_all36_msld.prm::
+
+          PARAMETER FILE BEING READ FROM UNIT 90
+ TITLE> *>>>> CHARMM36 ALL-HYDROGEN PARAMETER FILE FOR PROTEINS <<<<<<<<<<
+ TITLE> *>>>>> INCLUDES PHI, PSI CROSS TERM MAP (CMAP) CORRECTION <<<<<<<<
+ TITLE> *>>>>>>>>>>>>>>>>>>>>>>>>>> FEB. 2012 <<<<<<<<<<<<<<<<<<<<<<<<<<<<
+ TITLE> * ALL COMMENTS TO THE CHARMM WEB SITE: WWW.CHARMM.ORG
+ TITLE> *             PARAMETER SET DISCUSSION FORUM
+ TITLE> *
+ PARMIO> NONBOND, HBOND lists and IMAGE atoms cleared.
+ VCLOSE: Closing unit   90 with status "KEEP"
+
+ CHARMM>    read param append card flex name @0prep14benz/full_ligand.prm
+ Parameter: 0 -> "DATA/"
+ VOPEN> Attempting to open::data/prep14benz/full_ligand.prm::
+
+          PARAMETER FILE BEING READ FROM UNIT 90
+ TITLE> * PRM FILES BUILT BY MATCH
+ TITLE> * PRM FILES COLLATED INTO A SINGLE FILE BY PROCESS.PY
+ TITLE> * A SCRIPT WRITTEN BY RYAN HAYES 2016-06-18
+ TITLE> *
+ **** Warning ****  The following extraneous characters
+ were found while command processing in PARRDR
+ C
+ **** Warning ****  The following extraneous characters
+ were found while command processing in PARRDR
+ C
+ **** Warning ****  The following extraneous characters
+ were found while command processing in PARRDR
+ C
+ **** Warning ****  The following extraneous characters
+ were found while command processing in PARRDR
+ H
+ **** Warning ****  The following extraneous characters
+ were found while command processing in PARRDR
+ C
+ **** Warning ****  The following extraneous characters
+ were found while command processing in PARRDR
+ H
+ **** Warning ****  The following extraneous characters
+ were found while command processing in PARRDR
+ C
+ **** Warning ****  The following extraneous characters
+ were found while command processing in PARRDR
+ C
+ **** Warning ****  The following extraneous characters
+ were found while command processing in PARRDR
+ C
+ **** Warning ****  The following extraneous characters
+ were found while command processing in PARRDR
+ C
+ **** Warning ****  The following extraneous characters
+ were found while command processing in PARRDR
+ H
+ **** Warning ****  The following extraneous characters
+ were found while command processing in PARRDR
+ H
+ **** Warning ****  The following extraneous characters
+ were found while command processing in PARRDR
+ H
+ **** Warning ****  The following extraneous characters
+ were found while command processing in PARRDR
+ O
+ **** Warning ****  The following extraneous characters
+ were found while command processing in PARRDR
+ H
+ **** Warning ****  The following extraneous characters
+ were found while command processing in PARRDR
+ O
+ PARMIO> NONBOND, HBOND lists and IMAGE atoms cleared.
+ VCLOSE: Closing unit   90 with status "KEEP"
+
+ CHARMM>     
+
+ CHARMM>    ! read in ligand sequence and coordinates
+ CHARMM>    set ligseg = lig
+ Parameter: LIGSEG <- "LIG"
+
+ CHARMM>    set resnum = 1
+ Parameter: RESNUM <- "1"
+
+ CHARMM>    read sequ pdb name @0prep14benz/full_ligand.pdb
+ Parameter: 0 -> "DATA/"
+ VOPEN> Attempting to open::data/prep14benz/full_ligand.pdb::
+ MAINIO> Sequence information being read from unit  90.
+ TITLE>  *
+
+          RESIDUE SEQUENCE --     1 RESIDUES
+          UNK 
+ VCLOSE: Closing unit   90 with status "KEEP"
+
+ CHARMM>    generate @ligseg setup
+ Parameter: LIGSEG -> "LIG"
+ NO PATCHING WILL BE DONE ON THE FIRST RESIDUE
+ NO PATCHING WILL BE DONE ON THE LAST  RESIDUE
+ AUTGEN: Autogenerating specified angles and dihedrals.
+ GENPSF> Segment   1 has been generated. Its identifier is LIG.
+ PSFSUM> PSF modified: NONBOND lists and IMAGE atoms cleared.
+ PSFSUM> Summary of the structure file counters :
+         Number of segments      =        1   Number of residues   =        1
+         Number of atoms         =       12   Number of groups     =        3
+         Number of bonds         =       12   Number of angles     =       18
+         Number of dihedrals     =       24   Number of impropers  =        0
+         Number of cross-terms   =        0   Number of autogens   =        0
+         Number of HB acceptors  =        0   Number of HB donors  =        0
+         Number of NB exclusions =        0   Total charge =    0.00000
+
+ CHARMM>    read coor pdb resid name @0prep14benz/full_ligand.pdb
+ Parameter: 0 -> "DATA/"
+ VOPEN> Attempting to open::data/prep14benz/full_ligand.pdb::
+  read CHARMM-pdb format
+          SPATIAL COORDINATES BEING READ FROM UNIT 90
+ TITLE>  *
+ VCLOSE: Closing unit   90 with status "KEEP"
+
+ CHARMM>     
+
+ CHARMM>    ! MODIFY to read in water sequence and coords
+ CHARMM>    read sequ pdb name @0prep14benz/solvent.pdb
+ Parameter: 0 -> "DATA/"
+ VOPEN> Attempting to open::data/prep14benz/solvent.pdb::
+ MAINIO> Sequence information being read from unit  90.
+ TITLE>  *
+SEQRDR> Residue insertion at RESID "1000"
+SEQRDR> Residue insertion at RESID "1001"
+SEQRDR> Residue insertion at RESID "1002"
+SEQRDR> Residue insertion at RESID "1003"
+SEQRDR> Residue insertion at RESID "1004"
+SEQRDR> Residue insertion at RESID "1005"
+SEQRDR> Residue insertion at RESID "1006"
+SEQRDR> Residue insertion at RESID "1007"
+SEQRDR> Residue insertion at RESID "1008"
+SEQRDR> Residue insertion at RESID "1009"
+SEQRDR> Residue insertion at RESID "1010"
+SEQRDR> Residue insertion at RESID "1011"
+SEQRDR> Residue insertion at RESID "1012"
+SEQRDR> Residue insertion at RESID "1013"
+SEQRDR> Residue insertion at RESID "1014"
+SEQRDR> Residue insertion at RESID "1015"
+SEQRDR> Residue insertion at RESID "1016"
+SEQRDR> Residue insertion at RESID "1017"
+SEQRDR> Residue insertion at RESID "1018"
+SEQRDR> Residue insertion at RESID "1019"
+SEQRDR> Residue insertion at RESID "1020"
+SEQRDR> Residue insertion at RESID "1021"
+SEQRDR> Residue insertion at RESID "1022"
+SEQRDR> Residue insertion at RESID "1023"
+SEQRDR> Residue insertion at RESID "1024"
+SEQRDR> Residue insertion at RESID "1025"
+SEQRDR> Residue insertion at RESID "1026"
+SEQRDR> Residue insertion at RESID "1027"
+SEQRDR> Residue insertion at RESID "1028"
+SEQRDR> Residue insertion at RESID "1029"
+SEQRDR> Residue insertion at RESID "1030"
+SEQRDR> Residue insertion at RESID "1031"
+SEQRDR> Residue insertion at RESID "1032"
+SEQRDR> Residue insertion at RESID "1033"
+SEQRDR> Residue insertion at RESID "1034"
+SEQRDR> Residue insertion at RESID "1035"
+SEQRDR> Residue insertion at RESID "1036"
+SEQRDR> Residue insertion at RESID "1037"
+SEQRDR> Residue insertion at RESID "1038"
+SEQRDR> Residue insertion at RESID "1039"
+SEQRDR> Residue insertion at RESID "1040"
+SEQRDR> Residue insertion at RESID "1041"
+SEQRDR> Residue insertion at RESID "1042"
+SEQRDR> Residue insertion at RESID "1043"
+SEQRDR> Residue insertion at RESID "1044"
+SEQRDR> Residue insertion at RESID "1045"
+SEQRDR> Residue insertion at RESID "1046"
+SEQRDR> Residue insertion at RESID "1047"
+SEQRDR> Residue insertion at RESID "1048"
+SEQRDR> Residue insertion at RESID "1049"
+SEQRDR> Residue insertion at RESID "1050"
+SEQRDR> Residue insertion at RESID "1051"
+SEQRDR> Residue insertion at RESID "1052"
+SEQRDR> Residue insertion at RESID "1053"
+SEQRDR> Residue insertion at RESID "1054"
+SEQRDR> Residue insertion at RESID "1055"
+SEQRDR> Residue insertion at RESID "1056"
+SEQRDR> Residue insertion at RESID "1057"
+SEQRDR> Residue insertion at RESID "1058"
+SEQRDR> Residue insertion at RESID "1059"
+SEQRDR> Residue insertion at RESID "1060"
+SEQRDR> Residue insertion at RESID "1061"
+SEQRDR> Residue insertion at RESID "1062"
+SEQRDR> Residue insertion at RESID "1063"
+SEQRDR> Residue insertion at RESID "1064"
+SEQRDR> Residue insertion at RESID "1065"
+SEQRDR> Residue insertion at RESID "1066"
+SEQRDR> Residue insertion at RESID "1067"
+SEQRDR> Residue insertion at RESID "1068"
+SEQRDR> Residue insertion at RESID "1069"
+SEQRDR> Residue insertion at RESID "1070"
+SEQRDR> Residue insertion at RESID "1071"
+SEQRDR> Residue insertion at RESID "1072"
+SEQRDR> Residue insertion at RESID "1073"
+SEQRDR> Residue insertion at RESID "1074"
+SEQRDR> Residue insertion at RESID "1075"
+SEQRDR> Residue insertion at RESID "1076"
+SEQRDR> Residue insertion at RESID "1077"
+SEQRDR> Residue insertion at RESID "1078"
+SEQRDR> Residue insertion at RESID "1079"
+SEQRDR> Residue insertion at RESID "1080"
+SEQRDR> Residue insertion at RESID "1081"
+SEQRDR> Residue insertion at RESID "1082"
+SEQRDR> Residue insertion at RESID "1083"
+SEQRDR> Residue insertion at RESID "1084"
+SEQRDR> Residue insertion at RESID "1085"
+SEQRDR> Residue insertion at RESID "1086"
+SEQRDR> Residue insertion at RESID "1087"
+SEQRDR> Residue insertion at RESID "1088"
+SEQRDR> Residue insertion at RESID "1089"
+SEQRDR> Residue insertion at RESID "1090"
+SEQRDR> Residue insertion at RESID "1091"
+SEQRDR> Residue insertion at RESID "1092"
+SEQRDR> Residue insertion at RESID "1093"
+SEQRDR> Residue insertion at RESID "1094"
+SEQRDR> Residue insertion at RESID "1095"
+SEQRDR> Residue insertion at RESID "1096"
+SEQRDR> Residue insertion at RESID "1097"
+SEQRDR> Residue insertion at RESID "1098"
+SEQRDR> Residue insertion at RESID "1099"
+SEQRDR> Residue insertion at RESID "1100"
+SEQRDR> Residue insertion at RESID "1101"
+SEQRDR> Residue insertion at RESID "1102"
+SEQRDR> Residue insertion at RESID "1103"
+SEQRDR> Residue insertion at RESID "1104"
+SEQRDR> Residue insertion at RESID "1105"
+SEQRDR> Residue insertion at RESID "1106"
+SEQRDR> Residue insertion at RESID "1107"
+SEQRDR> Residue insertion at RESID "1108"
+SEQRDR> Residue insertion at RESID "1109"
+SEQRDR> Residue insertion at RESID "1110"
+SEQRDR> Residue insertion at RESID "1111"
+SEQRDR> Residue insertion at RESID "1112"
+SEQRDR> Residue insertion at RESID "1113"
+SEQRDR> Residue insertion at RESID "1114"
+SEQRDR> Residue insertion at RESID "1115"
+SEQRDR> Residue insertion at RESID "1116"
+SEQRDR> Residue insertion at RESID "1117"
+SEQRDR> Residue insertion at RESID "1118"
+SEQRDR> Residue insertion at RESID "1119"
+SEQRDR> Residue insertion at RESID "1120"
+SEQRDR> Residue insertion at RESID "1121"
+SEQRDR> Residue insertion at RESID "1122"
+SEQRDR> Residue insertion at RESID "1123"
+SEQRDR> Residue insertion at RESID "1124"
+SEQRDR> Residue insertion at RESID "1125"
+SEQRDR> Residue insertion at RESID "1126"
+SEQRDR> Residue insertion at RESID "1127"
+SEQRDR> Residue insertion at RESID "1128"
+SEQRDR> Residue insertion at RESID "1129"
+SEQRDR> Residue insertion at RESID "1130"
+SEQRDR> Residue insertion at RESID "1131"
+SEQRDR> Residue insertion at RESID "1132"
+SEQRDR> Residue insertion at RESID "1133"
+SEQRDR> Residue insertion at RESID "1134"
+SEQRDR> Residue insertion at RESID "1135"
+SEQRDR> Residue insertion at RESID "1136"
+SEQRDR> Residue insertion at RESID "1137"
+SEQRDR> Residue insertion at RESID "1138"
+SEQRDR> Residue insertion at RESID "1139"
+SEQRDR> Residue insertion at RESID "1140"
+SEQRDR> Residue insertion at RESID "1141"
+SEQRDR> Residue insertion at RESID "1142"
+SEQRDR> Residue insertion at RESID "1143"
+SEQRDR> Residue insertion at RESID "1144"
+SEQRDR> Residue insertion at RESID "1145"
+SEQRDR> Residue insertion at RESID "1146"
+SEQRDR> Residue insertion at RESID "1147"
+SEQRDR> Residue insertion at RESID "1148"
+SEQRDR> Residue insertion at RESID "1149"
+SEQRDR> Residue insertion at RESID "1150"
+SEQRDR> Residue insertion at RESID "1151"
+SEQRDR> Residue insertion at RESID "1152"
+SEQRDR> Residue insertion at RESID "1153"
+SEQRDR> Residue insertion at RESID "1154"
+SEQRDR> Residue insertion at RESID "1155"
+SEQRDR> Residue insertion at RESID "1156"
+SEQRDR> Residue insertion at RESID "1157"
+SEQRDR> Residue insertion at RESID "1158"
+SEQRDR> Residue insertion at RESID "1159"
+SEQRDR> Residue insertion at RESID "1160"
+SEQRDR> Residue insertion at RESID "1161"
+SEQRDR> Residue insertion at RESID "1162"
+SEQRDR> Residue insertion at RESID "1163"
+SEQRDR> Residue insertion at RESID "1164"
+SEQRDR> Residue insertion at RESID "1165"
+SEQRDR> Residue insertion at RESID "1166"
+SEQRDR> Residue insertion at RESID "1167"
+SEQRDR> Residue insertion at RESID "1168"
+SEQRDR> Residue insertion at RESID "1169"
+SEQRDR> Residue insertion at RESID "1170"
+SEQRDR> Residue insertion at RESID "1171"
+SEQRDR> Residue insertion at RESID "1172"
+SEQRDR> Residue insertion at RESID "1173"
+SEQRDR> Residue insertion at RESID "1174"
+SEQRDR> Residue insertion at RESID "1175"
+SEQRDR> Residue insertion at RESID "1176"
+SEQRDR> Residue insertion at RESID "1177"
+SEQRDR> Residue insertion at RESID "1178"
+SEQRDR> Residue insertion at RESID "1179"
+SEQRDR> Residue insertion at RESID "1180"
+SEQRDR> Residue insertion at RESID "1181"
+SEQRDR> Residue insertion at RESID "1182"
+SEQRDR> Residue insertion at RESID "1183"
+SEQRDR> Residue insertion at RESID "1184"
+SEQRDR> Residue insertion at RESID "1185"
+SEQRDR> Residue insertion at RESID "1186"
+SEQRDR> Residue insertion at RESID "1187"
+SEQRDR> Residue insertion at RESID "1188"
+SEQRDR> Residue insertion at RESID "1189"
+SEQRDR> Residue insertion at RESID "1190"
+SEQRDR> Residue insertion at RESID "1191"
+SEQRDR> Residue insertion at RESID "1192"
+SEQRDR> Residue insertion at RESID "1193"
+SEQRDR> Residue insertion at RESID "1194"
+SEQRDR> Residue insertion at RESID "1195"
+SEQRDR> Residue insertion at RESID "1196"
+SEQRDR> Residue insertion at RESID "1197"
+SEQRDR> Residue insertion at RESID "1198"
+SEQRDR> Residue insertion at RESID "1199"
+SEQRDR> Residue insertion at RESID "1200"
+SEQRDR> Residue insertion at RESID "1201"
+
+          RESIDUE SEQUENCE --  1200 RESIDUES
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+          TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3TIP3
+ VCLOSE: Closing unit   90 with status "KEEP"
+
+ CHARMM>    generate WT00 first none last none setup noangl nodihe
+ NO PATCHING WILL BE DONE ON THE FIRST RESIDUE
+ NO PATCHING WILL BE DONE ON THE LAST  RESIDUE
+ GENPSF> Segment   2 has been generated. Its identifier is WT00.
+ PSFSUM> PSF modified: NONBOND lists and IMAGE atoms cleared.
+ PSFSUM> Summary of the structure file counters :
+         Number of segments      =        2   Number of residues   =     1201
+         Number of atoms         =     3612   Number of groups     =     1203
+         Number of bonds         =     3612   Number of angles     =     1218
+         Number of dihedrals     =       24   Number of impropers  =        0
+         Number of cross-terms   =        0   Number of autogens   =     1200
+         Number of HB acceptors  =     1200   Number of HB donors  =     2400
+         Number of NB exclusions =        0   Total charge =    0.00000
+
+ CHARMM>    read coor pdb resid name @0prep14benz/solvent.pdb
+ Parameter: 0 -> "DATA/"
+ VOPEN> Attempting to open::data/prep14benz/solvent.pdb::
+  read CHARMM-pdb format
+          SPATIAL COORDINATES BEING READ FROM UNIT 90
+ TITLE>  *
+ VCLOSE: Closing unit   90 with status "KEEP"
+
+ CHARMM>     
+
+ CHARMM>    bomblev -1
+
+ CHARMM>     
+
+ CHARMM>    ! Hybrid Ligand Setup
+ CHARMM>    ! (1) read in patch files
+ CHARMM>    read rtf append card name @0prep14benz/site1_sub1_pres.rtf
+ Parameter: 0 -> "DATA/"
+ VOPEN> Attempting to open::data/prep14benz/site1_sub1_pres.rtf::
+ MAINIO> Residue topology file being read from unit  90.
+ TITLE> * FRAGMENT PRES BUILT BY PROCESS.PY
+ TITLE> *
+ VCLOSE: Closing unit   90 with status "KEEP"
+
+ CHARMM>    read rtf append card name @0prep14benz/site1_sub2_pres.rtf
+ Parameter: 0 -> "DATA/"
+ VOPEN> Attempting to open::data/prep14benz/site1_sub2_pres.rtf::
+ MAINIO> Residue topology file being read from unit  90.
+ TITLE> * FRAGMENT PRES BUILT BY PROCESS.PY
+ TITLE> *
+ VCLOSE: Closing unit   90 with status "KEEP"
+
+ CHARMM>    read rtf append card name @0prep14benz/site1_sub3_pres.rtf
+ Parameter: 0 -> "DATA/"
+ VOPEN> Attempting to open::data/prep14benz/site1_sub3_pres.rtf::
+ MAINIO> Residue topology file being read from unit  90.
+ TITLE> * FRAGMENT PRES BUILT BY PROCESS.PY
+ TITLE> *
+ VCLOSE: Closing unit   90 with status "KEEP"
+
+ CHARMM>    read rtf append card name @0prep14benz/site1_sub4_pres.rtf
+ Parameter: 0 -> "DATA/"
+ VOPEN> Attempting to open::data/prep14benz/site1_sub4_pres.rtf::
+ MAINIO> Residue topology file being read from unit  90.
+ TITLE> * FRAGMENT PRES BUILT BY PROCESS.PY
+ TITLE> *
+ VCLOSE: Closing unit   90 with status "KEEP"
+
+ CHARMM>    read rtf append card name @0prep14benz/site1_sub5_pres.rtf
+ Parameter: 0 -> "DATA/"
+ VOPEN> Attempting to open::data/prep14benz/site1_sub5_pres.rtf::
+ MAINIO> Residue topology file being read from unit  90.
+ TITLE> * FRAGMENT PRES BUILT BY PROCESS.PY
+ TITLE> *
+ VCLOSE: Closing unit   90 with status "KEEP"
+
+ CHARMM>    read rtf append card name @0prep14benz/site2_sub1_pres.rtf
+ Parameter: 0 -> "DATA/"
+ VOPEN> Attempting to open::data/prep14benz/site2_sub1_pres.rtf::
+ MAINIO> Residue topology file being read from unit  90.
+ TITLE> * FRAGMENT PRES BUILT BY PROCESS.PY
+ TITLE> *
+ VCLOSE: Closing unit   90 with status "KEEP"
+
+ CHARMM>    read rtf append card name @0prep14benz/site2_sub2_pres.rtf
+ Parameter: 0 -> "DATA/"
+ VOPEN> Attempting to open::data/prep14benz/site2_sub2_pres.rtf::
+ MAINIO> Residue topology file being read from unit  90.
+ TITLE> * FRAGMENT PRES BUILT BY PROCESS.PY
+ TITLE> *
+ VCLOSE: Closing unit   90 with status "KEEP"
+
+ CHARMM>    read rtf append card name @0prep14benz/site2_sub3_pres.rtf
+ Parameter: 0 -> "DATA/"
+ VOPEN> Attempting to open::data/prep14benz/site2_sub3_pres.rtf::
+ MAINIO> Residue topology file being read from unit  90.
+ TITLE> * FRAGMENT PRES BUILT BY PROCESS.PY
+ TITLE> *
+ VCLOSE: Closing unit   90 with status "KEEP"
+
+ CHARMM>    read rtf append card name @0prep14benz/site2_sub4_pres.rtf
+ Parameter: 0 -> "DATA/"
+ VOPEN> Attempting to open::data/prep14benz/site2_sub4_pres.rtf::
+ MAINIO> Residue topology file being read from unit  90.
+ TITLE> * FRAGMENT PRES BUILT BY PROCESS.PY
+ TITLE> *
+ VCLOSE: Closing unit   90 with status "KEEP"
+
+ CHARMM>    read rtf append card name @0prep14benz/site2_sub5_pres.rtf
+ Parameter: 0 -> "DATA/"
+ VOPEN> Attempting to open::data/prep14benz/site2_sub5_pres.rtf::
+ MAINIO> Residue topology file being read from unit  90.
+ TITLE> * FRAGMENT PRES BUILT BY PROCESS.PY
+ TITLE> *
+ VCLOSE: Closing unit   90 with status "KEEP"
+
+ CHARMM>    read rtf append card name @0prep14benz/site2_sub6_pres.rtf
+ Parameter: 0 -> "DATA/"
+ VOPEN> Attempting to open::data/prep14benz/site2_sub6_pres.rtf::
+ MAINIO> Residue topology file being read from unit  90.
+ TITLE> * FRAGMENT PRES BUILT BY PROCESS.PY
+ TITLE> *
+ VCLOSE: Closing unit   90 with status "KEEP"
+
+ CHARMM>    read rtf append card name @0prep14benz/site2_sub7_pres.rtf
+ Parameter: 0 -> "DATA/"
+ VOPEN> Attempting to open::data/prep14benz/site2_sub7_pres.rtf::
+ MAINIO> Residue topology file being read from unit  90.
+ TITLE> * FRAGMENT PRES BUILT BY PROCESS.PY
+ TITLE> *
+ VCLOSE: Closing unit   90 with status "KEEP"
+
+ CHARMM>     
+
+ CHARMM>    !  (3) add atoms for each substituent
+ CHARMM>    ic generate
+
+               Generation complete. New IC table entries:
+
+   N     I       J       K       L   R(I(J/K)) T(I(JK/KJ)) PHI   T(JKL)   R(KL)
+
+    1   1 C4    1 C1    1 *C0   1 H0     0.0000    0.00  180.00    0.00   0.0000
+    2   1 H0    1 C0    1 C1    1 C5     0.0000    0.00  180.00    0.00   0.0000
+    3   1 C5    1 C0    1 *C1   1 H1     0.0000    0.00  180.00    0.00   0.0000
+    4   1 C0    1 C1    1 C5    1 C2     0.0000    0.00  180.00    0.00   0.0000
+    5   1 C2    1 C1    1 *C5   1 H5     0.0000    0.00  180.00    0.00   0.0000
+    6   1 C1    1 C5    1 C2    1 C3     0.0000    0.00  180.00    0.00   0.0000
+    7   1 C3    1 C5    1 *C2   1 H2     0.0000    0.00  180.00    0.00   0.0000
+    8   1 C4    1 C2    1 *C3   1 H3     0.0000    0.00  180.00    0.00   0.0000
+    9   1 C3    1 C0    1 *C4   1 H4     0.0000    0.00  180.00    0.00   0.0000
+
+ CHARMM>     
+
+ CHARMM>    patch p1_1 @ligseg @resnum setup
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ ATOM  LIG  UNK  1    C100 ADDED.
+ ATOM  LIG  UNK  1    H101 ADDED.
+
+ Message from MAPIC: Atom numbers are changed.
+ PSFSUM> PSF modified: NONBOND lists and IMAGE atoms cleared.
+ PSFSUM> Summary of the structure file counters :
+         Number of segments      =        2   Number of residues   =     1201
+         Number of atoms         =     3614   Number of groups     =     1204
+         Number of bonds         =     3615   Number of angles     =     1225
+         Number of dihedrals     =       36   Number of impropers  =        0
+         Number of cross-terms   =        0   Number of autogens   =     1219
+         Number of HB acceptors  =     1200   Number of HB donors  =     2400
+         Number of NB exclusions =        0   Total charge =    0.00000
+
+ CHARMM>    read coor pdb resid name @0prep14benz/site1_sub1_frag.pdb
+ Parameter: 0 -> "DATA/"
+ VOPEN> Attempting to open::data/prep14benz/site1_sub1_frag.pdb::
+  read CHARMM-pdb format
+          SPATIAL COORDINATES BEING READ FROM UNIT 90
+ TITLE>  *
+ VCLOSE: Closing unit   90 with status "KEEP"
+
+ CHARMM>    ic param
+
+ CHARMM>    ic build
+
+ CHARMM>     
+
+ CHARMM>    patch p1_2 @ligseg @resnum setup
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ ATOM  LIG  UNK  1    O103 ADDED.
+ ATOM  LIG  UNK  1    H104 ADDED.
+ ATOM  LIG  UNK  1    C102 ADDED.
+
+ Message from MAPIC: Atom numbers are changed.
+ PSFSUM> PSF modified: NONBOND lists and IMAGE atoms cleared.
+ PSFSUM> Summary of the structure file counters :
+         Number of segments      =        2   Number of residues   =     1201
+         Number of atoms         =     3617   Number of groups     =     1205
+         Number of bonds         =     3619   Number of angles     =     1233
+         Number of dihedrals     =       50   Number of impropers  =        0
+         Number of cross-terms   =        0   Number of autogens   =     1241
+         Number of HB acceptors  =     1200   Number of HB donors  =     2400
+         Number of NB exclusions =        0   Total charge =    0.00000
+
+ CHARMM>    read coor pdb resid name @0prep14benz/site1_sub2_frag.pdb
+ Parameter: 0 -> "DATA/"
+ VOPEN> Attempting to open::data/prep14benz/site1_sub2_frag.pdb::
+  read CHARMM-pdb format
+          SPATIAL COORDINATES BEING READ FROM UNIT 90
+ TITLE>  *
+ VCLOSE: Closing unit   90 with status "KEEP"
+
+ CHARMM>    ic param
+
+ CHARMM>    ic build
+
+ CHARMM>     
+
+ CHARMM>    patch p1_3 @ligseg @resnum setup
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ ATOM  LIG  UNK  1    C105 ADDED.
+ ATOM  LIG  UNK  1    C106 ADDED.
+ ATOM  LIG  UNK  1    H107 ADDED.
+ ATOM  LIG  UNK  1    H108 ADDED.
+ ATOM  LIG  UNK  1    H109 ADDED.
+
+ Message from MAPIC: Atom numbers are changed.
+ PSFSUM> PSF modified: NONBOND lists and IMAGE atoms cleared.
+ PSFSUM> Summary of the structure file counters :
+         Number of segments      =        2   Number of residues   =     1201
+         Number of atoms         =     3622   Number of groups     =     1206
+         Number of bonds         =     3625   Number of angles     =     1246
+         Number of dihedrals     =       68   Number of impropers  =        0
+         Number of cross-terms   =        0   Number of autogens   =     1272
+         Number of HB acceptors  =     1200   Number of HB donors  =     2400
+         Number of NB exclusions =        0   Total charge =   -0.00000
+
+ CHARMM>    read coor pdb resid name @0prep14benz/site1_sub3_frag.pdb
+ Parameter: 0 -> "DATA/"
+ VOPEN> Attempting to open::data/prep14benz/site1_sub3_frag.pdb::
+  read CHARMM-pdb format
+          SPATIAL COORDINATES BEING READ FROM UNIT 90
+ TITLE>  *
+ VCLOSE: Closing unit   90 with status "KEEP"
+
+ CHARMM>    ic param
+
+ CHARMM>    ic build
+
+ CHARMM>     
+
+ CHARMM>    patch p1_4 @ligseg @resnum setup
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ ATOM  LIG  UNK  1    C111 ADDED.
+ ATOM  LIG  UNK  1    H113 ADDED.
+ ATOM  LIG  UNK  1    H114 ADDED.
+ ATOM  LIG  UNK  1    C112 ADDED.
+ ATOM  LIG  UNK  1    H115 ADDED.
+ ATOM  LIG  UNK  1    H116 ADDED.
+ ATOM  LIG  UNK  1    H117 ADDED.
+ ATOM  LIG  UNK  1    C110 ADDED.
+
+ Message from MAPIC: Atom numbers are changed.
+ PSFSUM> PSF modified: NONBOND lists and IMAGE atoms cleared.
+ PSFSUM> Summary of the structure file counters :
+         Number of segments      =        2   Number of residues   =     1201
+         Number of atoms         =     3630   Number of groups     =     1207
+         Number of bonds         =     3634   Number of angles     =     1265
+         Number of dihedrals     =       95   Number of impropers  =        0
+         Number of cross-terms   =        0   Number of autogens   =     1318
+         Number of HB acceptors  =     1200   Number of HB donors  =     2400
+         Number of NB exclusions =        0   Total charge =    0.00000
+
+ CHARMM>    read coor pdb resid name @0prep14benz/site1_sub4_frag.pdb
+ Parameter: 0 -> "DATA/"
+ VOPEN> Attempting to open::data/prep14benz/site1_sub4_frag.pdb::
+  read CHARMM-pdb format
+          SPATIAL COORDINATES BEING READ FROM UNIT 90
+ TITLE>  *
+ VCLOSE: Closing unit   90 with status "KEEP"
+
+ CHARMM>    ic param
+
+ CHARMM>    ic build
+
+ CHARMM>     
+
+ CHARMM>    patch p1_5 @ligseg @resnum setup
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ ATOM  LIG  UNK  1    C119 ADDED.
+ ATOM  LIG  UNK  1    H123 ADDED.
+ ATOM  LIG  UNK  1    H124 ADDED.
+ ATOM  LIG  UNK  1    C118 ADDED.
+ ATOM  LIG  UNK  1    C122 ADDED.
+ ATOM  LIG  UNK  1    H126 ADDED.
+ ATOM  LIG  UNK  1    H127 ADDED.
+ ATOM  LIG  UNK  1    H128 ADDED.
+ ATOM  LIG  UNK  1    C120 ADDED.
+ ATOM  LIG  UNK  1    H125 ADDED.
+ ATOM  LIG  UNK  1    C121 ADDED.
+ ATOM  LIG  UNK  1    H129 ADDED.
+ ATOM  LIG  UNK  1    H130 ADDED.
+ ATOM  LIG  UNK  1    H131 ADDED.
+
+ Message from MAPIC: Atom numbers are changed.
+ PSFSUM> PSF modified: NONBOND lists and IMAGE atoms cleared.
+ PSFSUM> Summary of the structure file counters :
+         Number of segments      =        2   Number of residues   =     1201
+         Number of atoms         =     3644   Number of groups     =     1208
+         Number of bonds         =     3649   Number of angles     =     1296
+         Number of dihedrals     =      140   Number of impropers  =        0
+         Number of cross-terms   =        0   Number of autogens   =     1394
+         Number of HB acceptors  =     1200   Number of HB donors  =     2400
+         Number of NB exclusions =        0   Total charge =   -0.00000
+
+ CHARMM>    read coor pdb resid name @0prep14benz/site1_sub5_frag.pdb
+ Parameter: 0 -> "DATA/"
+ VOPEN> Attempting to open::data/prep14benz/site1_sub5_frag.pdb::
+  read CHARMM-pdb format
+          SPATIAL COORDINATES BEING READ FROM UNIT 90
+ TITLE>  *
+ VCLOSE: Closing unit   90 with status "KEEP"
+
+ CHARMM>    ic param
+
+ CHARMM>    ic build
+
+ CHARMM>     
+
+ CHARMM>    patch p2_1 @ligseg @resnum setup
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ ATOM  LIG  UNK  1    C132 ADDED.
+ ATOM  LIG  UNK  1    H133 ADDED.
+
+ Message from MAPIC: Atom numbers are changed.
+ PSFSUM> PSF modified: NONBOND lists and IMAGE atoms cleared.
+ PSFSUM> Summary of the structure file counters :
+         Number of segments      =        2   Number of residues   =     1201
+         Number of atoms         =     3646   Number of groups     =     1209
+         Number of bonds         =     3652   Number of angles     =     1303
+         Number of dihedrals     =      152   Number of impropers  =        0
+         Number of cross-terms   =        0   Number of autogens   =     1413
+         Number of HB acceptors  =     1200   Number of HB donors  =     2400
+         Number of NB exclusions =        0   Total charge =   -0.00000
+
+ CHARMM>    read coor pdb resid name @0prep14benz/site2_sub1_frag.pdb
+ Parameter: 0 -> "DATA/"
+ VOPEN> Attempting to open::data/prep14benz/site2_sub1_frag.pdb::
+  read CHARMM-pdb format
+          SPATIAL COORDINATES BEING READ FROM UNIT 90
+ TITLE>  *
+ VCLOSE: Closing unit   90 with status "KEEP"
+
+ CHARMM>    ic param
+
+ CHARMM>    ic build
+
+ CHARMM>     
+
+ CHARMM>    patch p2_2 @ligseg @resnum setup
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ ATOM  LIG  UNK  1    C134 ADDED.
+ ATOM  LIG  UNK  1    O135 ADDED.
+ ATOM  LIG  UNK  1    H136 ADDED.
+
+ Message from MAPIC: Atom numbers are changed.
+ PSFSUM> PSF modified: NONBOND lists and IMAGE atoms cleared.
+ PSFSUM> Summary of the structure file counters :
+         Number of segments      =        2   Number of residues   =     1201
+         Number of atoms         =     3649   Number of groups     =     1210
+         Number of bonds         =     3656   Number of angles     =     1311
+         Number of dihedrals     =      166   Number of impropers  =        0
+         Number of cross-terms   =        0   Number of autogens   =     1435
+         Number of HB acceptors  =     1200   Number of HB donors  =     2400
+         Number of NB exclusions =        0   Total charge =   -0.00000
+
+ CHARMM>    read coor pdb resid name @0prep14benz/site2_sub2_frag.pdb
+ Parameter: 0 -> "DATA/"
+ VOPEN> Attempting to open::data/prep14benz/site2_sub2_frag.pdb::
+  read CHARMM-pdb format
+          SPATIAL COORDINATES BEING READ FROM UNIT 90
+ TITLE>  *
+ VCLOSE: Closing unit   90 with status "KEEP"
+
+ CHARMM>    ic param
+
+ CHARMM>    ic build
+
+ CHARMM>     
+
+ CHARMM>    patch p2_3 @ligseg @resnum setup
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ ATOM  LIG  UNK  1    C137 ADDED.
+ ATOM  LIG  UNK  1    C138 ADDED.
+ ATOM  LIG  UNK  1    H139 ADDED.
+ ATOM  LIG  UNK  1    H140 ADDED.
+ ATOM  LIG  UNK  1    H141 ADDED.
+
+ Message from MAPIC: Atom numbers are changed.
+ PSFSUM> PSF modified: NONBOND lists and IMAGE atoms cleared.
+ PSFSUM> Summary of the structure file counters :
+         Number of segments      =        2   Number of residues   =     1201
+         Number of atoms         =     3654   Number of groups     =     1211
+         Number of bonds         =     3662   Number of angles     =     1324
+         Number of dihedrals     =      184   Number of impropers  =        0
+         Number of cross-terms   =        0   Number of autogens   =     1466
+         Number of HB acceptors  =     1200   Number of HB donors  =     2400
+         Number of NB exclusions =        0   Total charge =    0.00000
+
+ CHARMM>    read coor pdb resid name @0prep14benz/site2_sub3_frag.pdb
+ Parameter: 0 -> "DATA/"
+ VOPEN> Attempting to open::data/prep14benz/site2_sub3_frag.pdb::
+  read CHARMM-pdb format
+          SPATIAL COORDINATES BEING READ FROM UNIT 90
+ TITLE>  *
+ VCLOSE: Closing unit   90 with status "KEEP"
+
+ CHARMM>    ic param
+
+ CHARMM>    ic build
+
+ CHARMM>     
+
+ CHARMM>    patch p2_4 @ligseg @resnum setup
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ ATOM  LIG  UNK  1    C142 ADDED.
+ ATOM  LIG  UNK  1    C143 ADDED.
+ ATOM  LIG  UNK  1    H145 ADDED.
+ ATOM  LIG  UNK  1    O144 ADDED.
+
+ Message from MAPIC: Atom numbers are changed.
+ PSFSUM> PSF modified: NONBOND lists and IMAGE atoms cleared.
+ PSFSUM> Summary of the structure file counters :
+         Number of segments      =        2   Number of residues   =     1201
+         Number of atoms         =     3658   Number of groups     =     1212
+         Number of bonds         =     3667   Number of angles     =     1334
+         Number of dihedrals     =      200   Number of impropers  =        1
+         Number of cross-terms   =        0   Number of autogens   =     1492
+         Number of HB acceptors  =     1200   Number of HB donors  =     2400
+         Number of NB exclusions =        0   Total charge =   -0.00000
+
+ CHARMM>    read coor pdb resid name @0prep14benz/site2_sub4_frag.pdb
+ Parameter: 0 -> "DATA/"
+ VOPEN> Attempting to open::data/prep14benz/site2_sub4_frag.pdb::
+  read CHARMM-pdb format
+          SPATIAL COORDINATES BEING READ FROM UNIT 90
+ TITLE>  *
+ VCLOSE: Closing unit   90 with status "KEEP"
+
+ CHARMM>    ic param
+
+ CHARMM>    ic build
+
+ CHARMM>     
+
+ CHARMM>    patch p2_5 @ligseg @resnum setup
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ ATOM  LIG  UNK  1    C146 ADDED.
+ ATOM  LIG  UNK  1    C147 ADDED.
+ ATOM  LIG  UNK  1    C148 ADDED.
+ ATOM  LIG  UNK  1    H150 ADDED.
+ ATOM  LIG  UNK  1    H151 ADDED.
+ ATOM  LIG  UNK  1    H152 ADDED.
+ ATOM  LIG  UNK  1    O149 ADDED.
+
+ Message from MAPIC: Atom numbers are changed.
+ PSFSUM> PSF modified: NONBOND lists and IMAGE atoms cleared.
+ PSFSUM> Summary of the structure file counters :
+         Number of segments      =        2   Number of residues   =     1201
+         Number of atoms         =     3665   Number of groups     =     1213
+         Number of bonds         =     3675   Number of angles     =     1350
+         Number of dihedrals     =      222   Number of impropers  =        2
+         Number of cross-terms   =        0   Number of autogens   =     1530
+         Number of HB acceptors  =     1200   Number of HB donors  =     2400
+         Number of NB exclusions =        0   Total charge =   -0.00000
+
+ CHARMM>    read coor pdb resid name @0prep14benz/site2_sub5_frag.pdb
+ Parameter: 0 -> "DATA/"
+ VOPEN> Attempting to open::data/prep14benz/site2_sub5_frag.pdb::
+  read CHARMM-pdb format
+          SPATIAL COORDINATES BEING READ FROM UNIT 90
+ TITLE>  *
+ VCLOSE: Closing unit   90 with status "KEEP"
+
+ CHARMM>    ic param
+
+ CHARMM>    ic build
+
+ CHARMM>     
+
+ CHARMM>    patch p2_6 @ligseg @resnum setup
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ ATOM  LIG  UNK  1    C153 ADDED.
+ ATOM  LIG  UNK  1    C157 ADDED.
+ ATOM  LIG  UNK  1    H162 ADDED.
+ ATOM  LIG  UNK  1    C156 ADDED.
+ ATOM  LIG  UNK  1    H161 ADDED.
+ ATOM  LIG  UNK  1    C155 ADDED.
+ ATOM  LIG  UNK  1    H160 ADDED.
+ ATOM  LIG  UNK  1    C154 ADDED.
+ ATOM  LIG  UNK  1    C159 ADDED.
+ ATOM  LIG  UNK  1    H164 ADDED.
+ ATOM  LIG  UNK  1    C158 ADDED.
+ ATOM  LIG  UNK  1    H163 ADDED.
+
+ Message from MAPIC: Atom numbers are changed.
+ PSFSUM> PSF modified: NONBOND lists and IMAGE atoms cleared.
+ PSFSUM> Summary of the structure file counters :
+         Number of segments      =        2   Number of residues   =     1201
+         Number of atoms         =     3677   Number of groups     =     1214
+         Number of bonds         =     3689   Number of angles     =     1375
+         Number of dihedrals     =      262   Number of impropers  =        2
+         Number of cross-terms   =        0   Number of autogens   =     1595
+         Number of HB acceptors  =     1200   Number of HB donors  =     2400
+         Number of NB exclusions =        0   Total charge =   -0.00000
+
+ CHARMM>    read coor pdb resid name @0prep14benz/site2_sub6_frag.pdb
+ Parameter: 0 -> "DATA/"
+ VOPEN> Attempting to open::data/prep14benz/site2_sub6_frag.pdb::
+  read CHARMM-pdb format
+          SPATIAL COORDINATES BEING READ FROM UNIT 90
+ TITLE>  *
+ VCLOSE: Closing unit   90 with status "KEEP"
+
+ CHARMM>    ic param
+
+ CHARMM>    ic build
+
+ CHARMM>     
+
+ CHARMM>    patch p2_7 @ligseg @resnum setup
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ ATOM  LIG  UNK  1    C165 ADDED.
+ ATOM  LIG  UNK  1    C168 ADDED.
+ ATOM  LIG  UNK  1    H173 ADDED.
+ ATOM  LIG  UNK  1    H174 ADDED.
+ ATOM  LIG  UNK  1    H175 ADDED.
+ ATOM  LIG  UNK  1    C166 ADDED.
+ ATOM  LIG  UNK  1    H171 ADDED.
+ ATOM  LIG  UNK  1    O169 ADDED.
+ ATOM  LIG  UNK  1    C167 ADDED.
+ ATOM  LIG  UNK  1    O170 ADDED.
+ ATOM  LIG  UNK  1    H172 ADDED.
+
+ Message from MAPIC: Atom numbers are changed.
+ PSFSUM> PSF modified: NONBOND lists and IMAGE atoms cleared.
+ PSFSUM> Summary of the structure file counters :
+         Number of segments      =        2   Number of residues   =     1201
+         Number of atoms         =     3688   Number of groups     =     1215
+         Number of bonds         =     3701   Number of angles     =     1398
+         Number of dihedrals     =      297   Number of impropers  =        3
+         Number of cross-terms   =        0   Number of autogens   =     1653
+         Number of HB acceptors  =     1200   Number of HB donors  =     2400
+         Number of NB exclusions =        0   Total charge =   -0.00000
+
+ CHARMM>    read coor pdb resid name @0prep14benz/site2_sub7_frag.pdb
+ Parameter: 0 -> "DATA/"
+ VOPEN> Attempting to open::data/prep14benz/site2_sub7_frag.pdb::
+  read CHARMM-pdb format
+          SPATIAL COORDINATES BEING READ FROM UNIT 90
+ TITLE>  *
+ VCLOSE: Closing unit   90 with status "KEEP"
+
+ CHARMM>    ic param
+
+ CHARMM>    ic build
+
+ CHARMM>     
+
+ CHARMM>    ! (2) delete atoms in common core ligand
+ CHARMM>    !    atoms taken from site1_sub1.txt site2_sub1.txt
+ CHARMM>    delete atom select ( -
+ CHARMM>       atom @ligseg @resnum C4 .or. -
+ CHARMM>       atom @ligseg @resnum C5 .or. -
+ CHARMM>       atom @ligseg @resnum H4 .or. -
+ CHARMM>       atom @ligseg @resnum H5 .or. -
+ CHARMM>       none ) end
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ SELRPN>      4 atoms have been selected out of   3688
+
+ Message from MAPIC: Atom numbers are changed.
+ DELTIC:         6 bonds deleted
+ DELTIC:        14 angles deleted
+ DELTIC:        46 dihedrals deleted
+ DELTIC:        24 autogen elements deleted
+ PSFSUM> PSF modified: NONBOND lists and IMAGE atoms cleared.
+ PSFSUM> Summary of the structure file counters :
+         Number of segments      =        2   Number of residues   =     1201
+         Number of atoms         =     3684   Number of groups     =     1213
+         Number of bonds         =     3695   Number of angles     =     1384
+         Number of dihedrals     =      251   Number of impropers  =        3
+         Number of cross-terms   =        0   Number of autogens   =     1629
+         Number of HB acceptors  =     1200   Number of HB donors  =     2400
+         Number of NB exclusions =        0   Total charge =   -0.00000
+
+ CHARMM>     
+
+ CHARMM>    ! MODIFY to set up periodic images or SBC
+ CHARMM>    coor stat
+ STATISTICS FOR      3684 SELECTED ATOMS:
+    XMIN =  -17.309000 XMAX =   16.795000 XAVE =   -0.072048
+    YMIN =  -17.142000 YMAX =   17.270000 YAVE =   -0.153118
+    ZMIN =  -16.978000 ZMAX =   17.322000 ZAVE =   -0.172309
+    WMIN =    0.000000 WMAX =    0.000000 WAVE =    0.000000
+
+ CHARMM>    crystal define cubic @box @box @box 90. 90. 90.
+ Parameter: BOX -> "32.964000"
+ Parameter: BOX -> "32.964000"
+ Parameter: BOX -> "32.964000"
+ Crystal Parameters : Crystal Type = CUBI
+           A     =   32.96400 B    =   32.96400 C     =   32.96400
+           Alpha =   90.00000 Beta =   90.00000 Gamma =   90.00000
+
+ CHARMM>    crystal build cutoff 15 nope 0
+ XBUILD> Building all transformations with a minimum atom-atom
+         contact distance of less than   15.00 Angstroms.
+
+ Range of Grid Search for Transformation     1 :
+ Lattice Vector A    -2 TO     2
+ Lattice Vector B    -2 TO     2
+ Lattice Vector C    -2 TO     2
+
+
+ The number of transformations generated =    26
+
+
+ Number  Symop   A   B   C   Distance
+
+      1      1  -1  -1  -1     6.3522
+      2      1  -1   0  -1     4.9190
+      3      1  -1   1  -1     5.5181
+      4      1   0  -1  -1     2.6888
+      5      1   0   0  -1     3.1234
+      6      1   0   1  -1     4.5744
+      7      1  -1  -1   0     2.0879
+      8      1  -1   0   0     1.3711
+      9      1  -1   1   0     3.4038
+     10      1   0  -1   0     1.4221
+     11      1   0   1   0     1.4221
+     12      1  -1  -1   1     5.2920
+     13      1  -1   0   1     4.0892
+     14      1  -1   1   1     5.9424
+     15      1   0  -1   1     4.5744
+     16      1   0   0   1     3.1234
+     17      1   0   1   1     2.6888
+     18      1   1   1   1     6.3522
+     19      1   1   0   1     4.9190
+     20      1   1  -1   1     5.5181
+     21      1   1   1   0     2.0879
+     22      1   1   0   0     1.3711
+     23      1   1  -1   0     3.4038
+     24      1   1   1  -1     5.2920
+     25      1   1   0  -1     4.0892
+     26      1   1  -1  -1     5.9424
+                     CRYSTAL: CHANGING TO EXTENDED FORMAT TO HANDLE LONGER IMAGE TRANSFORMATION NAMES.
+                     THERE ARE NO ROTATIONS FOR THIS TRANSFORMATION SET
+    26 Transformations have been processed.
+
+
+ CHARMM>    image byseg xcen 0 ycen 0 zcen 0 sele .not. ( resn TIP3 ) end
+ SELRPN>     84 atoms have been selected out of   3684
+ IMAGE CENTERING ON FOR SOME ATOMS
+
+ CHARMM>    image byres xcen 0 ycen 0 zcen 0 sele resn TIP3 end
+ SELRPN>   3600 atoms have been selected out of   3684
+ IMAGE CENTERING ON FOR SOME ATOMS
+
+ CHARMM>     
+
+ CHARMM>     
+
+ CHARMM>    ! Hybrid Ligand Block
+ CHARMM>    ! Substituent definitions
+ CHARMM>    define site1sub1 -
+ CHARMM>       select ( -
+ CHARMM>       atom @ligseg @resnum H101 .or. -
+ CHARMM>       atom @ligseg @resnum C100 .or. -
+ CHARMM>       none ) end
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ SELRPN>      2 atoms have been selected out of   3684
+
+ CHARMM>     
+
+ CHARMM>    define site1sub2 -
+ CHARMM>       select ( -
+ CHARMM>       atom @ligseg @resnum O103 .or. -
+ CHARMM>       atom @ligseg @resnum H104 .or. -
+ CHARMM>       atom @ligseg @resnum C102 .or. -
+ CHARMM>       none ) end
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ SELRPN>      3 atoms have been selected out of   3684
+
+ CHARMM>     
+
+ CHARMM>    define site1sub3 -
+ CHARMM>       select ( -
+ CHARMM>       atom @ligseg @resnum H108 .or. -
+ CHARMM>       atom @ligseg @resnum H109 .or. -
+ CHARMM>       atom @ligseg @resnum C106 .or. -
+ CHARMM>       atom @ligseg @resnum H107 .or. -
+ CHARMM>       atom @ligseg @resnum C105 .or. -
+ CHARMM>       none ) end
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ SELRPN>      5 atoms have been selected out of   3684
+
+ CHARMM>     
+
+ CHARMM>    define site1sub4 -
+ CHARMM>       select ( -
+ CHARMM>       atom @ligseg @resnum H117 .or. -
+ CHARMM>       atom @ligseg @resnum H115 .or. -
+ CHARMM>       atom @ligseg @resnum H116 .or. -
+ CHARMM>       atom @ligseg @resnum H113 .or. -
+ CHARMM>       atom @ligseg @resnum H114 .or. -
+ CHARMM>       atom @ligseg @resnum C112 .or. -
+ CHARMM>       atom @ligseg @resnum C111 .or. -
+ CHARMM>       atom @ligseg @resnum C110 .or. -
+ CHARMM>       none ) end
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ SELRPN>      8 atoms have been selected out of   3684
+
+ CHARMM>     
+
+ CHARMM>    define site1sub5 -
+ CHARMM>       select ( -
+ CHARMM>       atom @ligseg @resnum H127 .or. -
+ CHARMM>       atom @ligseg @resnum H128 .or. -
+ CHARMM>       atom @ligseg @resnum H129 .or. -
+ CHARMM>       atom @ligseg @resnum H130 .or. -
+ CHARMM>       atom @ligseg @resnum H131 .or. -
+ CHARMM>       atom @ligseg @resnum H125 .or. -
+ CHARMM>       atom @ligseg @resnum H126 .or. -
+ CHARMM>       atom @ligseg @resnum H123 .or. -
+ CHARMM>       atom @ligseg @resnum H124 .or. -
+ CHARMM>       atom @ligseg @resnum C122 .or. -
+ CHARMM>       atom @ligseg @resnum C121 .or. -
+ CHARMM>       atom @ligseg @resnum C120 .or. -
+ CHARMM>       atom @ligseg @resnum C119 .or. -
+ CHARMM>       atom @ligseg @resnum C118 .or. -
+ CHARMM>       none ) end
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ SELRPN>     14 atoms have been selected out of   3684
+
+ CHARMM>     
+
+ CHARMM>    define site2sub1 -
+ CHARMM>       select ( -
+ CHARMM>       atom @ligseg @resnum C132 .or. -
+ CHARMM>       atom @ligseg @resnum H133 .or. -
+ CHARMM>       none ) end
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ SELRPN>      2 atoms have been selected out of   3684
+
+ CHARMM>     
+
+ CHARMM>    define site2sub2 -
+ CHARMM>       select ( -
+ CHARMM>       atom @ligseg @resnum H136 .or. -
+ CHARMM>       atom @ligseg @resnum C134 .or. -
+ CHARMM>       atom @ligseg @resnum O135 .or. -
+ CHARMM>       none ) end
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ SELRPN>      3 atoms have been selected out of   3684
+
+ CHARMM>     
+
+ CHARMM>    define site2sub3 -
+ CHARMM>       select ( -
+ CHARMM>       atom @ligseg @resnum H141 .or. -
+ CHARMM>       atom @ligseg @resnum H140 .or. -
+ CHARMM>       atom @ligseg @resnum C138 .or. -
+ CHARMM>       atom @ligseg @resnum C137 .or. -
+ CHARMM>       atom @ligseg @resnum H139 .or. -
+ CHARMM>       none ) end
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ SELRPN>      5 atoms have been selected out of   3684
+
+ CHARMM>     
+
+ CHARMM>    define site2sub4 -
+ CHARMM>       select ( -
+ CHARMM>       atom @ligseg @resnum H145 .or. -
+ CHARMM>       atom @ligseg @resnum C143 .or. -
+ CHARMM>       atom @ligseg @resnum C142 .or. -
+ CHARMM>       atom @ligseg @resnum O144 .or. -
+ CHARMM>       none ) end
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ SELRPN>      4 atoms have been selected out of   3684
+
+ CHARMM>     
+
+ CHARMM>    define site2sub5 -
+ CHARMM>       select ( -
+ CHARMM>       atom @ligseg @resnum H151 .or. -
+ CHARMM>       atom @ligseg @resnum H152 .or. -
+ CHARMM>       atom @ligseg @resnum H150 .or. -
+ CHARMM>       atom @ligseg @resnum C148 .or. -
+ CHARMM>       atom @ligseg @resnum C147 .or. -
+ CHARMM>       atom @ligseg @resnum C146 .or. -
+ CHARMM>       atom @ligseg @resnum O149 .or. -
+ CHARMM>       none ) end
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ SELRPN>      7 atoms have been selected out of   3684
+
+ CHARMM>     
+
+ CHARMM>    define site2sub6 -
+ CHARMM>       select ( -
+ CHARMM>       atom @ligseg @resnum H163 .or. -
+ CHARMM>       atom @ligseg @resnum H164 .or. -
+ CHARMM>       atom @ligseg @resnum H161 .or. -
+ CHARMM>       atom @ligseg @resnum H162 .or. -
+ CHARMM>       atom @ligseg @resnum H160 .or. -
+ CHARMM>       atom @ligseg @resnum C157 .or. -
+ CHARMM>       atom @ligseg @resnum C156 .or. -
+ CHARMM>       atom @ligseg @resnum C159 .or. -
+ CHARMM>       atom @ligseg @resnum C158 .or. -
+ CHARMM>       atom @ligseg @resnum C155 .or. -
+ CHARMM>       atom @ligseg @resnum C154 .or. -
+ CHARMM>       atom @ligseg @resnum C153 .or. -
+ CHARMM>       none ) end
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ SELRPN>     12 atoms have been selected out of   3684
+
+ CHARMM>     
+
+ CHARMM>    define site2sub7 -
+ CHARMM>       select ( -
+ CHARMM>       atom @ligseg @resnum H174 .or. -
+ CHARMM>       atom @ligseg @resnum H175 .or. -
+ CHARMM>       atom @ligseg @resnum H172 .or. -
+ CHARMM>       atom @ligseg @resnum H173 .or. -
+ CHARMM>       atom @ligseg @resnum H171 .or. -
+ CHARMM>       atom @ligseg @resnum C168 .or. -
+ CHARMM>       atom @ligseg @resnum C165 .or. -
+ CHARMM>       atom @ligseg @resnum C167 .or. -
+ CHARMM>       atom @ligseg @resnum C166 .or. -
+ CHARMM>       atom @ligseg @resnum O170 .or. -
+ CHARMM>       atom @ligseg @resnum O169 .or. -
+ CHARMM>       none ) end
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ Parameter: LIGSEG -> "LIG"
+ Parameter: RESNUM -> "1"
+ SELRPN>     11 atoms have been selected out of   3684
+
+ CHARMM>     
+
+ CHARMM>    calc lam1 = 1.0 / 5.0
+Evaluating: 1.0/5.0
+ Parameter: LAM1 <- "0.2"
+
+ CHARMM>    calc lam2 = 1.0 / 5.0
+Evaluating: 1.0/5.0
+ Parameter: LAM2 <- "0.2"
+
+ CHARMM>    calc lam3 = 1.0 / 5.0
+Evaluating: 1.0/5.0
+ Parameter: LAM3 <- "0.2"
+
+ CHARMM>    calc lam4 = 1.0 / 5.0
+Evaluating: 1.0/5.0
+ Parameter: LAM4 <- "0.2"
+
+ CHARMM>    calc lam5 = 1.0 / 5.0
+Evaluating: 1.0/5.0
+ Parameter: LAM5 <- "0.2"
+
+ CHARMM>    calc lam6 = 1.0 / 7.0
+Evaluating: 1.0/7.0
+ Parameter: LAM6 <- "0.142857143"
+
+ CHARMM>    calc lam7 = 1.0 / 7.0
+Evaluating: 1.0/7.0
+ Parameter: LAM7 <- "0.142857143"
+
+ CHARMM>    calc lam8 = 1.0 / 7.0
+Evaluating: 1.0/7.0
+ Parameter: LAM8 <- "0.142857143"
+
+ CHARMM>    calc lam9 = 1.0 / 7.0
+Evaluating: 1.0/7.0
+ Parameter: LAM9 <- "0.142857143"
+
+ CHARMM>    calc lam10 = 1.0 / 7.0
+Evaluating: 1.0/7.0
+ Parameter: LAM10 <- "0.142857143"
+
+ CHARMM>    calc lam11 = 1.0 / 7.0
+Evaluating: 1.0/7.0
+ Parameter: LAM11 <- "0.142857143"
+
+ CHARMM>    calc lam12 = 1.0 / 7.0
+Evaluating: 1.0/7.0
+ Parameter: LAM12 <- "0.142857143"
+
+ CHARMM>     
+
+ CHARMM>    ! ************************************
+ CHARMM>    ! *** Set up BLOCK FIRST (before nbonds)
+ CHARMM>    ! ************************************
+ CHARMM>     
+
+ CHARMM>    BLOCK
+ WARNING from DECODI -- Zero length string being converted to 0
+ Block structure initialized with   3 blocks.
+ All atoms have been assigned to block 1.
+ All interaction coefficients have been set to unity.
+  Setting number of block exclusions nblock_excldPairs=0
+
+  BLOCK>       clear
+ Block Structure has been turned off.
+
+  BLOCK>    END
+
+ CHARMM>     
+
+ CHARMM>    BLOCK 13
+ Block structure initialized with  13 blocks.
+ All atoms have been assigned to block 1.
+ All interaction coefficients have been set to unity.
+  Setting number of block exclusions nblock_excldPairs=0
+
+  BLOCK>       Call 2 sele site1sub1 end
+ SELRPN>      2 atoms have been selected out of   3684
+ The selected atoms have been reassigned to block   2
+
+  BLOCK>       Call 3 sele site1sub2 end
+ SELRPN>      3 atoms have been selected out of   3684
+ The selected atoms have been reassigned to block   3
+
+  BLOCK>       Call 4 sele site1sub3 end
+ SELRPN>      5 atoms have been selected out of   3684
+ The selected atoms have been reassigned to block   4
+
+  BLOCK>       Call 5 sele site1sub4 end
+ SELRPN>      8 atoms have been selected out of   3684
+ The selected atoms have been reassigned to block   5
+
+  BLOCK>       Call 6 sele site1sub5 end
+ SELRPN>     14 atoms have been selected out of   3684
+ The selected atoms have been reassigned to block   6
+
+  BLOCK>       Call 7 sele site2sub1 end
+ SELRPN>      2 atoms have been selected out of   3684
+ The selected atoms have been reassigned to block   7
+
+  BLOCK>       Call 8 sele site2sub2 end
+ SELRPN>      3 atoms have been selected out of   3684
+ The selected atoms have been reassigned to block   8
+
+  BLOCK>       Call 9 sele site2sub3 end
+ SELRPN>      5 atoms have been selected out of   3684
+ The selected atoms have been reassigned to block   9
+
+  BLOCK>       Call 10 sele site2sub4 end
+ SELRPN>      4 atoms have been selected out of   3684
+ The selected atoms have been reassigned to block  10
+
+  BLOCK>       Call 11 sele site2sub5 end
+ SELRPN>      7 atoms have been selected out of   3684
+ The selected atoms have been reassigned to block  11
+
+  BLOCK>       Call 12 sele site2sub6 end
+ SELRPN>     12 atoms have been selected out of   3684
+ The selected atoms have been reassigned to block  12
+
+  BLOCK>       Call 13 sele site2sub7 end
+ SELRPN>     11 atoms have been selected out of   3684
+ The selected atoms have been reassigned to block  13
+
+  BLOCK>       qldm theta
+
+  BLOCK>       lang temp 298.0
+
+  BLOCK>       ldin 1 1.0 0.0 5.0 0.0 5.0
+
+  BLOCK>       ldin 2 @lam1 0.0 5.0 0.0 5.0
+ Parameter: LAM1 -> "0.2"
+
+  BLOCK>       ldin 3 @lam2 0.0 5.0 0.0 5.0
+ Parameter: LAM2 -> "0.2"
+
+  BLOCK>       ldin 4 @lam3 0.0 5.0 0.0 5.0
+ Parameter: LAM3 -> "0.2"
+
+  BLOCK>       ldin 5 @lam4 0.0 5.0 0.0 5.0
+ Parameter: LAM4 -> "0.2"
+
+  BLOCK>       ldin 6 @lam5 0.0 5.0 0.0 5.0
+ Parameter: LAM5 -> "0.2"
+
+  BLOCK>       ldin 7 @lam6 0.0 5.0 0.0 5.0
+ Parameter: LAM6 -> "0.142857143"
+
+  BLOCK>       ldin 8 @lam7 0.0 5.0 0.0 5.0
+ Parameter: LAM7 -> "0.142857143"
+
+  BLOCK>       ldin 9 @lam8 0.0 5.0 0.0 5.0
+ Parameter: LAM8 -> "0.142857143"
+
+  BLOCK>       ldin 10 @lam9 0.0 5.0 0.0 5.0
+ Parameter: LAM9 -> "0.142857143"
+
+  BLOCK>       ldin 11 @lam10 0.0 5.0 0.0 5.0
+ Parameter: LAM10 -> "0.142857143"
+
+  BLOCK>       ldin 12 @lam11 0.0 5.0 0.0 5.0
+ Parameter: LAM11 -> "0.142857143"
+
+  BLOCK>       ldin 13 @lam12 0.0 5.0 0.0 5.0
+ Parameter: LAM12 -> "0.142857143"
+
+  BLOCK>       set excl1 = 2 3 2 4 2 5 2 6 3 4 3 5 3 6 4 5 4 6 5 6 7 8 7 9 7 10 7 11 7 12 7 13
+ Parameter: EXCL1 <- "2 3 2 4 2 5 2 6 3 4 3 5 3 6 4 5 4 6 5 6 7 8 7 9 7 10 7 11 7 12 7 13"
+
+  BLOCK>       set excl2 =  8 9 8 10 8 11 8 12 8 13 9 10 9 11 9 12 9 13 10 11 10 12 10 13 11
+ Parameter: EXCL2 <- "8 9 8 10 8 11 8 12 8 13 9 10 9 11 9 12 9 13 10 11 10 12 10 13 11"
+
+  BLOCK>       set excl3 =  12 11 13 12 13
+ Parameter: EXCL3 <- "12 11 13 12 13"
+
+  BLOCK>       excl @excl1 @excl2 @excl3
+ Parameter: EXCL1 -> "2 3 2 4 2 5 2 6 3 4 3 5 3 6 4 5 4 6 5 6 7 8 7 9 7 10 7 11 7 12 7 13"
+ Parameter: EXCL2 -> "8 9 8 10 8 11 8 12 8 13 9 10 9 11 9 12 9 13 10 11 10 12 10 13 11"
+ Parameter: EXCL3 -> "12 11 13 12 13"
+ Number of block exclusions nblock_excldPairs=        1147
+
+  BLOCK>       rmla bond thet dihe impr
+ RMLAMBDA list
+  BOND T THETA T PHI T IMPHI T CMAPF UREY-BT
+
+  BLOCK>       ! Use piecewise polynomial constraint instead of fnex
+
+  BLOCK>       ! This is the key difference from blade_msld.inp
+
+  BLOCK>       msld 0 1 1 1 1 1 2 2 2 2 2 2 2 fpie widt 1.0 forc 100.0
+ BLOCK    1 has been assigned to SITE    0
+ BLOCK    2 has been assigned to SITE    1
+ BLOCK    3 has been assigned to SITE    1
+ BLOCK    4 has been assigned to SITE    1
+ BLOCK    5 has been assigned to SITE    1
+ BLOCK    6 has been assigned to SITE    1
+ BLOCK    7 has been assigned to SITE    2
+ BLOCK    8 has been assigned to SITE    2
+ BLOCK    9 has been assigned to SITE    2
+ BLOCK   10 has been assigned to SITE    2
+ BLOCK   11 has been assigned to SITE    2
+ BLOCK   12 has been assigned to SITE    2
+ BLOCK   13 has been assigned to SITE    2
+   3 SITES have been assigned for Multi-site Lambda-dynamics
+ PIECEWISE polynomial constraint selected for MSLD simulations
+   Uses Newton-solved cubic polynomial instead of exponential
+  Flat-bottom well width:     1.0000
+  Flat-bottom force constant:   100.0000
+
+  BLOCK>       msma
+>>> BLOCK MATRIX WAS REBUILT 
+
+  BLOCK>     
+
+  BLOCK>       pmel ex
+Enabling PME with MSLD
+Warning, only works with domdec
+See Huang, Chen, Wallace, and Shen, JCTC (2016) for a description
+
+Using second PME exclusions strategy.
+
+
+  BLOCK>       soft on
+Turning on MSLD soft cores
+Warning, soft cores only work with domdec
+See Hayes et al JPC B (2017) for functional form
+
+
+  BLOCK>     
+
+  BLOCK>       ldbi 0
+ Total No. of biasing potentials is    0
+
+  BLOCK>    END
+ Matrix of Interaction Coefficients
+ 
+    1.00000
+    0.20000   0.20000
+    0.20000   0.00000   0.20000
+    0.20000   0.00000   0.00000   0.20000
+    0.20000   0.00000   0.00000   0.00000   0.20000
+    0.20000   0.00000   0.00000   0.00000   0.00000   0.20000
+    0.14286   0.02857   0.02857   0.02857   0.02857   0.02857   0.14286
+    0.14286   0.02857   0.02857   0.02857   0.02857   0.02857   0.00000   0.14286
+    0.14286   0.02857   0.02857   0.02857   0.02857   0.02857   0.00000   0.00000   0.14286
+    0.14286   0.02857   0.02857   0.02857   0.02857   0.02857   0.00000   0.00000   0.00000   0.14286
+    0.14286   0.02857   0.02857   0.02857   0.02857   0.02857   0.00000   0.00000   0.00000   0.00000   0.14286
+    0.14286   0.02857   0.02857   0.02857   0.02857   0.02857   0.00000   0.00000   0.00000   0.00000   0.00000   0.14286
+    0.14286   0.02857   0.02857   0.02857   0.02857   0.02857   0.00000   0.00000   0.00000   0.00000   0.00000   0.00000   0.14286
+ Matrix of BOND Interaction Coefficients
+ 
+    1.00000
+    1.00000   1.00000
+    1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+ Matrix of ANGLE Interaction Coefficients
+ 
+    1.00000
+    1.00000   1.00000
+    1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+ Matrix of DIHE Interaction Coefficients
+ 
+    1.00000
+    1.00000   1.00000
+    1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+ Matrix of CROSS Interaction Coefficients
+ 
+    1.00000
+    1.00000   1.00000
+    1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+ Matrix of ELEC Interaction Coefficients
+ 
+    1.00000
+    1.00000   1.00000
+    1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+ Matrix of VDW Interaction Coefficients
+ 
+    1.00000
+    1.00000   1.00000
+    1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+    1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+
+ CHARMM>     
+
+ CHARMM>    ! ************************************
+ CHARMM>    ! *** Now read coordinates and nbonds
+ CHARMM>    ! ************************************
+ CHARMM>     
+
+ CHARMM>    read coor pdb resid name @0prep14benz/min14benz.pdb
+ Parameter: 0 -> "DATA/"
+ VOPEN> Attempting to open::data/prep14benz/min14benz.pdb::
+  read CHARMM-pdb format
+          SPATIAL COORDINATES BEING READ FROM UNIT 90
+ TITLE>   AFTER MINIMIZATION PDB
+ TITLE>    DATE:     1/24/18     18: 0:24      CREATED BY USER: RHAYE
+ TITLE>  *
+
+ ** WARNING ** Coordinates were overwritten for  3684 atoms.
+ *** LEVEL  2 WARNING *** BOMLEV IS   -1
+ VCLOSE: Closing unit   90 with status "KEEP"
+
+ CHARMM>     
+
+ CHARMM>    nbonds atom -
+ CHARMM>    cdie eps 1 -
+ CHARMM>    vdw vfswitch -
+ CHARMM>    cutnb 12.0 -
+ CHARMM>    cutim 12.0 -
+ CHARMM>    ctonnb 9.0 ctofnb 10.0 -
+ CHARMM>    Ewald -
+ CHARMM>    kappa 0.320 -
+ CHARMM>    pmEwald -
+ CHARMM>    order 6 -
+ CHARMM>    fftx 32 ffty 32 fftz 32
+
+ SELECTED IMAGES ATOMS BEING CENTERED ABOUT  0.000000  0.000000  0.000000
+ RESIDUE  185 OPERATED ON BY TRANSFORMATION P1Z0Z0R1
+
+ <MKIMAT2>: updating the image atom lists and remapping
+ Transformation   Atoms  Groups  Residues  Min-Distance
+    1  N1N1N1R1 has      90      30      30        2.60
+    2  N1Z0N1R1 has     345     115     115        0.05
+    3  N1P1N1R1 has      63      21      21        1.41
+    4  Z0N1N1R1 has     354     118     118        1.17
+    5  Z0Z0N1R1 has    1350     450     450        0.00
+    6  Z0P1N1R1 has     402     134     134        0.62
+    7  N1N1Z0R1 has     372     124     124        0.00
+    8  N1Z0Z0R1 has    1395     465     465        0.00
+    9  N1P1Z0R1 has     366     122     122        1.16
+   10  Z0N1Z0R1 has    1378     454     453        0.00
+   12  N1N1P1R1 has      87      29      29        2.28
+   13  N1Z0P1R1 has     390     130     130        0.03
+   14  N1P1P1R1 has      60      20      20        1.74
+ Total of10336 atoms and 3425 groups and 3412 residues were included
+
+ <PME> Total heap storage needed =      185967
+ Fill Ewald table: Number of points=     10000 EWXmax=    3.360000
+ fill erfc table: linear inter has rms error = 0.688344D-08 maximum error = 0.136719D-07
+ fill erfc table: cubic spline has rms error = 0.199973D-11 maximum error = 0.535849D-11
+
+ NONBOND OPTION FLAGS: 
+     ELEC     VDW      ATOMs    CDIElec  SHIFt    VATOm    VFSWIt  
+     BYGRoup  NOEXtnd  EWALd   
+ CUTNB  = 12.000 CTEXNB =999.000 CTONNB =  9.000 CTOFNB = 10.000
+ CGONNB =  0.000 CGOFNB = 10.000
+ WMIN   =  1.500 WRNMXD =  0.500 E14FAC =  1.000 EPS    =  1.000
+ NBXMOD =      5
+ PME EWALD OPTIONS: KAPPA  =  0.320  QCOR =  0.000  Bspline order = 6
+ FFTX=  32  FFTY=  32  FFTZ=  32
+                Using MKL
+                Real-to-Complex FFT
+                Using Column FFT 
+ There are        0 atom  pairs and        0 atom  exclusions.
+ There are        0 group pairs and        0 group exclusions.
+ <MAKINB> with mode   5 found   5016 exclusions and    241 interactions(1-4)
+ <MAKGRP> found     78 group exclusions.
+ <MAKGRP> found      0 image group exclusions.
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   666642 ATOM PAIRS AND        0 GROUP PAIRS
+ == PRIMARY == SPACE FOR   999983 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   882933 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    52439 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ SPACE FOR  1599238 ATOM PAIRS AND        0 GROUP PAIRS
+
+ Image nonbond list generation found:
+   482291 ATOM PAIRS WERE FOUND FOR ATOM LIST
+        0 ATOM PAIRS WERE FOUND FOR ATOM SELF LIST
+    46382 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+
+ CHARMM>     
+
+ CHARMM>    format (f16.6)
+
+ CHARMM>     
+
+ CHARMM>    ! ************************************
+ CHARMM>    ! ******* Run short dynamics *********
+ CHARMM>    ! ************************************
+ CHARMM>     
+
+ CHARMM>    scalar fbeta set 1.0 sele all end
+ SELRPN>   3684 atoms have been selected out of   3684
+
+ CHARMM>     
+
+ CHARMM>    open unit 21 write unform name @{9}/"piecewise_heat.dcd"
+ Parameter: 9 -> "SCRATCH/"
+ VOPEN> Attempting to open::scratch//piecewise_heat.dcd::
+ OPNLGU> Unit 21 opened for WRITE access to /work_bgfs/e/ekukole/charmm-build/c51a2/dev-release-master/test/scratch//piecewise_heat.dcd
+
+ CHARMM>    open unit 22 write form name @{9}/"piecewise_heat.res"
+ Parameter: 9 -> "SCRATCH/"
+ VOPEN> Attempting to open::scratch//piecewise_heat.res::
+ OPNLGU> Unit 22 opened for WRITE access to /work_bgfs/e/ekukole/charmm-build/c51a2/dev-release-master/test/scratch//piecewise_heat.res
+
+ CHARMM>    open unit 24 write file name @{9}/"piecewise_heat.lmd"
+ Parameter: 9 -> "SCRATCH/"
+ VOPEN> Attempting to open::scratch//piecewise_heat.lmd::
+ OPNLGU> Unit 24 opened for WRITE access to /work_bgfs/e/ekukole/charmm-build/c51a2/dev-release-master/test/scratch//piecewise_heat.lmd
+
+ CHARMM>     
+
+ CHARMM>    dynamics leap start -
+ CHARMM>      blade -
+ CHARMM>      prmc -
+ CHARMM>      iprs 10 -
+ CHARMM>      pref 1 -
+ CHARMM>      prdv 100 -
+ CHARMM>      timestep 0.001 -
+ CHARMM>      nstep 50 -
+ CHARMM>      nprint 10 -
+ CHARMM>      iprfrq 50 -
+ CHARMM>      nsavc 50 -
+ CHARMM>      nsavl 10 -
+ CHARMM>      isvfrq 50 -
+ CHARMM>      iunread -1 -
+ CHARMM>      iuncrd 21 -
+ CHARMM>      iunwri 22 -
+ CHARMM>      iunldm 24 -
+ CHARMM>      firstt 298 -
+ CHARMM>      finalt 298 -
+ CHARMM>      tstruc 298 -
+ CHARMM>      tbath 298 -
+ CHARMM>      ntrfrq 50
+  IUNREA = -1         IUNWRI = 22          IUNOS = -1
+  IUNCRD = 21         IUNVEL = -1          KUNIT = -1
+  IUNLDM = 24
+
+ SELECTED IMAGES ATOMS BEING CENTERED ABOUT  0.000000  0.000000  0.000000
+ <PME> Total heap storage needed =      185967
+
+ NONBOND OPTION FLAGS: 
+     ELEC     VDW      ATOMs    CDIElec  SHIFt    VATOm    VFSWIt  
+     BYGRoup  NOEXtnd  EWALd   
+ CUTNB  = 12.000 CTEXNB =999.000 CTONNB =  9.000 CTOFNB = 10.000
+ CGONNB =  0.000 CGOFNB = 10.000
+ WMIN   =  1.500 WRNMXD =  0.500 E14FAC =  1.000 EPS    =  1.000
+ NBXMOD =      5
+ PME EWALD OPTIONS: KAPPA  =  0.320  QCOR =  0.000  Bspline order = 6
+ FFTX=  32  FFTY=  32  FFTZ=  32
+                Using MKL
+                Real-to-Complex FFT
+                Using Column FFT 
+ There are   882933 atom  pairs and     5257 atom  exclusions.
+ There are        0 group pairs and       78 group exclusions.
+
+      ***** LEVEL  0 WARNING FROM <DCNTRL> *****
+      ***** NTRFRQ should be 0 with BLaDE, otherwise the system may run hot.
+      ******************************************
+      BOMLEV ( -1) IS NOT REACHED. WRNLEV IS  5
+
+ DCNTRL> Langevin integration requested.
+ DCNTRL>  BLaDE interface requested for energy and dynamics calculations.
+ DCNTRL>  Using AUTO scan algorithm selection (benchmark first 100 steps).
+ DCNTRL>  CPT dynamics through BLaDE interface requested using Langevin heatbath.
+ DCNTRL>  MC barostat coupled to reference pressure    1.00  atmospheres.
+ DCNTRL>  MC barostat using reference temperature  298.00  K.
+ DCNTRL>  MC barostat volume move attempted every     10  timesteps.
+ DCNTRL>  MC barostat volume move size  100.00  A^3
+   NSTEP =       50    NSAVC =       50    NSAVV =       10
+  ISCALE =        0   ISCVEL =        0   IASORS =        0
+  IASVEL =        1   ICHECW =        1   NTRFRQ =       50
+  IHTFRQ =        0   IEQFRQ =        0   NPRINT =       10
+  INBFRQ =       -1   IHBFRQ =        0   IPRFRQ =       50
+  ILBFRQ =       50   IMGFRQ =       50
+  ISVFRQ =       50   NCYCLE =       50    NSNOS =       10
+  FIRSTT =   298.000  TEMINC =     5.000  TSTRUC =   298.000
+  FINALT =   298.000  TWINDH =    10.000  TWINDL =   -10.000
+
+  TIME STEP =  2.04548E-02 AKMA       1.00000E-03 PS
+
+  RANDOM NUM. GEN. SEED(S) = 448061799 448061799 448061799 448061799
+ NUMBER OF DEGREES OF FREEDOM =  11052
+
+          GAUSSIAN OPTION                  IS            1
+          VELOCITIES ASSIGNED AT TEMPERATURE =    298.0000
+          SEED FOR RANDOM NUMBER GENERATOR IS:
+          SEEDS> 448061799 448061799 448061799 448061799
+
+     DETAILS ABOUT CENTRE OF MASS
+     POSITION          :   0.14466625      -0.12265092       3.88050717E-02
+     VELOCITY          :  -9.83506777E-03   3.28621169E-03  -1.18348597E-02
+     ANGULAR MOMENTUM  :   -308.12242       -1724.8236       -1707.6821    
+     KINETIC ENERGY    :    2.7468716    
+Creating a copy of system
+Assuming fbeta =    0.04889
+
+      ***** LEVEL  1 WARNING FROM BLaDe *****
+      ***** PME being used for electrostatics, MSLD PMEL EX mode
+      ******************************************
+      BOMLEV ( -1) IS NOT REACHED. WRNLEV IS  5
+
+
+      ***** LEVEL  1 WARNING FROM BLaDe *****
+      ***** VFSWITCH being used for vdW switching in BLaDE
+      ******************************************
+      BOMLEV ( -1) IS NOT REACHED. WRNLEV IS  5
+
+Found pme kappa =    0.32000
+Found ctofnb =   10.00000 ctonnb =    9.00000
+Warning: Both elec and vdw energies placed in vdw
+BLaDE: Velocities scaled or randomized
+DYNA DYN: Step         Time      TOTEner        TOTKe       ENERgy  TEMPerature
+DYNA PROP:             GRMS      HFCTote        HFCKe       EHFCor        VIRKe
+DYNA INTERN:          BONDs       ANGLes       UREY-b    DIHEdrals    IMPRopers
+DYNA EXTERN:        VDWaals         ELEC       HBONds          ASP         USER
+DYNA EWALD:          EWKSum       EWSElf       EWEXcl       EWQCor       EWUTil
+DYNA PRESS:            VIRE         VIRI       PRESSE       PRESSI       VOLUme
+ ----------       ---------    ---------    ---------    ---------    ---------
+DYNA>        0      0.00000 -10218.66602   3200.85390 -13419.51992    291.48443
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      424.98146    294.78509      0.00000      7.10222      0.06278
+DYNA EXTERN>   -12848.74976      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>        61.01211 -75073.10107  73714.38725      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ Crystal Parameters : Crystal Type = CUBI
+      DYNA A     =   32.96400 B    =   32.96400 C     =   32.96400
+      DYNA Alpha =   90.00000 Beta =   90.00000 Gamma =   90.00000
+      DYNA PIXX =        0.00 PIYY =       0.00 PIZZ =       0.00
+      DYNA PIXY =        0.00 PIXZ =       0.00 PIYZ =       0.00
+      DYNA Gradient Norm =    0.00000
+
+DYNA>       10      0.01000 -10078.32380   2573.94579 -12652.26959    234.39530
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      396.90496    332.25463      0.00000     12.31115      0.12242
+DYNA EXTERN>   -12122.39952      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>        83.25383 -75073.38403  73718.66698      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ Crystal Parameters : Crystal Type = CUBI
+      DYNA A     =   32.96400 B    =   32.96400 C     =   32.96400
+      DYNA Alpha =   90.00000 Beta =   90.00000 Gamma =   90.00000
+      DYNA PIXX =        0.00 PIYY =       0.00 PIZZ =       0.00
+      DYNA PIXY =        0.00 PIXZ =       0.00 PIYZ =       0.00
+      DYNA Gradient Norm =    0.00000
+
+DYNA>       20      0.02000 -10024.47528   2406.92056 -12431.39584    219.18522
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      477.48669    385.10315      0.00000     15.60164      0.05932
+DYNA EXTERN>   -12017.47027      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>        69.37792 -75079.27637  73717.72207      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ Crystal Parameters : Crystal Type = CUBI
+      DYNA A     =   32.96400 B    =   32.96400 C     =   32.96400
+      DYNA Alpha =   90.00000 Beta =   90.00000 Gamma =   90.00000
+      DYNA PIXX =        0.00 PIYY =       0.00 PIZZ =       0.00
+      DYNA PIXY =        0.00 PIXZ =       0.00 PIYZ =       0.00
+      DYNA Gradient Norm =    0.00000
+
+DYNA>       30      0.03000  -9931.97304   2470.00039 -12401.97343    224.92956
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      619.54776    471.87017      0.00000     13.85800      0.18147
+DYNA EXTERN>   -12203.59498      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>        72.52326 -75097.80347  73721.44436      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ Crystal Parameters : Crystal Type = CUBI
+      DYNA A     =   32.99826 B    =   32.99826 C     =   32.99826
+      DYNA Alpha =   90.00000 Beta =   90.00000 Gamma =   90.00000
+      DYNA PIXX =        0.00 PIYY =       0.00 PIZZ =       0.00
+      DYNA PIXY =        0.00 PIXZ =       0.00 PIYZ =       0.00
+      DYNA Gradient Norm =    0.00000
+
+DYNA>       40      0.04000  -9883.58080   2452.29182 -12335.87262    223.31693
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      721.32857    508.55545      0.00000     11.17499      0.68444
+DYNA EXTERN>   -12265.77464      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>        66.79659 -75115.99023  73737.35221      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ Crystal Parameters : Crystal Type = CUBI
+      DYNA A     =   32.99826 B    =   32.99826 C     =   32.99826
+      DYNA Alpha =   90.00000 Beta =   90.00000 Gamma =   90.00000
+      DYNA PIXX =        0.00 PIYY =       0.00 PIZZ =       0.00
+      DYNA PIXY =        0.00 PIXZ =       0.00 PIYZ =       0.00
+      DYNA Gradient Norm =    0.00000
+
+DYNA>       50      0.05000  -9859.18772   2317.94046 -12177.12819    211.08228
+DYNA PROP>          0.00000      0.00000      0.00000      0.00000      0.00000
+DYNA INTERN>      774.00678    587.63549      0.00000     15.35359      0.16497
+DYNA EXTERN>   -12251.66340      0.00000      0.00000      0.00000      0.00000
+DYNA EWALD>        77.80346 -75122.76562  73742.33656      0.00000      0.00000
+DYNA PRESS>         0.00000      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ Crystal Parameters : Crystal Type = CUBI
+      DYNA A     =   32.96429 B    =   32.96429 C     =   32.96429
+      DYNA Alpha =   90.00000 Beta =   90.00000 Gamma =   90.00000
+      DYNA PIXX =        0.00 PIYY =       0.00 PIZZ =       0.00
+      DYNA PIXY =        0.00 PIXZ =       0.00 PIYZ =       0.00
+      DYNA Gradient Norm =    0.00000
+
+
+      1   COORDINATE SETS STARTING FROM
+     STEP NO       50   FOR EVERY    50  STEPS
+     WRITTEN ON UNIT   21
+
+ VCLOSE: Closing unit   21 with status "KEEP"
+
+           5   LAMBDA SETS STARTING FROM
+     STEP NO         50   FOR EVERY    10  STEPS
+     WRITTEN ON UNIT   24
+
+ VCLOSE: Closing unit   24 with status "KEEP"
+
+     DETAILS ABOUT CENTRE OF MASS
+     POSITION          :  -2.40570930E-02  -0.17316842      -5.17716987E-02
+     VELOCITY          :  -6.25460982E-03   3.61897256E-03  -9.62987677E-03
+     ANGULAR MOMENTUM  :   -1886.8692       -2157.7540       -1450.9689    
+     KINETIC ENERGY    :    1.6081460    
+ WRIDYN: RESTart file was written at step      50
+ VCLOSE: Closing unit   22 with status "KEEP"
+
+     DETAILS ABOUT CENTRE OF MASS
+     POSITION          :  -2.40570930E-02  -0.17316842      -5.17716987E-02
+     VELOCITY          :  -6.25460982E-03   3.61897256E-03  -9.62987677E-03
+     ANGULAR MOMENTUM  :   -1886.8692       -2157.7540       -1450.9689    
+     KINETIC ENERGY    :    1.6081460    
+
+ CHARMM>     
+
+ CHARMM>    echo "Piecewise constraint test OK"
+"Piecewise constraint test OK"
+
+ CHARMM>     
+
+ CHARMM>    stop
+      $$$$$$  New timer profile Local node$$$$$
+   First List                      0.07 Other:            0.00
+   Dynamics total                  0.02 Other:            0.00
+   BLaDE overhead                  0.83 Other:            0.00
+ Total time                      1.85 Other:            0.94
+         $$$$$$  Average   profile $$$$$
+   First List                      0.07 Other:            0.00
+   Dynamics total                  0.02 Other:            0.00
+   BLaDE overhead                  0.83 Other:            0.00
+ Total time                      1.85 Other:            0.94
+
+                    NORMAL TERMINATION BY NORMAL STOP
+                    MOST SEVERE WARNING WAS AT LEVEL  0
+
+                    $$$$$ JOB ACCOUNTING INFORMATION $$$$$
+                     ELAPSED TIME:     2.86  SECONDS 
+                         CPU TIME:     1.36  SECONDS 

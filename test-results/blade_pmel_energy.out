@@ -1,0 +1,136 @@
+1
+                 Chemistry at HARvard Macromolecular Mechanics
+           (CHARMM) - Developmental Version 51a2   February 15, 2026            
+                                Revision unknown                                
+       Copyright(c) 1984-2025  President and Fellows of Harvard College
+                              All Rights Reserved
+  Current operating system: Linux-3.10.0-862.11.6.el7.x86_64(x86_64)@mdc-1057   
+                         Compiler version: Intel 2021.2
+                 Created on  5/14/26 at 19:48:14 by user: ekukole     
+
+            Maximum number of ATOMS:    360720, and RESidues:      120240
+ RDTITL> * BLADE PMEL MODE ENERGY VALIDATION TEST
+ RDTITL> * COMPARES CPU (DOMDEC) VS BLADE SINGLE-POINT ENERGIES
+ RDTITL> * TESTS MULTIPLE RANDOM LAMBDA CONFIGURATIONS FOR ON/EX/NN MODES
+ RDTITL> *
+
+ CHARMM>     
+
+ CHARMM>    if ?blade .ne. 1 then
+ RDCMND substituted energy or value "?BLADE" to "1"
+ Comparing "1" and "1".
+ IF test evaluated as false.  Skip to ELSE or ENDIF
+
+ CHARMM>     
+
+ CHARMM>    if ?block .ne. 1 then
+ RDCMND substituted energy or value "?BLOCK" to "1"
+ Comparing "1" and "1".
+ IF test evaluated as false.  Skip to ELSE or ENDIF
+
+ CHARMM>     
+
+ CHARMM>    if ?numnode .ne. 1 then
+ RDCMND substituted energy or value "?NUMNODE" to "1"
+ Comparing "1" and "1".
+ IF test evaluated as false.  Skip to ELSE or ENDIF
+
+ CHARMM>     
+
+ CHARMM>    stream datadir.def
+ VOPEN> Attempting to open::datadir.def::
+ OPNLGU> Unit 99 opened for READONLY access to /work_bgfs/e/ekukole/charmm-build/c51a2/dev-release-master/test/datadir.def
+
+                    INPUT STREAM SWITCHING TO UNIT    99
+ RDTITL> * CHARMM TESTCASE DATA DIRECTORY ASSIGNMENT
+ RDTITL> *
+ Parameter: IN1 <- "" <empty>
+
+ CHARMM>    faster on
+ MISCOM> FAST option: EXPANDED (limited fast routines)
+
+ CHARMM>    set pnode =
+ Parameter: PNODE <- "" <empty>
+
+ CHARMM>    if ?numnode .gt. 1 set pnode = node 0
+ RDCMND substituted energy or value "?NUMNODE" to "1"
+ Comparing "1" and "1".
+ IF test evaluated as false.  Skipping command
+
+ CHARMM>    set 0 data/     ! input data directory
+ Parameter: 0 <- "DATA/"
+
+ CHARMM>    set 9 scratch/  ! scratch directory
+ Parameter: 9 <- "SCRATCH/"
+
+ CHARMM>    set testcheck stream @0/test.str
+ Parameter: 0 -> "DATA/"
+ Parameter: TESTCHECK <- "STREAM DATA//TEST.STR"
+
+ CHARMM>    set qcheck stream @0/qtest.str
+ Parameter: 0 -> "DATA/"
+ Parameter: QCHECK <- "STREAM DATA//QTEST.STR"
+
+ CHARMM>    set testfail 0
+ Parameter: TESTFAIL <- "0"
+
+ CHARMM>    return
+ VCLOSE: Closing unit   99 with status "KEEP"
+
+                    RETURNING TO INPUT STREAM     5
+
+ CHARMM>     
+
+ CHARMM>    set sysname = 14benz
+ Parameter: SYSNAME <- "14BENZ"
+
+ CHARMM>    set box = 32.964000
+ Parameter: BOX <- "32.964000"
+
+ CHARMM>    set tol = 1e-4
+ Parameter: TOL <- "1E-4"
+
+ CHARMM>    set testct = 0
+ Parameter: TESTCT <- "0"
+
+ CHARMM>    set failct = 0
+ Parameter: FAILCT <- "0"
+
+ CHARMM>     
+
+ CHARMM>    echo ============================================================
+============================================================
+
+ CHARMM>    echo      BLaDE PMEL Mode Energy Validation Test Suite
+BLADE PMEL MODE ENERGY VALIDATION TEST SUITE
+
+ CHARMM>    echo ============================================================
+============================================================
+
+ CHARMM>    echo
+
+
+ CHARMM>    echo This test compares CPU vs BLaDE energies at random lambda
+THIS TEST COMPARES CPU VS BLADE ENERGIES AT RANDOM LAMBDA
+
+ CHARMM>    echo configurations for PMEL modes ON, EX, and NN.
+CONFIGURATIONS FOR PMEL MODES ON, EX, AND NN.
+
+ CHARMM>    echo Tolerance: @tol relative error
+ Parameter: TOL -> "1E-4"
+TOLERANCE: 1E-4 RELATIVE ERROR
+
+ CHARMM>    echo
+
+
+      $$$$$$  New timer profile Local node$$$$$
+ Total time                      0.12 Other:            0.00
+         $$$$$$  Average   profile $$$$$
+ Total time                      0.12 Other:            0.00
+
+                    NORMAL TERMINATION BY END OF FILE
+                    NO WARNINGS WERE ISSUED
+
+                    $$$$$ JOB ACCOUNTING INFORMATION $$$$$
+                     ELAPSED TIME:     1.13  SECONDS 
+                         CPU TIME:     0.05  SECONDS 

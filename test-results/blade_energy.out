@@ -1,0 +1,886 @@
+1
+                 Chemistry at HARvard Macromolecular Mechanics
+           (CHARMM) - Developmental Version 51a2   February 15, 2026            
+                                Revision unknown                                
+       Copyright(c) 1984-2025  President and Fellows of Harvard College
+                              All Rights Reserved
+  Current operating system: Linux-3.10.0-862.11.6.el7.x86_64(x86_64)@mdc-1057   
+                         Compiler version: Intel 2021.2
+                 Created on  5/14/26 at 19:46:58 by user: ekukole     
+
+            Maximum number of ATOMS:    360720, and RESidues:      120240
+ RDTITL> * BLADE NONBONDED ENERGY FOR SODIUM AND ACETATE IONS IN VACUUM
+ RDTITL> * WITH PBC AND NBFIXES EXPLOITING A BUG IN C37B1.
+ RDTITL> * COPIED FROM TEST/C37TEST/OMM_ACETATE.INP BY
+ RDTITL> *   MIKE GARRAHAN AND SHUAI WEI, JAN 2013
+ RDTITL> *
+
+ CHARMM>     
+
+ CHARMM>    if ?blade .ne. 1 then
+ RDCMND substituted energy or value "?BLADE" to "1"
+ Comparing "1" and "1".
+ IF test evaluated as false.  Skip to ELSE or ENDIF
+
+ CHARMM>     
+
+ CHARMM>    if ?numnode .ne. 1 then
+ RDCMND substituted energy or value "?NUMNODE" to "1"
+ Comparing "1" and "1".
+ IF test evaluated as false.  Skip to ELSE or ENDIF
+
+ CHARMM>     
+
+ CHARMM>    stream datadir.def
+ VOPEN> Attempting to open::datadir.def::
+ OPNLGU> Unit 99 opened for READONLY access to /work_bgfs/e/ekukole/charmm-build/c51a2/dev-release-master/test/datadir.def
+
+                    INPUT STREAM SWITCHING TO UNIT    99
+ RDTITL> * CHARMM TESTCASE DATA DIRECTORY ASSIGNMENT
+ RDTITL> *
+ Parameter: IN1 <- "" <empty>
+
+ CHARMM>    faster on
+ MISCOM> FAST option: EXPANDED (limited fast routines)
+
+ CHARMM>    set pnode =
+ Parameter: PNODE <- "" <empty>
+
+ CHARMM>    if ?numnode .gt. 1 set pnode = node 0
+ RDCMND substituted energy or value "?NUMNODE" to "1"
+ Comparing "1" and "1".
+ IF test evaluated as false.  Skipping command
+
+ CHARMM>    set 0 data/     ! input data directory
+ Parameter: 0 <- "DATA/"
+
+ CHARMM>    set 9 scratch/  ! scratch directory
+ Parameter: 9 <- "SCRATCH/"
+
+ CHARMM>    set testcheck stream @0/test.str
+ Parameter: 0 -> "DATA/"
+ Parameter: TESTCHECK <- "STREAM DATA//TEST.STR"
+
+ CHARMM>    set qcheck stream @0/qtest.str
+ Parameter: 0 -> "DATA/"
+ Parameter: QCHECK <- "STREAM DATA//QTEST.STR"
+
+ CHARMM>    set testfail 0
+ Parameter: TESTFAIL <- "0"
+
+ CHARMM>    return
+ VCLOSE: Closing unit   99 with status "KEEP"
+
+                    RETURNING TO INPUT STREAM     5
+
+ CHARMM>     
+
+ CHARMM>    GOTO toppar
+
+ CHARMM>     
+
+ CHARMM>    read rtf card
+ MAINIO> Residue topology file being read from unit   5.
+ RDTITL> * FROM TOP_ALL36_CGENFF.RTF AND TOPPAR_WATER_IONS.STR
+ RDTITL> *
+
+ CHARMM>     
+
+ CHARMM>    read param card
+
+          PARAMETER FILE BEING READ FROM UNIT  5
+ RDTITL> * FROM PAR_ALL36_CGENFF.PRM AND TOPPAR_WATER_IONS.STR
+ RDTITL> *
+ PARMIO> NONBOND, HBOND lists and IMAGE atoms cleared.
+
+ CHARMM>     
+
+ CHARMM>    GOTO buildmol
+
+ CHARMM>     
+
+ CHARMM>    read sequ acet 1
+
+ CHARMM>    generate ion0 setup
+ NO PATCHING WILL BE DONE ON THE FIRST RESIDUE
+ NO PATCHING WILL BE DONE ON THE LAST  RESIDUE
+ AUTGEN: Autogenerating specified angles and dihedrals.
+ GENPSF> Segment   1 has been generated. Its identifier is ION0.
+ PSFSUM> PSF modified: NONBOND lists and IMAGE atoms cleared.
+ PSFSUM> Summary of the structure file counters :
+         Number of segments      =        1   Number of residues   =        1
+         Number of atoms         =        7   Number of groups     =        1
+         Number of bonds         =        6   Number of angles     =        9
+         Number of dihedrals     =        6   Number of impropers  =        1
+         Number of cross-terms   =        0   Number of autogens   =        0
+         Number of HB acceptors  =        0   Number of HB donors  =        0
+         Number of NB exclusions =        0   Total charge =   -1.00000
+ QXFORM> Expanded format used.
+         More than 4 character atom type used.
+
+ CHARMM>    ic param
+
+ CHARMM>    ! puts oxygens near (2, +-1, 0)
+ CHARMM>    ic seed ion0 1 C1 ion0 1 C2 ion0 1 O1
+
+ CHARMM>    ic build
+
+ CHARMM>     
+
+ CHARMM>    read sequ sod 1
+
+ CHARMM>    generate ion1 setup
+ NO PATCHING WILL BE DONE ON THE FIRST RESIDUE
+ NO PATCHING WILL BE DONE ON THE LAST  RESIDUE
+ AUTGEN: Autogenerating specified angles and dihedrals.
+ GENPSF> Segment   2 has been generated. Its identifier is ION1.
+ PSFSUM> PSF modified: NONBOND lists and IMAGE atoms cleared.
+ PSFSUM> Summary of the structure file counters :
+         Number of segments      =        2   Number of residues   =        2
+         Number of atoms         =        8   Number of groups     =        2
+         Number of bonds         =        6   Number of angles     =        9
+         Number of dihedrals     =        6   Number of impropers  =        1
+         Number of cross-terms   =        0   Number of autogens   =        0
+         Number of HB acceptors  =        0   Number of HB donors  =        0
+         Number of NB exclusions =        0   Total charge =   -0.00000
+
+ CHARMM>    read coor card
+          SPATIAL COORDINATES BEING READ FROM UNIT  5
+ RDTITL> * TO INTERACT WITH OXYGENS ACROSS PERIODIC BOUNDARY
+ RDTITL> *
+
+ CHARMM>     
+
+ CHARMM>    print coor
+
+          COORDINATE FILE MODULE
+ TITLE>  * BLADE NONBONDED ENERGY FOR SODIUM AND ACETATE IONS IN VACUUM
+ TITLE>  * WITH PBC AND NBFIXES EXPLOITING A BUG IN C37B1.
+ TITLE>  * COPIED FROM TEST/C37TEST/OMM_ACETATE.INP BY
+ TITLE>  *   MIKE GARRAHAN AND SHUAI WEI, JAN 2013
+ TITLE>  *
+         8  EXT
+         1         1  ACET      C1              0.0000000000        0.0000000000        0.0000000000  ION0      1               0.0000000000
+         2         1  ACET      C2              1.5220000000        0.0000000000        0.0000000000  ION0      1               0.0000000000
+         3         1  ACET      H1             -0.3708594206        1.0472746966        0.0000000000  ION0      1               0.0000000000
+         4         1  ACET      H2             -0.3798054996       -0.5065210534        0.9129650623  ION0      1               0.0000000000
+         5         1  ACET      H3             -0.3798054996       -0.5065210534       -0.9129650623  ION0      1               0.0000000000
+         6         1  ACET      O1              2.0743476450        1.1324804983        0.0000000000  ION0      1               0.0000000000
+         7         1  ACET      O2              2.0743476450       -1.1324804983       -0.0000000000  ION0      1               0.0000000000
+         8         2  SOD       SOD           -15.0000000000        0.0000000000        0.0000000000  ION1      1               0.0000000000
+
+ CHARMM>     
+
+ CHARMM>    set size 25.0
+ Parameter: SIZE <- "25.0"
+
+ CHARMM>    set theta 90.0
+ Parameter: THETA <- "90.0"
+
+ CHARMM>    crystal define cubic @size @size @size @theta @theta @theta
+ Parameter: SIZE -> "25.0"
+ Parameter: SIZE -> "25.0"
+ Parameter: SIZE -> "25.0"
+ Parameter: THETA -> "90.0"
+ Parameter: THETA -> "90.0"
+ Parameter: THETA -> "90.0"
+ Crystal Parameters : Crystal Type = CUBI
+           A     =   25.00000 B    =   25.00000 C     =   25.00000
+           Alpha =   90.00000 Beta =   90.00000 Gamma =   90.00000
+
+ CHARMM>    crystal build noper 0
+ XBUILD> Building all transformations with a minimum atom-atom
+         contact distance of less than   25.00 Angstroms.
+
+ Range of Grid Search for Transformation     1 :
+ Lattice Vector A    -2 TO     2
+ Lattice Vector B    -2 TO     2
+ Lattice Vector C    -2 TO     2
+
+
+ The number of transformations generated =     6
+
+
+ Number  Symop   A   B   C   Distance
+
+      1      1   0   0  -1    23.1741
+      2      1  -1   0   0     8.0062
+      3      1   0  -1   0    22.7350
+      4      1   0   1   0    22.7350
+      5      1   0   0   1    23.1741
+      6      1   1   0   0     8.0062
+                     THERE ARE NO ROTATIONS FOR THIS TRANSFORMATION SET
+     6 Transformations have been processed.
+
+
+ CHARMM>     
+
+ CHARMM>    set testct 0
+ Parameter: TESTCT <- "0"
+
+ CHARMM>    set failct 0
+ Parameter: FAILCT <- "0"
+
+ CHARMM>     
+
+ CHARMM>    set testname vdw
+ Parameter: TESTNAME <- "VDW"
+
+ CHARMM>    ! skipe all excl vdw imnb
+ CHARMM>    skipe all excl vdw elec imnb imel
+ SKIPE> The following energy terms will be computed :
+  VDW  ELEC IMNB IMEL
+
+ CHARMM>    ener cutnb 12 ctofnb 12 ctonnb 12 atom vatom cdie -
+ CHARMM>         vfswitch -
+ CHARMM>         ewald pmewald kappa 0.32 order 4 fftx 24 ffty 24 fftz 24
+
+ <MKIMAT2>: updating the image atom lists and remapping
+ Transformation   Atoms  Groups  Residues  Min-Distance
+    1  Z0Z0N1R1 has       0       0       0       23.17
+    2  N1Z0Z0R1 has       7       1       1        7.93
+    3  Z0N1Z0R1 has       0       0       0       22.74
+ Total of   15 atoms and    3 groups and    3 residues were included
+
+ <PME> Total heap storage needed =       17479
+ Fill Ewald table: Number of points=     10000 EWXmax=    4.000000
+ fill erfc table: linear inter has rms error = 0.894102D-08 maximum error = 0.193763D-07
+ fill erfc table: cubic spline has rms error = 0.310057D-11 maximum error = 0.904055D-11
+
+ NONBOND OPTION FLAGS: 
+     ELEC     VDW      ATOMs    CDIElec  SHIFt    VATOm    VFSWIt  
+     BYGRoup  NOEXtnd  EWALd   
+ CUTNB  = 12.000 CTEXNB =999.000 CTONNB = 12.000 CTOFNB = 12.000
+ CGONNB =  0.000 CGOFNB = 10.000
+ WMIN   =  1.500 WRNMXD =  0.500 E14FAC =  1.000 EPS    =  1.000
+ NBXMOD =      5
+ PME EWALD OPTIONS: KAPPA  =  0.320  QCOR =  0.000  Bspline order = 4
+ FFTX=  24  FFTY=  24  FFTZ=  24
+                Using MKL
+                Real-to-Complex FFT
+                Using Column FFT 
+ There are        0 atom  pairs and        0 atom  exclusions.
+ There are        0 group pairs and        0 group exclusions.
+
+      ***** LEVEL  1 WARNING FROM <GTNBCT> *****
+      ***** CUTNB and CTOFNB are too close for efficient heuristic update.
+      ******************************************
+      BOMLEV (  0) IS NOT REACHED. WRNLEV IS  5
+
+ GTNBCT> CUTNB,CTOFNB,CTONNB=      12.0      12.0      12.0
+
+      ***** LEVEL  1 WARNING FROM <GTNBCT> *****
+      ***** CUTNB,CTOFNB,CTONNB are not in correct order.
+      ******************************************
+      BOMLEV (  0) IS NOT REACHED. WRNLEV IS  5
+
+ <MAKINB> with mode   5 found     15 exclusions and      6 interactions(1-4)
+ <MAKGRP> found      0 group exclusions.
+ <MAKGRP> found      0 image group exclusions.
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR       25 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+        6 ATOM PAIRS WERE FOUND FOR ATOM LIST
+        0 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ SPACE FOR      262 ATOM PAIRS AND        0 GROUP PAIRS
+
+ Image nonbond list generation found:
+        7 ATOM PAIRS WERE FOUND FOR ATOM LIST
+        0 ATOM PAIRS WERE FOUND FOR ATOM SELF LIST
+        0 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ENER ENR:  Eval#     ENERgy      Delta-E         GRMS
+ENER EXTERN:        VDWaals         ELEC       HBONds          ASP         USER
+ENER IMAGES:        IMNBvdw       IMELec       IMHBnd       RXNField    EXTElec
+ ----------       ---------    ---------    ---------    ---------    ---------
+ENER>        0     -9.41860      0.00000      1.33004
+ENER EXTERN>        0.19485     -9.59639      0.00000      0.00000      0.00000
+ENER IMAGES>       -0.00169     -0.01537      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+
+ CHARMM>    set expected ?ener
+ RDCMND substituted energy or value "?ENER" to "-9.41860432"
+ Parameter: EXPECTED <- "-9.41860432"
+
+ CHARMM>    ener blade
+
+ <MKIMAT2>: updating the image atom lists and remapping
+ Transformation   Atoms  Groups  Residues  Min-Distance
+    1  Z0Z0N1R1 has       0       0       0       23.17
+    2  N1Z0Z0R1 has       7       1       1        7.93
+    3  Z0N1Z0R1 has       0       0       0       22.74
+ Total of   15 atoms and    3 groups and    3 residues were included
+
+ <MAKGRP> found      0 image group exclusions.
+ <PME> Total heap storage needed =       17479
+
+ NONBOND OPTION FLAGS: 
+     ELEC     VDW      ATOMs    CDIElec  SHIFt    VATOm    VFSWIt  
+     BYGRoup  NOEXtnd  EWALd   
+ CUTNB  = 12.000 CTEXNB =999.000 CTONNB = 12.000 CTOFNB = 12.000
+ CGONNB =  0.000 CGOFNB = 10.000
+ WMIN   =  1.500 WRNMXD =  0.500 E14FAC =  1.000 EPS    =  1.000
+ NBXMOD =      5
+ PME EWALD OPTIONS: KAPPA  =  0.320  QCOR =  0.000  Bspline order = 4
+ FFTX=  24  FFTY=  24  FFTZ=  24
+                Using MKL
+                Real-to-Complex FFT
+                Using Column FFT 
+ There are        6 atom  pairs and       21 atom  exclusions.
+ There are        0 group pairs and        0 group exclusions.
+
+      ***** LEVEL  1 WARNING FROM <GTNBCT> *****
+      ***** CUTNB and CTOFNB are too close for efficient heuristic update.
+      ******************************************
+      BOMLEV (  0) IS NOT REACHED. WRNLEV IS  5
+
+ GTNBCT> CUTNB,CTOFNB,CTONNB=      12.0      12.0      12.0
+
+      ***** LEVEL  1 WARNING FROM <GTNBCT> *****
+      ***** CUTNB,CTOFNB,CTONNB are not in correct order.
+      ******************************************
+      BOMLEV (  0) IS NOT REACHED. WRNLEV IS  5
+
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR       25 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+        6 ATOM PAIRS WERE FOUND FOR ATOM LIST
+        0 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ SPACE FOR      262 ATOM PAIRS AND        0 GROUP PAIRS
+
+ Image nonbond list generation found:
+        7 ATOM PAIRS WERE FOUND FOR ATOM LIST
+        0 ATOM PAIRS WERE FOUND FOR ATOM SELF LIST
+        0 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+Creating a copy of system
+Assuming fbeta =    0.00489
+
+      ***** LEVEL  1 WARNING FROM BLaDE *****
+      ***** No fbeta value available, used default value of 0.1 ps^-1
+      ******************************************
+      BOMLEV (  0) IS NOT REACHED. WRNLEV IS  5
+
+
+      ***** LEVEL  1 WARNING FROM BLaDe *****
+      ***** PME being used for electrostatics in BLaDE
+      ******************************************
+      BOMLEV (  0) IS NOT REACHED. WRNLEV IS  5
+
+
+      ***** LEVEL  1 WARNING FROM BLaDe *****
+      ***** VFSWITCH being used for vdW switching in BLaDE
+      ******************************************
+      BOMLEV (  0) IS NOT REACHED. WRNLEV IS  5
+
+Found pme kappa =    0.32000
+Found ctofnb =   12.00000 ctonnb =   12.00000
+Warning: Both elec and vdw energies placed in vdw
+ENER ENR:  Eval#     ENERgy      Delta-E         GRMS
+ENER EXTERN:        VDWaals         ELEC       HBONds          ASP         USER
+ ----------       ---------    ---------    ---------    ---------    ---------
+ENER>        0     -9.41860     -0.00000      1.33004
+ENER EXTERN>       -9.41860      0.00000      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+
+ CHARMM>    set actual ?ener
+ RDCMND substituted energy or value "?ENER" to "-9.41860199"
+ Parameter: ACTUAL <- "-9.41860199"
+
+ CHARMM>    set tol 2e-4
+ Parameter: TOL <- "2E-4"
+
+ CHARMM>    GOTO dotest
+
+ CHARMM>    calc abserr abs(@actual - @expected)
+ Parameter: ACTUAL -> "-9.41860199"
+ Parameter: EXPECTED -> "-9.41860432"
+Evaluating: ABS(-9.41860199--9.41860432)
+ Parameter: ABSERR <- "2.329999999E-06"
+
+ CHARMM>    if @abserr .lt. @tol then
+ Parameter: ABSERR -> "2.329999999E-06"
+ Parameter: TOL -> "2E-4"
+ Comparing "2.329999999E-06" and "2E-4".
+ IF test evaluated as true.  Performing command
+
+ CHARMM>       echo passed TEST @testname
+ Parameter: TESTNAME -> "VDW"
+PASSED TEST VDW
+
+ CHARMM>    else
+ Skip commands until next ENDIF
+
+ CHARMM>    calc testct @testct + 1
+ Parameter: TESTCT -> "0"
+Evaluating: 0+1
+ Parameter: TESTCT <- "1"
+
+ CHARMM>    GOTO post@testname
+ Parameter: TESTNAME -> "VDW"
+
+ CHARMM>     
+
+ CHARMM>    set testname elec
+ Parameter: TESTNAME <- "ELEC"
+
+ CHARMM>    ! skipe all excl elec imel ewks ewse ewex
+ CHARMM>    skipe all excl vdw elec imnb imel ewks ewse ewex
+ SKIPE> The following energy terms will be computed :
+  VDW  ELEC IMNB IMEL EWKS EWSE EWEX
+
+ CHARMM>    ener
+
+ <MKIMAT2>: updating the image atom lists and remapping
+ Transformation   Atoms  Groups  Residues  Min-Distance
+    1  Z0Z0N1R1 has       0       0       0       23.17
+    2  N1Z0Z0R1 has       7       1       1        7.93
+    3  Z0N1Z0R1 has       0       0       0       22.74
+ Total of   15 atoms and    3 groups and    3 residues were included
+
+ <MAKGRP> found      0 image group exclusions.
+ <PME> Total heap storage needed =       17479
+
+ NONBOND OPTION FLAGS: 
+     ELEC     VDW      ATOMs    CDIElec  SHIFt    VATOm    VFSWIt  
+     BYGRoup  NOEXtnd  EWALd   
+ CUTNB  = 12.000 CTEXNB =999.000 CTONNB = 12.000 CTOFNB = 12.000
+ CGONNB =  0.000 CGOFNB = 10.000
+ WMIN   =  1.500 WRNMXD =  0.500 E14FAC =  1.000 EPS    =  1.000
+ NBXMOD =      5
+ PME EWALD OPTIONS: KAPPA  =  0.320  QCOR =  0.000  Bspline order = 4
+ FFTX=  24  FFTY=  24  FFTZ=  24
+                Using MKL
+                Real-to-Complex FFT
+                Using Column FFT 
+ There are        6 atom  pairs and       21 atom  exclusions.
+ There are        0 group pairs and        0 group exclusions.
+
+      ***** LEVEL  1 WARNING FROM <GTNBCT> *****
+      ***** CUTNB and CTOFNB are too close for efficient heuristic update.
+      ******************************************
+      BOMLEV (  0) IS NOT REACHED. WRNLEV IS  5
+
+ GTNBCT> CUTNB,CTOFNB,CTONNB=      12.0      12.0      12.0
+
+      ***** LEVEL  1 WARNING FROM <GTNBCT> *****
+      ***** CUTNB,CTOFNB,CTONNB are not in correct order.
+      ******************************************
+      BOMLEV (  0) IS NOT REACHED. WRNLEV IS  5
+
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR       25 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+        6 ATOM PAIRS WERE FOUND FOR ATOM LIST
+        0 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ SPACE FOR      262 ATOM PAIRS AND        0 GROUP PAIRS
+
+ Image nonbond list generation found:
+        7 ATOM PAIRS WERE FOUND FOR ATOM LIST
+        0 ATOM PAIRS WERE FOUND FOR ATOM SELF LIST
+        0 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+Splitting recip cores into (y by z):   1 by    1
+ENER ENR:  Eval#     ENERgy      Delta-E         GRMS
+ENER EXTERN:        VDWaals         ELEC       HBONds          ASP         USER
+ENER IMAGES:        IMNBvdw       IMELec       IMHBnd       RXNField    EXTElec
+ENER EWALD:          EWKSum       EWSElf       EWEXcl       EWQCor       EWUTil
+ ----------       ---------    ---------    ---------    ---------    ---------
+ENER>        0    -93.02251     83.60391      2.12067
+ENER EXTERN>        0.19485     -9.59639      0.00000      0.00000      0.00000
+ENER IMAGES>       -0.00169     -0.01537      0.00000      0.00000      0.00000
+ENER EWALD>        69.40924   -161.91952      8.90638      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+
+ CHARMM>    set expected ?ener
+ RDCMND substituted energy or value "?ENER" to "-93.0225101"
+ Parameter: EXPECTED <- "-93.0225101"
+
+ CHARMM>    coor force compare
+ SELECTED FORCES COPIED TO THE COMPARISON SET.
+
+
+ CHARMM>     
+
+ CHARMM>    set return from_force_test
+ Parameter: RETURN <- "FROM_FORCE_TEST"
+
+ CHARMM>    goto test_forces_part_one
+
+ CHARMM>       scalar xcomp store 1
+
+ CHARMM>       scalar ycomp store 2
+
+ CHARMM>       scalar zcomp store 3
+
+ CHARMM>     
+
+ CHARMM>       scalar 1 store 7
+
+ CHARMM>       scalar 2 store 8
+
+ CHARMM>       scalar 3 store 9
+
+ CHARMM>     
+
+ CHARMM>       scalar 1 *store 7
+
+ CHARMM>       scalar 2 *store 8
+
+ CHARMM>       scalar 3 *store 9
+
+ CHARMM>     
+
+ CHARMM>       scalar 9 +store 7
+
+ CHARMM>       scalar 8 +store 7
+
+ CHARMM>     
+
+ CHARMM>       scalar wcomp recall 7
+
+ CHARMM>       scalar wcomp stat
+ Statistics for    8 selected atoms:
+       minimum =   0.649763      maximum =    20.3468     weight =    8.00000    
+       average =    13.4917      variance=    7.28996     total  =    107.934    
+
+ CHARMM>     
+
+ CHARMM>       calc forceave = sqrt( ?save )
+ RDCMND substituted energy or value "?SAVE" to "13.4917234"
+Evaluating: SQRT(13.4917234)
+ Parameter: FORCEAVE <- "3.67310814"
+
+ CHARMM>       calc forcemax = sqrt( ?smax )
+ RDCMND substituted energy or value "?SMAX" to "20.3467619"
+Evaluating: SQRT(20.3467619)
+ Parameter: FORCEMAX <- "4.51073851"
+
+ CHARMM>    goto @return
+ Parameter: RETURN -> "FROM_FORCE_TEST"
+
+ CHARMM>     
+
+ CHARMM>    ener blade
+
+ <MKIMAT2>: updating the image atom lists and remapping
+ Transformation   Atoms  Groups  Residues  Min-Distance
+    1  Z0Z0N1R1 has       0       0       0       23.17
+    2  N1Z0Z0R1 has       7       1       1        7.93
+    3  Z0N1Z0R1 has       0       0       0       22.74
+ Total of   15 atoms and    3 groups and    3 residues were included
+
+ <MAKGRP> found      0 image group exclusions.
+
+ NONBOND OPTION FLAGS: 
+     ELEC     VDW      ATOMs    CDIElec  SHIFt    VATOm    VFSWIt  
+     BYGRoup  NOEXtnd  EWALd   
+ CUTNB  = 12.000 CTEXNB =999.000 CTONNB = 12.000 CTOFNB = 12.000
+ CGONNB =  0.000 CGOFNB = 10.000
+ WMIN   =  1.500 WRNMXD =  0.500 E14FAC =  1.000 EPS    =  1.000
+ NBXMOD =      5
+ PME EWALD OPTIONS: KAPPA  =  0.320  QCOR =  0.000  Bspline order = 4
+ FFTX=  24  FFTY=  24  FFTZ=  24
+                Using MKL
+                Real-to-Complex FFT
+                Using Column FFT 
+ There are        6 atom  pairs and       21 atom  exclusions.
+ There are        0 group pairs and        0 group exclusions.
+
+      ***** LEVEL  1 WARNING FROM <GTNBCT> *****
+      ***** CUTNB and CTOFNB are too close for efficient heuristic update.
+      ******************************************
+      BOMLEV (  0) IS NOT REACHED. WRNLEV IS  5
+
+ GTNBCT> CUTNB,CTOFNB,CTONNB=      12.0      12.0      12.0
+
+      ***** LEVEL  1 WARNING FROM <GTNBCT> *****
+      ***** CUTNB,CTOFNB,CTONNB are not in correct order.
+      ******************************************
+      BOMLEV (  0) IS NOT REACHED. WRNLEV IS  5
+
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR       25 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+        6 ATOM PAIRS WERE FOUND FOR ATOM LIST
+        0 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ SPACE FOR      262 ATOM PAIRS AND        0 GROUP PAIRS
+
+ Image nonbond list generation found:
+        7 ATOM PAIRS WERE FOUND FOR ATOM LIST
+        0 ATOM PAIRS WERE FOUND FOR ATOM SELF LIST
+        0 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+Destroying a copy of system
+Creating a copy of system
+Assuming fbeta =    0.00489
+
+      ***** LEVEL  1 WARNING FROM BLaDE *****
+      ***** No fbeta value available, used default value of 0.1 ps^-1
+      ******************************************
+      BOMLEV (  0) IS NOT REACHED. WRNLEV IS  5
+
+
+      ***** LEVEL  1 WARNING FROM BLaDe *****
+      ***** PME being used for electrostatics in BLaDE
+      ******************************************
+      BOMLEV (  0) IS NOT REACHED. WRNLEV IS  5
+
+
+      ***** LEVEL  1 WARNING FROM BLaDe *****
+      ***** VFSWITCH being used for vdW switching in BLaDE
+      ******************************************
+      BOMLEV (  0) IS NOT REACHED. WRNLEV IS  5
+
+Found pme kappa =    0.32000
+Found ctofnb =   12.00000 ctonnb =   12.00000
+Warning: Both elec and vdw energies placed in vdw
+ENER ENR:  Eval#     ENERgy      Delta-E         GRMS
+ENER EXTERN:        VDWaals         ELEC       HBONds          ASP         USER
+ENER EWALD:          EWKSum       EWSElf       EWEXcl       EWQCor       EWUTil
+ ----------       ---------    ---------    ---------    ---------    ---------
+ENER>        0    -93.02251      0.00000      2.12067
+ENER EXTERN>       -9.41860      0.00000      0.00000      0.00000      0.00000
+ENER EWALD>        69.40923   -161.91951      8.90638      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+
+ CHARMM>     
+
+ CHARMM>    set actual ?ener
+ RDCMND substituted energy or value "?ENER" to "-93.0225105"
+ Parameter: ACTUAL <- "-93.0225105"
+
+ CHARMM>     
+
+ CHARMM>    coor force compare
+ SELECTED FORCES COPIED TO THE COMPARISON SET.
+
+
+ CHARMM>     
+
+ CHARMM>    set tol 2e-4
+ Parameter: TOL <- "2E-4"
+
+ CHARMM>    GOTO dotest
+
+ CHARMM>    calc abserr abs(@actual - @expected)
+ Parameter: ACTUAL -> "-93.0225105"
+ Parameter: EXPECTED -> "-93.0225101"
+Evaluating: ABS(-93.0225105--93.0225101)
+ Parameter: ABSERR <- "3.999999905E-07"
+
+ CHARMM>    if @abserr .lt. @tol then
+ Parameter: ABSERR -> "3.999999905E-07"
+ Parameter: TOL -> "2E-4"
+ Comparing "3.999999905E-07" and "2E-4".
+ IF test evaluated as true.  Performing command
+
+ CHARMM>       echo passed TEST @testname
+ Parameter: TESTNAME -> "ELEC"
+PASSED TEST ELEC
+
+ CHARMM>    else
+ Skip commands until next ENDIF
+
+ CHARMM>    calc testct @testct + 1
+ Parameter: TESTCT -> "1"
+Evaluating: 1+1
+ Parameter: TESTCT <- "2"
+
+ CHARMM>    GOTO post@testname
+ Parameter: TESTNAME -> "ELEC"
+
+ CHARMM>     
+
+ CHARMM>    set forceTol = 2e-5
+ Parameter: FORCETOL <- "2E-5"
+
+ CHARMM>    set return from_force_test_two
+ Parameter: RETURN <- "FROM_FORCE_TEST_TWO"
+
+ CHARMM>    goto test_forces_part_two
+
+ CHARMM>      scalar 1 mult -1.0
+
+ CHARMM>      scalar 2 mult -1.0
+
+ CHARMM>      scalar 3 mult -1.0
+
+ CHARMM>     
+
+ CHARMM>      scalar xcomp +store 1
+
+ CHARMM>      scalar ycomp +store 2
+
+ CHARMM>      scalar zcomp +store 3
+
+ CHARMM>     
+
+ CHARMM>      scalar 1 store 4
+
+ CHARMM>      scalar 2 store 5
+
+ CHARMM>      scalar 3 store 6
+
+ CHARMM>     
+
+ CHARMM>      scalar 4 *store 1
+
+ CHARMM>      scalar 5 *store 2
+
+ CHARMM>      scalar 6 *store 3
+
+ CHARMM>     
+
+ CHARMM>      scalar 3 +store 1
+
+ CHARMM>      scalar 2 +store 1
+
+ CHARMM>     
+
+ CHARMM>      scalar wcomp recall 1
+
+ CHARMM>      scalar wcomp stat
+ Statistics for    8 selected atoms:
+       minimum =   1.575871E-12  maximum =   4.143348E-11 weight =    8.00000    
+       average =   1.525210E-11  variance=   1.214863E-11 total  =   1.220168E-10
+
+ CHARMM>     
+
+ CHARMM>      calc dforceave = sqrt( ?save )
+ RDCMND substituted energy or value "?SAVE" to "1.52521043E-11"
+Evaluating: SQRT(1.52521043E-11)
+ Parameter: DFORCEAVE <- "3.905394257E-06"
+
+ CHARMM>      calc dforcemax = sqrt( ?smax )
+ RDCMND substituted energy or value "?SMAX" to "4.14334803E-11"
+Evaluating: SQRT(4.14334803E-11)
+ Parameter: DFORCEMAX <- "6.436884363E-06"
+
+ CHARMM>      echo forces diff save is @dforceave and smax is @dforcemax
+ Parameter: DFORCEAVE -> "3.905394257E-06"
+ Parameter: DFORCEMAX -> "6.436884363E-06"
+FORCES DIFF SAVE IS 3.905394257E-06 AND SMAX IS 6.436884363E-06
+
+ CHARMM>      echo forces save is @forceave and smax is @forcemax
+ Parameter: FORCEAVE -> "3.67310814"
+ Parameter: FORCEMAX -> "4.51073851"
+FORCES SAVE IS 3.67310814 AND SMAX IS 4.51073851
+
+ CHARMM>     
+
+ CHARMM>      set aveForceDiffStatus = pass
+ Parameter: AVEFORCEDIFFSTATUS <- "PASS"
+
+ CHARMM>      if @dforceave gt @forceTol then
+ Parameter: DFORCEAVE -> "3.905394257E-06"
+ Parameter: FORCETOL -> "2E-5"
+ Comparing "3.905394257E-06" and "2E-5".
+ IF test evaluated as false.  Skip to ELSE or ENDIF
+
+ CHARMM>     
+
+ CHARMM>      set maxForceDiffStatus = pass
+ Parameter: MAXFORCEDIFFSTATUS <- "PASS"
+
+ CHARMM>      if @dforcemax gt @forceTol then
+ Parameter: DFORCEMAX -> "6.436884363E-06"
+ Parameter: FORCETOL -> "2E-5"
+ Comparing "6.436884363E-06" and "2E-5".
+ IF test evaluated as false.  Skip to ELSE or ENDIF
+
+ CHARMM>     
+
+ CHARMM>      echo testcase result: @aveForceDiffStatus -- average magnitude of force difference
+ Parameter: AVEFORCEDIFFSTATUS -> "PASS"
+TESTCASE RESULT: PASS -- AVERAGE MAGNITUDE OF FORCE DIFFERENCE
+
+ CHARMM>      echo testcase result: @maxForceDiffStatus -- maximum magnitude of force difference
+ Parameter: MAXFORCEDIFFSTATUS -> "PASS"
+TESTCASE RESULT: PASS -- MAXIMUM MAGNITUDE OF FORCE DIFFERENCE
+
+ CHARMM>     
+
+ CHARMM>      calc testct @testct + 2
+ Parameter: TESTCT -> "2"
+Evaluating: 2+2
+ Parameter: TESTCT <- "4"
+
+ CHARMM>     
+
+ CHARMM>    goto @return
+ Parameter: RETURN -> "FROM_FORCE_TEST_TWO"
+
+ CHARMM>     
+
+ CHARMM>    if @failct .gt. 0 then
+ Parameter: FAILCT -> "0"
+ Comparing "0" and "0".
+ IF test evaluated as false.  Skip to ELSE or ENDIF
+
+ CHARMM>       echo passed ALL @testct TESTS
+ Parameter: TESTCT -> "4"
+PASSED ALL 4 TESTS
+
+ CHARMM>    endif
+
+ CHARMM>     
+
+ CHARMM>    STOP
+      $$$$$$  New timer profile Local node$$$$$
+   List time                       0.02 Other:            0.00
+            Direct Ewald time               0.00 Other:            0.00
+         Ewald time                      0.03 Other:            0.03
+      Nonbond force                   0.03 Other:            0.00
+         Bond energy                     0.00 Other:            0.00
+         Angle energy                    0.00 Other:            0.00
+         Dihedral energy                 0.00 Other:            0.00
+         Restraints energy               0.00 Other:            0.00
+      INTRNL energy                   0.00 Other:            0.00
+      Comm energy                     0.00 Other:            0.00
+      Comm force                      0.00 Other:            0.00
+         Fill charge grid                0.00 Other:            0.00
+         Scalar sum                      0.00 Other:            0.00
+         Grad sum                        0.00 Other:            0.00
+            FFTcomm                         0.00 Other:            0.00
+         FFT                             0.03 Other:            0.03
+      Recip Ewald time                0.03 Other:            0.00
+   Energy time                     0.18 Other:            0.12
+   BLaDE overhead                  0.77 Other:            0.00
+ Total time                      1.11 Other:            0.13
+         $$$$$$  Average   profile $$$$$
+   List time                       0.02 Other:            0.00
+            Direct Ewald time               0.00 Other:            0.00
+         Ewald time                      0.03 Other:            0.03
+      Nonbond force                   0.03 Other:            0.00
+         Bond energy                     0.00 Other:            0.00
+         Angle energy                    0.00 Other:            0.00
+         Dihedral energy                 0.00 Other:            0.00
+         Restraints energy               0.00 Other:            0.00
+      INTRNL energy                   0.00 Other:            0.00
+      Comm energy                     0.00 Other:            0.00
+      Comm force                      0.00 Other:            0.00
+         Fill charge grid                0.00 Other:            0.00
+         Scalar sum                      0.00 Other:            0.00
+         Grad sum                        0.00 Other:            0.00
+            FFTcomm                         0.00 Other:            0.00
+         FFT                             0.03 Other:            0.03
+      Recip Ewald time                0.03 Other:            0.00
+   Energy time                     0.18 Other:            0.12
+   BLaDE overhead                  0.77 Other:            0.00
+ Total time                      1.11 Other:            0.13
+
+                    NORMAL TERMINATION BY NORMAL STOP
+                    MOST SEVERE WARNING WAS AT LEVEL  1
+
+                    $$$$$ JOB ACCOUNTING INFORMATION $$$$$
+                     ELAPSED TIME:     2.12  SECONDS 
+                         CPU TIME:     0.81  SECONDS 
