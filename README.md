@@ -87,4 +87,4 @@ After build, the binary should produce a clean banner and NORMAL TERMINATION whe
 
 ## Acknowledgments
 
-Build performed by Emmanuel Kukole, USF Computational Chemistry. CHARMM source provided by Arjan van der Vaart.
+Build performed by Emmanuel Eni, USF Computational Chemistry. CHARMM source provided by Arjan van der Vaart.
