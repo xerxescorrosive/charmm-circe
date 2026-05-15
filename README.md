@@ -92,6 +92,18 @@ The CUDA toolkit must be compatible with the GPU driver installed on the compute
 
 Rule: pick the newest CUDA toolkit \u2264 the driver's maximum supported version.
 
+## Why two CHARMM versions?
+
+Two versions are built because Arjan provided two source tarballs with different intended roles:
+
+- **c50b2** is a stable release. Stable releases are frozen, well-tested, and used for production CPU/MPI work where reproducibility matters. The CPU/MPI DOMDEC parallel code path has been mature for years, so a stable version is the right choice here.
+
+- **c51a2** is a development release. Dev releases contain newer features that have not yet folded into a stable release. The BLaDE GPU molecular dynamics engine and its surrounding infrastructure (MSLD piecewise lambda dynamics, refined PME on GPU, FFTDock GPU kernels, etc.) live in c51a2.
+
+Building each version with its target configuration isolates risk: production CPU simulations are unaffected by anything still being developed in dev, while GPU work gets access to the newest BLaDE features. When c51 eventually reaches stable (c51b1 or similar), the two builds could be unified.
+
+This split also matches the lab's existing build pattern.
+
 ## Acknowledgments
 
 Build performed by Emmanuel Eni, USF Computational Chemistry. CHARMM source provided by Arjan van der Vaart.
